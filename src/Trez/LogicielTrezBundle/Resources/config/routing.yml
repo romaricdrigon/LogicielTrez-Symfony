@@ -1,3 +1,7 @@
 trez_logiciel_trez_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: TrezLogicielTrezBundle:Default:index }
+
+exercice:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/exercice.yml"
+    prefix:   /exercice

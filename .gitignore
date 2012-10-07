@@ -1,0 +1,50 @@
+# Symfony2 specific #
+#####################
+
+# Bootstrap
+app/bootstrap*
+
+# Symfony directories
+vendor/*
+*/logs/*
+*/cache/*
+web/uploads/*
+web/bundles/*
+
+# Configuration files
+app/config/parameters.ini
+app/config/parameters.yml
+
+# Logs and databases #
+######################
+*.log
+*.sqlite
+*.bat
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Perso #
+#########
+~*
+*~
+
+# IDE-specific #
+################
+.project
+.settings/*
+.idea/*
+
+# Composer #
+############
+composer.phar
+composer.lock

@@ -1,0 +1,41 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des exercices</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>&Eacute;dition</th>
+            <th>Ann&eacute;e 1</th>
+            <th>Ann&eacute;e 2</th>
+            <th width="70"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for exercice in exercices %}
+                <tr>
+                    <td>{{ edition }}</td>
+                    <td>{{ annee_1|date("Y") }}</td>
+                    <td>{{ annee_2|date("Y") }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="" title="Acc&eacute;der aux budgets"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small"
+                               href=""
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer l\'exercice <?php echo $exercice->exe_edition; ?> ?');"
+                               title="Supprimer"><i class="icon-remove"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="" class='btn btn-primary'>
+            <i class="icon-plus"></i> Ajouter un exercice
+        </a>
+    </div>
+{% endblock %}

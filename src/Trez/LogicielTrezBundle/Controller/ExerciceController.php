@@ -18,6 +18,6 @@ class ExerciceController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('exercices' => $exercices));
+        return $this->render('TrezLogicielTrezBundle:Exercice:list.html.twig', array('exercices' => $exercices));
     }
 }

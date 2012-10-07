@@ -1,0 +1,19 @@
+Trez\LogicielTrezBundle\Entity\TypeFacture:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\TypeFactureRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        abr:
+            type: string
+            length: '15'
+        nom:
+            type: string
+            length: 255
+        sens:
+            type: boolean
+    lifecycleCallbacks: {  }

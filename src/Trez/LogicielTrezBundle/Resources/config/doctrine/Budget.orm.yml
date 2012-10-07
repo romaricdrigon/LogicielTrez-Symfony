@@ -1,0 +1,17 @@
+Trez\LogicielTrezBundle\Entity\Budget:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\BudgetRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+    manyToOne:
+        exercice:
+            targetEntity: Exercice
+    lifecycleCallbacks: {  }

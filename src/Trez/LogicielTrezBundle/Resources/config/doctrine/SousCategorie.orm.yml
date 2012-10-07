@@ -1,0 +1,23 @@
+Trez\LogicielTrezBundle\Entity\SousCategorie:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\SousCategorieRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        commentaire:
+            type: string
+            length: '400'
+            nullable: true
+        cle:
+            type: integer
+    manyToOne:
+        categorie:
+            targetEntity: Categorie
+    lifecycleCallbacks: {  }

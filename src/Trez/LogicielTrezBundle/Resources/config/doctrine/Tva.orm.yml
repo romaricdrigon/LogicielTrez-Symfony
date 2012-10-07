@@ -1,0 +1,23 @@
+Trez\LogicielTrezBundle\Entity\Tva:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\TvaRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        montant_ht:
+            type: decimal
+            scale: 2
+        montant_tva:
+            type: decimal
+            scale: 2
+    oneToOne:
+        facture:
+            targetEntity: Facture
+    manyToOne:
+        classeTva:
+            targetEntity: ClasseTva
+    lifecycleCallbacks: {  }

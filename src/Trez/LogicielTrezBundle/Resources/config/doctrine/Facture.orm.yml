@@ -1,0 +1,40 @@
+Trez\LogicielTrezBundle\Entity\Facture:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\FactureRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        numero:
+            type: integer
+        objet:
+            type: string
+            length: '400'
+        montant:
+            type: decimal
+            scale: 2
+        date:
+            type: date
+        date_paiement:
+            type: date
+            nullable: true
+        commentaire:
+            type: text
+            nullable: true
+        ref_paiement:
+            type: string
+            length: 255
+            nullable: true
+    manyToOne:
+        ligne:
+            targetEntity: Ligne
+        tiers:
+            targetEntity: Tiers
+        methodePaiement:
+            targetEntity: MethodePaiement
+        typeFacture:
+            targetEntity: TypeFacture
+    lifecycleCallbacks: {  }

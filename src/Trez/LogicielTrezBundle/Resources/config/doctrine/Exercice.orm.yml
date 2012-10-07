@@ -1,0 +1,19 @@
+Trez\LogicielTrezBundle\Entity\Exercice:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\ExerciceRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        edition:
+            type: string
+            length: 255
+            nullable: true
+        annee_1:
+            type: date
+        annee_2:
+            type: date
+    lifecycleCallbacks: {  }

@@ -1,0 +1,44 @@
+Trez\LogicielTrezBundle\Entity\Tiers:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\TiersRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        telephone:
+            type: string
+            length: '20'
+            nullable: true
+        mail:
+            type: string
+            length: 255
+            nullable: true
+        fax:
+            type: string
+            length: '20'
+            nullable: true
+        adresse:
+            type: text
+            nullable: true
+        responsable:
+            type: string
+            length: 255
+            nullable: true
+        rib:
+            type: string
+            length: 255
+            nullable: true
+        ordre_cheque:
+            type: string
+            length: 255
+            nullable: true
+        commentaire:
+            type: text
+            nullable: true
+    lifecycleCallbacks: {  }

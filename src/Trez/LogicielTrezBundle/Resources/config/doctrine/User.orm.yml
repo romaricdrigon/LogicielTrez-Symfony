@@ -1,0 +1,24 @@
+Trez\LogicielTrezBundle\Entity\User:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\UserRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        username:
+            type: string
+            length: 255
+        password:
+            type: string
+            length: 255
+        mail:
+            type: string
+            length: 255
+        type:
+            type: string
+            length: 255
+            nullable: true
+    lifecycleCallbacks: {  }

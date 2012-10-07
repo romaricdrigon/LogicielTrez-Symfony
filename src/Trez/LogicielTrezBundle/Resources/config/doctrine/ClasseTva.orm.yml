@@ -1,0 +1,19 @@
+Trez\LogicielTrezBundle\Entity\ClasseTva:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\ClasseTvaRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        nom:
+            type: string
+            length: 255
+        taux:
+            type: decimal
+            scale: 2
+        actif:
+            type: boolean
+    lifecycleCallbacks: {  }

@@ -1,0 +1,9 @@
+{% macro field(field, label, attrs) %}
+    <div class="control-group {{ form_errors(field) ? 'error' : '' }}">
+        <label class="control-label">{{ label }}</label>
+        <div class="controls">
+            {{ form_widget(field, { 'attr': attrs|default({}) }) }}
+            <span class="help-inline">{{ form_errors(field) }}</span>
+        </div>
+    </div>
+{% endmacro %}

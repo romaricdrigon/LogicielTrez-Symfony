@@ -1,0 +1,26 @@
+/*
+    Elemeny généraux
+*/
+body {
+    padding-top: 70px;
+}
+
+/*
+    Pour les formulaires
+*/
+.mini-inputs input, .mini-inputs select {
+    width: 60px;
+}
+.small-inputs > input, .small-inputs > select {
+    width: 90px;
+}
+
+/*
+    Helpers
+*/
+.no-margin {
+    margin: 0 !important;
+}
+.hidden {
+    display: none !important;
+}

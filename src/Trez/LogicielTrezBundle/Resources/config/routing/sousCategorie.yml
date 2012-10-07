@@ -1,0 +1,3 @@
+sousCategorie_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:SousCategorie:index }

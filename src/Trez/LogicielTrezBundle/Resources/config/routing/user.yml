@@ -1,0 +1,3 @@
+user_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:User:index }

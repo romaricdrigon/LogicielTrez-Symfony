@@ -1,0 +1,3 @@
+ligne_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:Ligne:index }

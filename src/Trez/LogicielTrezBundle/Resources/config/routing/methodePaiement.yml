@@ -1,0 +1,3 @@
+methodePaiement_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:MethodePaiement:index }

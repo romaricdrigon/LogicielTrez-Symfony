@@ -1,0 +1,3 @@
+categorie_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:Categorie:index }

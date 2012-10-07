@@ -1,0 +1,3 @@
+typeFacture_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:TypeFacture:index }

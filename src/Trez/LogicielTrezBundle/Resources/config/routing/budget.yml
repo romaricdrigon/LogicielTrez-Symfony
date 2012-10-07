@@ -1,0 +1,3 @@
+budget_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:index }

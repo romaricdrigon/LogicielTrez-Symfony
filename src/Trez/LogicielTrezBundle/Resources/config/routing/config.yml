@@ -1,0 +1,3 @@
+config_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:Config:index }

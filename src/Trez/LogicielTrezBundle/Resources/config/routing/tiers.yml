@@ -1,0 +1,3 @@
+tiers_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:Tiers:index }

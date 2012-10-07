@@ -1,0 +1,3 @@
+classeTva_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:ClasseTva:index }

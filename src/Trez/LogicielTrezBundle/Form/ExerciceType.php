@@ -12,8 +12,12 @@ class ExerciceType extends AbstractType
     {
         $builder
             ->add('edition')
-            ->add('annee_1')
-            ->add('annee_2')
+            ->add('annee_1', 'date', array(
+                'widget' => 'single_text',
+            ))
+            ->add('annee_2', 'date', array(
+                'widget' => 'single_text',
+            ))
         ;
     }
 

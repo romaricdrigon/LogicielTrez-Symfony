@@ -1,3 +1,7 @@
 exercice_index:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:Exercice:index }
+
+exercice_add:
+    pattern: /add
+    defaults: { _controller: TrezLogicielTrezBundle:Exercice:add }

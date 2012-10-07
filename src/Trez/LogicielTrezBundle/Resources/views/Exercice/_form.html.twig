@@ -1,0 +1,18 @@
+{% import 'TrezLogicielTrezBundle::forms.html.twig' as forms %}
+
+<form class="form-horizontal" action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
+    <div>{{ form_errors(form) }}</div>
+
+    <fieldset>
+        {{ forms.field(form.edition, 'Édition') }}
+        {{ forms.field(form.annee_1, 'Année 1') }}
+        {{ forms.field(form.annee_2, 'Année 2') }}
+    </fieldset>
+
+    {{ form_rest(form) }}
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
+        <button type="reset" class="btn">Annuler</button>
+    </div>
+</form>

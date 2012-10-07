@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un exercice</h1>
+
+    {% include "TrezLogicielTrezBundle:Exercice:_form.html.twig" with {'route': 'exercice_add'} %}
+{%  endblock %}

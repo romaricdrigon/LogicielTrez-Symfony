@@ -2,6 +2,51 @@ _welcome:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:Default:index }
 
+budget:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/budget.yml"
+    prefix:   /budget
+
+categorie:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/categorie.yml"
+    prefix:   /categorie
+    
+classeTva:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/classeTva.yml"
+    prefix:   /classeTva  
+      
+config:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/config.yml"
+    prefix:   /config
+    
 exercice:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/exercice.yml"
     prefix:   /exercice
+    
+facture:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/facture.yml"
+    prefix:   /facture
+    
+ligne:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/ligne.yml"
+    prefix:   /ligne
+    
+methodePaiement:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/methodePaiement.yml"
+    prefix:   /methodePaiement
+    
+sousCategorie:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/sousCategorie.yml"
+    prefix:   /sousCategorie
+    
+tiers:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/tiers.yml"
+    prefix:   /tiers
+    
+typeFacture:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/typeFacture.yml"
+    prefix:   /typeFacture
+    
+user:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/user.yml"
+    prefix:   /user
+    

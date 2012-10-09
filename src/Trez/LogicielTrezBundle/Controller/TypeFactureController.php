@@ -66,7 +66,7 @@ class ConfigController extends Controller
 
         return $this->render('TrezLogicielTrezBundle:TypeFacture:edit.html.twig', array(
             'form' => $form->createView(),
-            'config' => $object
+            'TypeFacture' => $object
         ));
     }
 

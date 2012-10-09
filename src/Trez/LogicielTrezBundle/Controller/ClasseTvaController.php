@@ -66,7 +66,7 @@ class ConfigController extends Controller
 
         return $this->render('TrezLogicielTrezBundle:ClasseTva:edit.html.twig', array(
             'form' => $form->createView(),
-            'config' => $object
+            'classeTva' => $object
         ));
     }
 

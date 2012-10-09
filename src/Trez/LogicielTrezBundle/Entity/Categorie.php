@@ -20,9 +20,9 @@ class Categorie
     private $nom;
 
     /**
-     * @var string $description
+     * @var string $commentaire
      */
-    private $description;
+    private $commentaire;
 
     /**
      * @var integer $cle
@@ -30,7 +30,7 @@ class Categorie
     private $cle;
 
     /**
-     * @var \stdClass $budget
+     * @var Trez\LogicielTrezBundle\Entity\Budget
      */
     private $budget;
 
@@ -69,26 +69,26 @@ class Categorie
     }
 
     /**
-     * Set description
+     * Set commentaire
      *
-     * @param string $description
+     * @param string $commentaire
      * @return Categorie
      */
-    public function setDescription($description)
+    public function setCommentaire($commentaire)
     {
-        $this->description = $description;
+        $this->commentaire = $commentaire;
     
         return $this;
     }
 
     /**
-     * Get description
+     * Get commentaire
      *
      * @return string 
      */
-    public function getDescription()
+    public function getCommentaire()
     {
-        return $this->description;
+        return $this->commentaire;
     }
 
     /**
@@ -117,10 +117,10 @@ class Categorie
     /**
      * Set budget
      *
-     * @param \stdClass $budget
+     * @param Trez\LogicielTrezBundle\Entity\Budget $budget
      * @return Categorie
      */
-    public function setBudget($budget)
+    public function setBudget(\Trez\LogicielTrezBundle\Entity\Budget $budget = null)
     {
         $this->budget = $budget;
     
@@ -130,38 +130,10 @@ class Categorie
     /**
      * Get budget
      *
-     * @return \stdClass 
+     * @return Trez\LogicielTrezBundle\Entity\Budget 
      */
     public function getBudget()
     {
         return $this->budget;
-    }
-    /**
-     * @var string $commmentaire
-     */
-    private $commmentaire;
-
-
-    /**
-     * Set commmentaire
-     *
-     * @param string $commmentaire
-     * @return Categorie
-     */
-    public function setCommmentaire($commmentaire)
-    {
-        $this->commmentaire = $commmentaire;
-    
-        return $this;
-    }
-
-    /**
-     * Get commmentaire
-     *
-     * @return string 
-     */
-    public function getCommmentaire()
-    {
-        return $this->commmentaire;
     }
 }

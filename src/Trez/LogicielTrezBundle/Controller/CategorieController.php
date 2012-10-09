@@ -9,20 +9,19 @@ use Trez\LogicielTrezBundle\Form\CategorieType;
 
 class CategorieController extends Controller
 {
-    /*
-     * (detail)
-     * add
-     * edit(budget_id, id)
-     * delete(budget_id, id)
-     */
-
     public function indexAction($budget_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $budget = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($budget_id);
-        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->findOneByBudget($budget);
+        $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
+        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->findBy(
+            ['budget' => $budget],
+            ['cle' => 'ASC']
+        );
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('categories' => $categories));
+        return $this->render('TrezLogicielTrezBundle:Categorie:list.html.twig', [
+            'categories' => $categories,
+            'budget' => $budget
+        ]);
     }
 
     public function addAction($budget_id)
@@ -30,8 +29,8 @@ class CategorieController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
 
-        $object = new Budget();
-        $object->setExercice($budget);
+        $object = new Categorie();
+        $object->setBudget($budget);
 
         $form = $this->get('form.factory')->create(new CategorieType(), $object);
 
@@ -49,7 +48,8 @@ class CategorieController extends Controller
         }
 
         return $this->render('TrezLogicielTrezBundle:Categorie:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'budget_id' => $budget_id
         ));
     }
 
@@ -72,7 +72,8 @@ class CategorieController extends Controller
 
         return $this->render('TrezLogicielTrezBundle:Categorie:edit.html.twig', array(
             'form' => $form->createView(),
-            'categorie' => $object
+            'categorie' => $object,
+            'budget_id' => $budget_id
         ));
     }
 

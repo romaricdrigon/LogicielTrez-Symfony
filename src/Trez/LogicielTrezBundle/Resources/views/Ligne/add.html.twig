@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter une ligne</h1>
+
+    {% include "TrezLogicielTrezBundle:Ligne:_form.html.twig" with {'route': 'ligne_add', 'route_options': {'sous_categorie_id': sous_categorie_id}, 'sous_categorie_id': sous_categorie_id} %}
+{%  endblock %}

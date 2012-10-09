@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la ligne {{ ligne.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Ligne:_form.html.twig" with {'route': 'ligne_edit', 'route_options': {'sous_categorie_id': sous_categorie_id, 'id': ligne.id}, 'sous_categorie_id': sous_categorie_id} %}
+{%  endblock %}

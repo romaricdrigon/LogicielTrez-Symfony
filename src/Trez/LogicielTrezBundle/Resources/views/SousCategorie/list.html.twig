@@ -1,0 +1,41 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des sous-cat&eacute;gories de la cat&eacute;gorie {{ categorie.nom }}</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Cl&eacute;</th>
+            <th>Nom</th>
+            <th>Commentaire</th>
+            <th width="70"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for sous_categorie in sous_categories %}
+                <tr>
+                    <td>{{ sous_categorie.cle }}</td>
+                    <td>{{ sous_categorie.nom }}</td>
+                    <td>{{ sous_categorie.commentaire }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="{{ path('ligne_index', {'sous_categorie_id': sous_categorie.id}) }}" title="Acc&eacute;der aux lignes"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('sous_categorie_edit', {'categorie_id': categorie.id, 'id': sous_categorie.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small"
+                               href="{{ path('sous_categorie_delete', {'categorie_id': categorie.id, 'id': sous_categorie.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la sous-catégorie {{ sous_categorie.nom }} ?');"
+                               title="Supprimer"><i class="icon-remove"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="{{ path('sous_categorie_add', {'categorie_id': categorie.id}) }}" class='btn btn-primary'>
+            <i class="icon-plus"></i> Ajouter une sous-cat&eacute;gorie
+        </a>
+    </div>
+{% endblock %}

@@ -9,21 +9,19 @@ use Trez\LogicielTrezBundle\Form\SousCategorieType;
 
 class SousCategorieController extends Controller
 {
-
-    /*
-         * (detail)
-         * add
-         * edit(categorie_id, id)
-         * delete(categorie_id, id)
-         */
-
     public function indexAction($categorie_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
-        $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->findOneByCategorie($categorie);
+        $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->findByCategorie(
+            ['categorie' => $categorie],
+            ['cle' => 'ASC']
+        );
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('sousCategories' => $sousCategories));
+        return $this->render('TrezLogicielTrezBundle:SousCategorie:list.html.twig', [
+            'sous_categories' => $sousCategories,
+            'categorie' => $categorie
+        ]);
     }
 
     public function addAction($categorie_id)
@@ -42,14 +40,15 @@ class SousCategorieController extends Controller
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La sous catégorie a bien été ajoutée");
+                $this->get('session')->setFlash('success', "La sous-catégorie a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('sousCategorie_index', ['categorie_id' => $categorie_id]));
+                return new RedirectResponse($this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie_id]));
             }
         }
 
         return $this->render('TrezLogicielTrezBundle:SousCategorie:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'categorie_id' => $categorie_id
         ));
     }
 
@@ -57,7 +56,7 @@ class SousCategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($id);
-        $form = $this->get('form.factory')->create(new \Trez\LogicielTrezBundle\Form\SousCategorieType(), $object);
+        $form = $this->get('form.factory')->create(new SousCategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
@@ -66,13 +65,14 @@ class SousCategorieController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('sousCategorie_index', ['categorie_id' => $categorie_id]));
+                return new RedirectResponse($this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie_id]));
             }
         }
 
         return $this->render('TrezLogicielTrezBundle:SousCategorie:edit.html.twig', array(
             'form' => $form->createView(),
-            'sousCategorie' => $object
+            'sous_categorie' => $object,
+            'categorie_id' => $categorie_id
         ));
     }
 
@@ -83,7 +83,7 @@ class SousCategorieController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Sous Catégorie supprimée !');
+        $this->get('session')->setFlash('info', 'Sous-catégorie supprimée !');
 
         return new RedirectResponse($this->generateUrl('categorie_index', ['categorie_id' => $categorie_id]));
     }

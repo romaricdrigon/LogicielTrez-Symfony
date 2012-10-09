@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la sous-cat&eacute;gorie {{ sous_categorie.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:SousCategorie:_form.html.twig" with {'route': 'sous_categorie_edit', 'route_options': {'categorie_id': categorie_id, 'id': sous_categorie.id}, 'categorie_id': categorie_id} %}
+{%  endblock %}

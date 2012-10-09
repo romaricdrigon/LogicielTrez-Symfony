@@ -11,10 +11,14 @@ class SousCategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('commentaire')
-            ->add('cle')
-            ->add('categorie')
+            ->add('nom', 'text')
+            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('cle', 'integer')
+            ->add('categorie', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\Categorie',
+                'property' => 'nom',
+                'disabled' => true
+            ])
         ;
     }
 

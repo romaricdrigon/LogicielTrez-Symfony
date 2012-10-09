@@ -1,15 +1,15 @@
-sousCategorie_index:
+sous_categorie_index:
     pattern:  /{categorie_id}
     defaults: { _controller: TrezLogicielTrezBundle:SousCategorie:index }
 
-sousCategorie_add:
+sous_categorie_add:
     pattern: /add/{categorie_id}
     defaults: { _controller: TrezLogicielTrezBundle:SousCategorie:add }
 
-sousCategorie_edit:
+sous_categorie_edit:
     pattern: /edit/{categorie_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:SousCategorie:edit }
 
-sousCategorie_delete:
+sous_categorie_delete:
     pattern: /delete/{categorie_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:SousCategorie:delete }

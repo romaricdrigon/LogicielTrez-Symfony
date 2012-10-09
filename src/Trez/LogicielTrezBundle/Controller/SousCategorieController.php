@@ -3,6 +3,9 @@
 namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Trez\LogicielTrezBundle\Entity\SousCategorie;
+use Trez\LogicielTrezBundle\Form\SousCategorieType;
 
 class SousCategorieController extends Controller
 {
@@ -25,8 +28,8 @@ class SousCategorieController extends Controller
 
     public function addAction($categorie_id)
     {
-        $object = new \Trez\LogicielTrezBundle\Entity\SousCategorie();
-        $form = $this->get('form.factory')->create(new \Trez\LogicielTrezBundle\Form\SousCategorieType(), $object);
+        $object = new SousCategorie();
+        $form = $this->get('form.factory')->create(new SousCategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));

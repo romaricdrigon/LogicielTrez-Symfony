@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Categorie;
 use Trez\LogicielTrezBundle\Form\CategorieType;
 
@@ -51,7 +52,7 @@ class CategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($id);
-        $form = $this->get('form.factory')->create(new \Trez\LogicielTrezBundle\Form\CategorieType(), $object);
+        $form = $this->get('form.factory')->create(new CategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));

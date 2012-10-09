@@ -1,3 +1,15 @@
 budget_index:
-    pattern:  /
+    pattern:  /{exercice_id}
     defaults: { _controller: TrezLogicielTrezBundle:Budget:index }
+
+budget_add:
+    pattern: /add/{exercice_id}
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:add }
+
+budget_edit:
+    pattern: /edit/{exercice_id}/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:edit }
+
+budget_delete:
+    pattern: /delete/{exercice_id}/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:delete }

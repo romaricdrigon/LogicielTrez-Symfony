@@ -1,3 +1,15 @@
 categorie_index:
-    pattern:  /
+    pattern:  /{budget_id}
     defaults: { _controller: TrezLogicielTrezBundle:Categorie:index }
+
+categorie_add:
+    pattern: /add/{budget_id}
+    defaults: { _controller: TrezLogicielTrezBundle:Categorie:add }
+
+categorie_edit:
+    pattern: /edit/{budget_id}/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Categorie:edit }
+
+categorie_delete:
+    pattern: /delete/{budget_id}/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Categorie:delete }

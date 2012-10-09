@@ -47,7 +47,7 @@ class ExerciceController extends Controller
 
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($id);
         $form = $this->get('form.factory')->create(new ExerciceType(), $object);
 

@@ -1,3 +1,15 @@
 methodePaiement_index:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:MethodePaiement:index }
+
+methodePaiement_add:
+    pattern: /add
+    defaults: { _controller: TrezLogicielTrezBundle:MethodePaiement:add }
+
+methodePaiement_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:MethodePaiement:edit }
+
+methodePaiement_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:MethodePaiement:delete }

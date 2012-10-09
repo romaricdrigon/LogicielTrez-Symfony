@@ -3,5 +3,5 @@
 {% block body %}
     <h1>Ajouter un budget</h1>
 
-    {% include "TrezLogicielTrezBundle:Budget:_form.html.twig" with {'route': 'budget_add'} %}
+    {% include "TrezLogicielTrezBundle:Budget:_form.html.twig" with {'route': 'budget_add', 'route_options': {'exercice_id': exercice_id}, 'exercice_id': exercice_id} %}
 {%  endblock %}

@@ -11,7 +11,7 @@ class ExerciceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('edition')
+            ->add('edition', 'text')
             ->add('annee_1', 'date', array(
                 'widget' => 'single_text',
             ))

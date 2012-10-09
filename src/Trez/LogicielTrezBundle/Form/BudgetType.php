@@ -11,8 +11,12 @@ class BudgetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('exercice')
+            ->add('nom', 'text')
+            ->add('exercice', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\Exercice',
+                'property' => 'edition',
+                'disabled' => true
+            ])
         ;
     }
 

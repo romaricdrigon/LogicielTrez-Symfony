@@ -4,14 +4,14 @@
     <div>{{ form_errors(form) }}</div>
 
     <fieldset>
+        {{ forms.field(form.exercice, 'Exercice') }}
         {{ forms.field(form.nom, 'Nom') }}
-
     </fieldset>
 
     {{ form_rest(form) }}
 
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
-        <a href="{{ path('budget_index') }}" class="btn">Annuler</a>
+        <a href="{{ path('budget_index', {'exercice_id': exercice_id}) }}" class="btn">Annuler</a>
     </div>
 </form>

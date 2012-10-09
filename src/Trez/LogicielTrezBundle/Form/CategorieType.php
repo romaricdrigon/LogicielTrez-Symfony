@@ -11,10 +11,14 @@ class CategorieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('commmentaire')
-            ->add('cle')
-            ->add('budget')
+            ->add('nom', 'text')
+            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('cle', 'integer')
+            ->add('budget', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\Budget',
+                'property' => 'nom',
+                'disabled' => true
+            ])
         ;
     }
 

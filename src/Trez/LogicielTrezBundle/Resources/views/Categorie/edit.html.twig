@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la cat&eacute;gorie {{ categorie.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Categorie:_form.html.twig" with {'route': 'categorie_edit', 'route_options': {'budget_id': budget_id, 'id': categorie.id}, 'budget_id': budget_id} %}
+{%  endblock %}

@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter une cat&eacute;gorie</h1>
+
+    {% include "TrezLogicielTrezBundle:Categorie:_form.html.twig" with {'route': 'categorie_add', 'route_options': {'budget_id': budget_id}, 'budget_id': budget_id} %}
+{%  endblock %}

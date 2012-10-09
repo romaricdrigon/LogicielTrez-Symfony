@@ -1,0 +1,41 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des cat&eacute;gories du budget {{ budget.nom }}</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Cl&eacute;</th>
+            <th>Nom</th>
+            <th>Commentaire</th>
+            <th width="70"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for categorie in categories %}
+                <tr>
+                    <td>{{ categorie.cle }}</td>
+                    <td>{{ categorie.nom }}</td>
+                    <td>{{ categorie.commentaire }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="{{ path('sousCategorie_index', {'categorie_id': categorie.id}) }}" title="Acc&eacute;der aux sous-cat&eacute;gories"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('categorie_edit', {'budget_id': budget.id, 'id': categorie.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small"
+                               href="{{ path('categorie_delete', {'budget_id': budget.id, 'id': categorie.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la catégorie {{ categorie.nom }} ?');"
+                               title="Supprimer"><i class="icon-remove"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="{{ path('categorie_add', {'budget_id': budget.id}) }}" class='btn btn-primary'>
+            <i class="icon-plus"></i> Ajouter une cat&eacute;gorie
+        </a>
+    </div>
+{% endblock %}

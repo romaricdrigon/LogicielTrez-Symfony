@@ -36,7 +36,7 @@ class ConfigController extends Controller
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La config a bien été ajouté");
+                $this->get('session')->setFlash('success', "La config a bien été ajoutée");
 
                 return new RedirectResponse($this->generateUrl('config_index'));
             }

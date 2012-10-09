@@ -21,7 +21,7 @@ class ConfigController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $classeTvas = $em->getRepository('TrezLogicielTrezBundle:ClasseTva')->findAll();
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('configs' => $classeTvas));
+        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('classeTvas' => $classeTvas));
     }
 
     public function addAction()

@@ -21,7 +21,7 @@ class ConfigController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $methodePaiement = $em->getRepository('TrezLogicielTrezBundle:MethodePaiement')->findAll();
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('configs' => $methodePaiement));
+        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('methodePaiement' => $methodePaiement));
     }
 
     public function addAction()

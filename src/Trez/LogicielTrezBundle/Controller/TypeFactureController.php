@@ -21,7 +21,7 @@ class ConfigController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $typeFacture = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('configs' => $typeFacture));
+        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('typeFacture' => $typeFacture));
     }
 
     public function addAction()

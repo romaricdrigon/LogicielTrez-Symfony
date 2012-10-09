@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Tva;
 use Trez\LogicielTrezBundle\Form\TvaType;
 
-class LigneController extends Controller
+class TvaController extends Controller
 {
 
     /*

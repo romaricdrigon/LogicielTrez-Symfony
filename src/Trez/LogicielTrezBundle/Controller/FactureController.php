@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Facture;
 use Trez\LogicielTrezBundle\Form\FactureType;
 
-class LigneController extends Controller
+class FactureController extends Controller
 {
 
     /*

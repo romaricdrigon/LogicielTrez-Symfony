@@ -1,3 +1,15 @@
 ligne_index:
-    pattern:  /
+    pattern:  /{sous_categorie_id}
     defaults: { _controller: TrezLogicielTrezBundle:Ligne:index }
+    
+ligne_add:
+    pattern: /add/{sous_categorie_id}
+    defaults: { _controller: TrezLogicielTrezBundle:Ligne:add }
+
+ligne_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Ligne:edit }
+
+ligne_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Ligne:delete }

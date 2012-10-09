@@ -1,3 +1,15 @@
 config_index:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:Config:index }
+
+config_add:
+    pattern: /add
+    defaults: { _controller: TrezLogicielTrezBundle:Config:add }
+
+config_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Config:edit }
+
+config_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Config:delete }

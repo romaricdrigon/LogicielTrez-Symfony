@@ -1,3 +1,15 @@
 classeTva_index:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:ClasseTva:index }
+
+classeTva_add:
+    pattern: /add
+    defaults: { _controller: TrezLogicielTrezBundle:ClasseTva:add }
+
+classeTva_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:ClasseTva:edit }
+
+classeTva_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:ClasseTva:delete }

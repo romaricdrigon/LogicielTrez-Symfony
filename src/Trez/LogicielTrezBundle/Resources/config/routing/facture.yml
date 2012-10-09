@@ -1,3 +1,15 @@
 facture_index:
-    pattern:  /
+    pattern:  /{ligne_id}
     defaults: { _controller: TrezLogicielTrezBundle:Facture:index }
+
+facture_add:
+    pattern: /add/{ligne_id}
+    defaults: { _controller: TrezLogicielTrezBundle:Facture:add }
+
+facture_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Facture:edit }
+
+facture_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Facture:delete }

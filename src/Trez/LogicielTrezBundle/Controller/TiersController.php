@@ -19,15 +19,15 @@ class ConfigController extends Controller
     public function indexAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $configs = $em->getRepository('TrezLogicielTrezBundle:Tiers')->findAll();
+        $tiers = $em->getRepository('TrezLogicielTrezBundle:Tiers')->findAll();
 
         return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('tiers' => $tiers));
     }
 
     public function addAction()
     {
-        $object = new Config();
-        $form = $this->get('form.factory')->create(new ConfigType(), $object);
+        $object = new Tiers();
+        $form = $this->get('form.factory')->create(new TiersType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
@@ -36,13 +36,13 @@ class ConfigController extends Controller
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La config a bien été ajouté");
+                $this->get('session')->setFlash('success', "Le tiers a bien été ajouté");
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('tiers_index'));
             }
         }
 
-        return $this->render('TrezLogicielTrezBundle:Config:add.html.twig', array(
+        return $this->render('TrezLogicielTrezBundle:Tiers:add.html.twig', array(
             'form' => $form->createView()
         ));
     }
@@ -50,35 +50,35 @@ class ConfigController extends Controller
     public function editAction($id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $object = $em->getRepository('TrezLogicielTrezBundle:Config')->find($id);
-        $form = $this->get('form.factory')->create(new ConfigType(), $object);
+        $object = $em->getRepository('TrezLogicielTrezBundle:Tiers')->find($id);
+        $form = $this->get('form.factory')->create(new TiersType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
             if ($form->isValid()) {
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->setFlash('info', 'Vos tiers ont été enregistrés');
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('tiers_index'));
             }
         }
 
-        return $this->render('TrezLogicielTrezBundle:Config:edit.html.twig', array(
+        return $this->render('TrezLogicielTrezBundle:Tiers:edit.html.twig', array(
             'form' => $form->createView(),
-            'config' => $object
+            'tiers' => $object
         ));
     }
 
     public function deleteAction($id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $object = $em->getRepository('TrezLogicielTrezBundle:Config')->find($id);
+        $object = $em->getRepository('TrezLogicielTrezBundle:Tiers')->find($id);
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Config supprimée !');
+        $this->get('session')->setFlash('info', 'Tiers supprimé !');
 
-        return new RedirectResponse($this->generateUrl('config_index'));
+        return new RedirectResponse($this->generateUrl('tiers_index'));
     }
 }

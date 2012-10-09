@@ -3,6 +3,8 @@
 namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Trez\LogicielTrezBundle\Entity\Budget;
+use Trez\LogicielTrezBundle\Form\BudgetType;
 
 class BudgetController extends Controller
 {
@@ -16,7 +18,8 @@ class BudgetController extends Controller
     public function indexAction($exercice_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->findBy(['exercice_id' => $exercice_id]);
+        $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
+        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->findOneByExercice($exercice);
 
         return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', ['budgets' => $budgets]);
     }

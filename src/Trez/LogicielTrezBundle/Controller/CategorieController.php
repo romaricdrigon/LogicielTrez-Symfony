@@ -27,7 +27,12 @@ class CategorieController extends Controller
 
     public function addAction($budget_id)
     {
-        $object = new Categorie();
+        $em = $this->get('doctrine.orm.entity_manager');
+        $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
+
+        $object = new Budget();
+        $object->setExercice($budget);
+
         $form = $this->get('form.factory')->create(new CategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {

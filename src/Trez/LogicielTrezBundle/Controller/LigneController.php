@@ -28,7 +28,12 @@ class LigneController extends Controller
 
     public function addAction($sousCategorie_id)
     {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $sousCategorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sousCategorie_id);
+
         $object = new Ligne();
+        $object->setSousCategorie($sousCategorie);
+
         $form = $this->get('form.factory')->create(new LigneType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {

@@ -28,7 +28,11 @@ class LigneController extends Controller
 
     public function addAction($ligne_id)
     {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+
         $object = new Facture();
+        $object->setLigne($ligne);
         $form = $this->get('form.factory')->create(new FactureType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {

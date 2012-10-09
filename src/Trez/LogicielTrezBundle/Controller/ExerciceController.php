@@ -34,7 +34,7 @@ class ExerciceController extends Controller
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                //$this->get('session')->setFlash('success', 'La source de données a été créée avec succès');
+                $this->get('session')->setFlash('success', "L'exercice a bien été ajouté");
 
                 return new RedirectResponse($this->generateUrl('exercice_index'));
             }
@@ -56,7 +56,7 @@ class ExerciceController extends Controller
             if ($form->isValid()) {
                 $em->flush();
 
-                //$this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('exercice_index'));
             }
@@ -75,7 +75,7 @@ class ExerciceController extends Controller
         $em->remove($object);
         $em->flush();
 
-        //$this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+        $this->get('session')->setFlash('info', 'Exercice supprimé !');
 
         return new RedirectResponse($this->generateUrl('exercice_index'));
     }

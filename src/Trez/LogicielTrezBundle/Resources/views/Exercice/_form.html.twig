@@ -1,4 +1,4 @@
-{% import 'TrezLogicielTrezBundle::forms.html.twig' as forms %}
+{% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
 
 <form class="form-horizontal" action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
     <div>{{ form_errors(form) }}</div>

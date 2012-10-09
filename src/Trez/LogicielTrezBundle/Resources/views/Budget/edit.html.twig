@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute; le budget {{ budget.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Budget:_form.html.twig" with {'route': 'budget_edit', 'route_options': {'id': budget.id}} %}
+{%  endblock %}

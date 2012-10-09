@@ -1,0 +1,37 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des budgets</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th width="70"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for budget in budgets %}
+                <tr>
+                    <td>{{ budget.nom }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="" title="Acc&eacute;der aux cat&eacute;gories"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('budget_edit', {'id': budget.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small"
+                               href="{{ path('budget_delete', {'id': budget.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le budget {{ budget.nom }} ?');"
+                               title="Supprimer"><i class="icon-remove"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="{{ path('budget_add') }}" class='btn btn-primary'>
+            <i class="icon-plus"></i> Ajouter un budget
+        </a>
+    </div>
+{% endblock %}

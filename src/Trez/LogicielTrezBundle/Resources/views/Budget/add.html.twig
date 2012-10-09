@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un budget</h1>
+
+    {% include "TrezLogicielTrezBundle:Budget:_form.html.twig" with {'route': 'budget_add'} %}
+{%  endblock %}

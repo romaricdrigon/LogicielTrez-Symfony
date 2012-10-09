@@ -9,27 +9,25 @@ use Trez\LogicielTrezBundle\Form\LigneType;
 
 class LigneController extends Controller
 {
-
-    /*
-     * (detail)
-     * add
-     * edit(sousCategorie_id, id)
-     * delete(sousCategorie_id, id)
-     */
-
-    public function indexAction($sousCategorie_id)
+    public function indexAction($sous_categorie_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $sousCategorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sousCategorie_id);
-        $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findOneByCategorie($sousCategorie);
+        $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
+        $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findBy(
+            ['sousCategorie' => $sous_categorie_id],
+            ['cle' => 'ASC']
+        );
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('lignes' => $lignes));
+        return $this->render('TrezLogicielTrezBundle:Ligne:list.html.twig', [
+            'lignes' => $lignes,
+            'sous_categorie' => $sous_categorie
+        ]);
     }
 
-    public function addAction($sousCategorie_id)
+    public function addAction($sous_categorie_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $sousCategorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sousCategorie_id);
+        $sousCategorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
 
         $object = new Ligne();
         $object->setSousCategorie($sousCategorie);
@@ -50,11 +48,12 @@ class LigneController extends Controller
         }
 
         return $this->render('TrezLogicielTrezBundle:Ligne:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'sous_categorie_id' => $sous_categorie_id
         ));
     }
 
-    public function editAction($sousCategorie_id, $id)
+    public function editAction($sous_categorie_id, $id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($id);
@@ -67,17 +66,18 @@ class LigneController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('ligne_index', ['sousCategorie_id' => $sousCategorie_id]));
+                return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
             }
         }
 
         return $this->render('TrezLogicielTrezBundle:Ligne:edit.html.twig', array(
             'form' => $form->createView(),
-            'ligne' => $object
+            'ligne' => $object,
+            'sous_categorie_id' => $sous_categorie_id
         ));
     }
 
-    public function deleteAction($sousCategorie_id ,$id)
+    public function deleteAction($sous_categorie_id ,$id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($id);
@@ -86,6 +86,6 @@ class LigneController extends Controller
 
         $this->get('session')->setFlash('info', 'Ligne supprimée !');
 
-        return new RedirectResponse($this->generateUrl('ligne_index', ['sousCategorie_id' => $sousCategorie_id]));
+        return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
     }
 }

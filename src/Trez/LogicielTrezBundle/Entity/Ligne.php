@@ -39,6 +39,11 @@ class Ligne
      */
     private $credit;
 
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\SousCategorie
+     */
+    private $sousCategorie;
+
 
     /**
      * Get id
@@ -192,11 +197,6 @@ class Ligne
     {
         return $this->commentaire;
     }
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\SousCategorie
-     */
-    private $sousCategorie;
-
 
     /**
      * Set sousCategorie

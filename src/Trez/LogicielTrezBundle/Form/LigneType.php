@@ -11,12 +11,16 @@ class LigneType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('commentaire')
-            ->add('cle')
-            ->add('debit')
-            ->add('credit')
-            ->add('sousCategorie')
+            ->add('nom', 'text')
+            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('cle', 'integer')
+            ->add('debit', 'money')
+            ->add('credit', 'money')
+            ->add('sousCategorie', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\SousCategorie',
+                'property' => 'nom',
+                'disabled' => true
+            ])
         ;
     }
 

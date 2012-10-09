@@ -13,7 +13,7 @@ class CategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
-        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->findByBudget(
+        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->findBy(
             ['budget' => $budget],
             ['cle' => 'ASC']
         );

@@ -11,7 +11,7 @@ Trez\LogicielTrezBundle\Entity\Categorie:
         nom:
             type: string
             length: 255
-        commmentaire:
+        commentaire:
             type: string
             length: '400'
             nullable: true

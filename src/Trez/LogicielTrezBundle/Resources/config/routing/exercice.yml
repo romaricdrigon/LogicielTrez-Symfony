@@ -5,3 +5,11 @@ exercice_index:
 exercice_add:
     pattern: /add
     defaults: { _controller: TrezLogicielTrezBundle:Exercice:add }
+
+exercice_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Exercice:edit }
+
+exercice_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Exercice:delete }

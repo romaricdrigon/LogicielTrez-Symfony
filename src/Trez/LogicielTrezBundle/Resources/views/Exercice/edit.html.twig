@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute; l'exercice {{ exercice.edition }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Exercice:_form.html.twig" with {'route': 'exercice_edit', 'route_options': {'id': exercice.id}} %}
+{%  endblock %}

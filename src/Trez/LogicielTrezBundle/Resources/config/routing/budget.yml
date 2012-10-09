@@ -7,9 +7,9 @@ budget_add:
     defaults: { _controller: TrezLogicielTrezBundle:Budget:add }
 
 budget_edit:
-    pattern: /edit/{id}
+    pattern: /edit/{exercice_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Budget:edit }
 
 budget_delete:
-    pattern: /delete/{id}
+    pattern: /delete/{exercice_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Budget:delete }

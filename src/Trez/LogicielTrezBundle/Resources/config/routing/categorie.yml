@@ -7,9 +7,9 @@ categorie_add:
     defaults: { _controller: TrezLogicielTrezBundle:Categorie:add }
 
 categorie_edit:
-    pattern: /edit/{id}
+    pattern: /edit/{budget_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Categorie:edit }
 
 categorie_delete:
-    pattern: /delete/{id}
+    pattern: /delete/{budget_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Categorie:delete }

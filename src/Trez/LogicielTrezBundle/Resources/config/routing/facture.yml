@@ -7,9 +7,9 @@ facture_add:
     defaults: { _controller: TrezLogicielTrezBundle:Facture:add }
 
 facture_edit:
-    pattern: /edit/{id}
+    pattern: /edit/{ligne_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Facture:edit }
 
 facture_delete:
-    pattern: /delete/{id}
+    pattern: /delete/{ligne_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Facture:delete }

@@ -7,9 +7,9 @@ ligne_add:
     defaults: { _controller: TrezLogicielTrezBundle:Ligne:add }
 
 ligne_edit:
-    pattern: /edit/{id}
+    pattern: /edit/{sous_categorie_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Ligne:edit }
 
 ligne_delete:
-    pattern: /delete/{id}
+    pattern: /delete/{sous_categorie_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Ligne:delete }

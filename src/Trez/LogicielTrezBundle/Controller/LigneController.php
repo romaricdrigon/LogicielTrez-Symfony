@@ -28,7 +28,7 @@ class LigneController extends Controller
 
     public function addAction($sousCategorie_id)
     {
-        $object = new Categorie();
+        $object = new Ligne();
         $form = $this->get('form.factory')->create(new LigneType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {

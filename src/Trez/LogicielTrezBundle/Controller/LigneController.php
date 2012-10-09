@@ -21,7 +21,7 @@ class LigneController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $sousCategorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sousCategorie_id);
-        $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findOneByBudget($sousCategorie);
+        $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findOneByCategorie($sousCategorie);
 
         return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('lignes' => $lignes));
     }

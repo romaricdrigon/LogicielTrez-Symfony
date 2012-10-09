@@ -3,38 +3,40 @@
 namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Budget;
 use Trez\LogicielTrezBundle\Form\BudgetType;
 
 class BudgetController extends Controller
 {
-    /*
-     * (detail)
-     * add
-     * edit(exercice_id, id)
-     * delete(exercice_id, id)
-     */
-
     public function indexAction($exercice_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
-        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->findOneByExercice($exercice);
+        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->findByExercice($exercice);
 
-        return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', ['budgets' => $budgets]);
+        return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', [
+            'budgets' => $budgets,
+            'exercice' => $exercice
+        ]);
     }
 
     public function addAction($exercice_id)
     {
-        $object = new Budget();
-        $form = $this->get('form.factory')->create(new BudgetType(), $object);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
+
+        $budget = new Budget();
+        $budget->setExercice($exercice);
+
+        $form = $this->get('form.factory')->create(new BudgetType(), $budget);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
 
             if ($form->isValid()) {
-                $this->get('doctrine.orm.entity_manager')->persist($object);
-                $this->get('doctrine.orm.entity_manager')->flush();
+                $em->persist($budget);
+                $em->flush();
 
                 $this->get('session')->setFlash('success', "Le budget a bien été ajouté");
 
@@ -43,7 +45,8 @@ class BudgetController extends Controller
         }
 
         return $this->render('TrezLogicielTrezBundle:Budget:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'exercice_id' => $exercice_id
         ));
     }
 
@@ -66,7 +69,8 @@ class BudgetController extends Controller
 
         return $this->render('TrezLogicielTrezBundle:Budget:edit.html.twig', array(
             'form' => $form->createView(),
-            'budget' => $object
+            'budget' => $object,
+            'exercice_id' => $exercice_id
         ));
     }
 

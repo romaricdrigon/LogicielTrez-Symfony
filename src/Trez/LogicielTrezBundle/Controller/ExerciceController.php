@@ -9,11 +9,6 @@ use Trez\LogicielTrezBundle\Form\ExerciceType;
 
 class ExerciceController extends Controller
 {
-    /*
-     * edit(id)
-     * delete(id)
-     */
-
     public function indexAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');

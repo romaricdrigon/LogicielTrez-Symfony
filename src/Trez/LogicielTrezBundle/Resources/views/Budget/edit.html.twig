@@ -1,7 +1,7 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 
 {% block body %}
-    <h1>&Eacute; le budget {{ budget.nom }}</h1>
+    <h1>&Eacute;diter le budget {{ budget.nom }}</h1>
 
-    {% include "TrezLogicielTrezBundle:Budget:_form.html.twig" with {'route': 'budget_edit', 'route_options': {'id': budget.id}} %}
+    {% include "TrezLogicielTrezBundle:Budget:_form.html.twig" with {'route': 'budget_edit', 'route_options': {'exercice_id': exercice_id, 'id': budget.id}, 'exercice_id': exercice_id} %}
 {%  endblock %}

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Trez\LogicielTrezBundle\Entity\MethodePaiement;
 use \Trez\LogicielTrezBundle\Form\MethodePaiementType;
 
-class ConfigController extends Controller
+class MethodePaiementController extends Controller
 {
     /*
      * (detail)

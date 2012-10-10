@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Trez\LogicielTrezBundle\Entity\Tiers;
 use \Trez\LogicielTrezBundle\Form\TiersType;
 
-class ConfigController extends Controller
+class TiersController extends Controller
 {
     /*
      * (detail)

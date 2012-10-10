@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Trez\LogicielTrezBundle\Entity\ClasseTva;
 use \Trez\LogicielTrezBundle\Form\ClasseTvaType;
 
-class ConfigController extends Controller
+class ClasseTvaController extends Controller
 {
     /*
      * (detail)

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use \Trez\LogicielTrezBundle\Entity\TypeFacture;
 use \Trez\LogicielTrezBundle\Form\TypeFactureType;
 
-class ConfigController extends Controller
+class TypeFactureController extends Controller
 {
     /*
      * (detail)

@@ -1,0 +1,95 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>D&eacute;tail de la facture {{ facture.typeFacture.abr }} {{ facture.numero }}</h1>
+
+<table>
+    <tr>
+        <td>Objet :</td>
+        <td width=5>&nbsp;</td>
+        <td>{{ facture.objet }}</td>
+    </tr>
+
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>Montant :</td>
+        <td width=5>&nbsp;</td>
+        <td>{{ facture.montant }}</td>
+    </tr>
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+
+    {% for tva in tvas %}
+        <tr>
+            <td>TVA à {{ tva.classeTva.taux }}%:</td>
+            <td width=5>&nbsp;</td>
+            <td>{{ tva.montantTva }}</td>
+        </tr>
+    {% endfor %}
+
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>Date :</td>
+        <td width=5>&nbsp;</td>
+        <td>{{ facture.date|date("m/d/Y") }}</td>
+    </tr>
+
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+
+    {% if facture.datePaiement != null %}
+
+        <tr>
+            <td>Date de Paiement :</td>
+            <td width=5>&nbsp;</td>
+            <td>{{ facture.datePaiement|date("m/d/Y") }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+
+        <tr>
+            <td>Méthode de Paiement :</td>
+            <td width=5>&nbsp;</td>
+            <td>{{ facture.methodePaiement.nom }}</td>
+        </tr>
+
+        <tr>
+            <td colspan="3">&nbsp;</td>
+        </tr>
+
+    {% endif %}
+
+    <tr>
+        <td>Référence du paiement :</td>
+        <td width=5>&nbsp;</td>
+        <td>{{ facture.refPaiement }}</td>
+    </tr>
+
+    <tr>
+        <td colspan="3">&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>Commentaire :</td>
+        <td width=5>&nbsp;</td>
+        <td>{{ facture.commentaire }}</td>
+    </tr>
+
+
+</table>
+
+    <div class="form-actions">
+        <a href="{{ path('facture_index', {'ligne_id': ligne_id}) }}" class="btn">Retour</a>
+    </div>
+
+{%  endblock %}

@@ -141,7 +141,7 @@ INSERT INTO `Facture` (`id`, `ligne_id`, `tiers_id`, `numero`, `objet`, `montant
 --
 
 INSERT INTO `Tva` (`id`, `facture_id`, `montant_ht`, `montant_tva`, `classeTva_id`) VALUES
-(1, 1, 9000.00, 1000.00, NULL);
+(1, 1, 9000.00, 1000.00, 1);
 
 -- --------------------------------------------------------
 

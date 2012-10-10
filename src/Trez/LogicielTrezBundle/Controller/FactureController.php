@@ -23,7 +23,19 @@ class FactureController extends Controller
         ]);
     }
 
-    // TODO : detailAction
+    public function detailAction($ligne_id, $id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
+        $tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
+            ['facture' => $object]
+        );
+        return $this->render('TrezLogicielTrezBundle:Facture:detail.html.twig', array(
+            'facture' => $object,
+            'ligne_id' => $ligne_id,
+            'tvas' => $tvas
+        ));
+    }
 
     public function addAction($ligne_id)
     {

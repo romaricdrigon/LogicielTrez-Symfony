@@ -1,0 +1,57 @@
+{% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
+
+<form class="form-horizontal" action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
+    <div>{{ form_errors(form) }}</div>
+
+    <fieldset>
+        <legend>Identification</legend>
+        <div class="control-group {{ form_errors(form.numero) ? 'error' : '' }}">
+            <label class="control-label">Type & num&eacute;ro</label>
+            <div class="controls">
+                {{ form_widget(form.typeFacture, {'attr':  {'class': 'input-mini' }}) }}
+                {{ form_widget(form.numero, {'attr': {'class': 'input-small' }}) }}
+                <span class="help-inline">{{ form_errors(form.typeFacture) }}{{ form_errors(form.numero) }}</span>
+            </div>
+        </div>
+        {{ forms.field(form.date, 'Date', {'class': 'date-selects'}, 'force-height') }}
+        {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers'}) }}
+        {{ forms.field(form.objet, 'Objet', {'class': 'input-xlarge'}) }}
+        {{ forms.field(form.montant, 'Montant', {'class': 'input-small'}) }}
+    </fieldset>
+
+    <fieldset>
+        <legend>Paiement</legend>
+        {{ forms.field(form.date_paiement, 'Date du paiement', {'class': 'date-selects'}) }}
+        {{ forms.field(form.methodePaiement, 'Moyen de paiement') }}
+        {{ forms.field(form.ref_paiement, 'Référence du paiement') }}
+    </fieldset>
+
+    <fieldset>
+        <legend>Autres</legend>
+        {{ forms.field(form.ligne, 'Ligne') }}
+        {{ forms.field(form.commentaire, 'Commentaire', {'class': 'input-xlarge'}) }}
+
+    </fieldset>
+
+    {{ form_rest(form) }}
+
+    <div class="form-actions">
+        <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
+        <a href="{{ path('facture_index', {'ligne_id': ligne_id}) }}" class="btn">Annuler</a>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        // transform select into the chosen one
+        $('.chosen-tiers').chosen({no_results_text: "Pas de r&eacute;sultats"});
+
+        // datePickers
+        /*$( "#date" ).datepicker({
+            dateFormat: 'dd/mm/yy'
+        });
+        $( "#date_paiement" ).datepicker({
+            dateFormat: 'dd/mm/yy'
+        });*/
+    });
+</script>

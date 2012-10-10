@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la facture {{ facture.typeFacture.abr }} {{ facture.numero }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Facture:_form.html.twig" with {'route': 'facture_edit', 'route_options': {'ligne_id': ligne_id, 'id': facture.id}, 'ligne_id': ligne_id} %}
+{%  endblock %}

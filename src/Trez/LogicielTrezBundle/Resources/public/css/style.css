@@ -19,8 +19,14 @@ h3 {
 /*
     Pour les formulaires
 */
-.mini-inputs input, .mini-inputs select {
+.force-height {
+    height: 30px;
+}
+.mini-inputs input, .mini-inputs select, .date-selects select {
     width: 60px;
+}
+.date-selects select:last-of-type {
+    width: 70px;
 }
 .small-inputs > input, .small-inputs > select {
     width: 90px;

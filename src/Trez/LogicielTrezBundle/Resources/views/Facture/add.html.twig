@@ -1,0 +1,17 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.jquery.min.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <h1>&Eacute;mettre une facture</h1>
+
+    {% include "TrezLogicielTrezBundle:Facture:_form.html.twig" with {'route': 'facture_add', 'route_options': {'ligne_id': ligne_id}, 'ligne_id': ligne_id} %}
+{%  endblock %}

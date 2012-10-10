@@ -11,17 +11,44 @@ class FactureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero')
-            ->add('objet')
-            ->add('montant')
-            ->add('date')
-            ->add('date_paiement')
-            ->add('commentaire')
-            ->add('ref_paiement')
-            ->add('ligne')
-            ->add('tiers')
-            ->add('methodePaiement')
-            ->add('typeFacture')
+            ->add('numero', 'integer')
+            ->add('objet', 'text')
+            ->add('montant', 'money')
+            ->add('date', 'date', [
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'format' => 'dd / MM / yyyy',
+                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
+                'data' => new \DateTime()
+            ])
+            ->add('date_paiement', 'date', [
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'format' => 'dd / MM / yyyy',
+                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
+                'required' => false
+            ])
+            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('ref_paiement', 'text', ['required' => false])
+            ->add('ligne', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\Ligne',
+                'property' => 'nom',
+                'disabled' => true
+            ])
+            ->add('tiers', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\Tiers',
+                'property' => 'nom'
+            ])
+            ->add('methodePaiement', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\MethodePaiement',
+                'property' => 'nom',
+                'empty_value' => 'Choisissez...',
+                'required' => false
+            ])
+            ->add('typeFacture', 'entity', [
+                'class' => 'Trez\LogicielTrezBundle\Entity\TypeFacture',
+                'property' => 'abr'
+            ])
         ;
     }
 

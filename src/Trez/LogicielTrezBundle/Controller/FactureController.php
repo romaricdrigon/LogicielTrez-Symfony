@@ -9,22 +9,21 @@ use Trez\LogicielTrezBundle\Form\FactureType;
 
 class FactureController extends Controller
 {
-
-    /*
-     * (detail)
-     * add
-     * edit(ligne_id, id)
-     * delete(ligne_id, id)
-     */
-
     public function indexAction($ligne_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $ligne = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($ligne_id);
-        $factures = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findOneByBudget($ligne);
+        $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+        $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
+            ['ligne' => $ligne],
+            ['numero' => 'DESC']);
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('factures' => $factures));
+        return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', [
+            'factures' => $factures,
+            'ligne' => $ligne
+        ]);
     }
+
+    // TODO : detailAction
 
     public function addAction($ligne_id)
     {
@@ -42,14 +41,15 @@ class FactureController extends Controller
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La facture a bien été ajoutée");
+                $this->get('session')->setFlash('success', "La facture a bien été émise");
 
                 return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
             }
         }
 
         return $this->render('TrezLogicielTrezBundle:Facture:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'ligne_id' => $ligne_id
         ));
     }
 
@@ -72,7 +72,8 @@ class FactureController extends Controller
 
         return $this->render('TrezLogicielTrezBundle:Facture:edit.html.twig', array(
             'form' => $form->createView(),
-            'facture' => $object
+            'facture' => $object,
+            'ligne_id' => $ligne_id
         ));
     }
 

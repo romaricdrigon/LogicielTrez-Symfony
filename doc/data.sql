@@ -132,7 +132,7 @@ INSERT INTO `TypeFacture` (`id`, `abr`, `nom`, `sens`) VALUES
 --
 
 INSERT INTO `Facture` (`id`, `ligne_id`, `tiers_id`, `numero`, `objet`, `montant`, `date`, `date_paiement`, `commentaire`, `ref_paiement`, `methodePaiement_id`, `typeFacture_id`) VALUES
-(1, 1, NULL, 1, '', 9000.00, '2012-10-03', NULL, NULL, NULL, NULL, NULL);
+(1, 1, NULL, 1, '', 9000.00, '2012-10-03', NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 

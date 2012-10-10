@@ -1,5 +1,15 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.jquery.min.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <h1>&Eacute;diter la facture {{ facture.typeFacture.abr }} {{ facture.numero }}</h1>
 

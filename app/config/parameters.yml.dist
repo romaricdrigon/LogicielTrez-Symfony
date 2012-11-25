@@ -1,0 +1,14 @@
+parameters:
+    database_driver: pdo_mysql
+    database_host: YOUR_DB_HOST
+    database_path: null
+    database_port: ITS_PORT
+    database_name: YOUR_BB_NAME
+    database_user: YOUR_DB_USER
+    database_password: YOUR_DB_PASSWORD
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    locale: fr
+    secret: YOUR_SECRET

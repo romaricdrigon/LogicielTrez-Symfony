@@ -17,6 +17,8 @@ class FactureController extends Controller
             ['ligne' => $ligne],
             ['numero' => 'DESC']);
 
+        $this->getBreadcrumbs($ligne);
+
         return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', [
             'factures' => $factures,
             'ligne' => $ligne
@@ -30,6 +32,10 @@ class FactureController extends Controller
         $tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
             ['facture' => $object]
         );
+
+        $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+        $this->getBreadcrumbs($ligne);
+
         return $this->render('TrezLogicielTrezBundle:Facture:detail.html.twig', array(
             'facture' => $object,
             'ligne_id' => $ligne_id,
@@ -59,6 +65,8 @@ class FactureController extends Controller
             }
         }
 
+        $this->getBreadcrumbs($ligne);
+
         return $this->render('TrezLogicielTrezBundle:Facture:add.html.twig', array(
             'form' => $form->createView(),
             'ligne_id' => $ligne_id
@@ -82,6 +90,9 @@ class FactureController extends Controller
             }
         }
 
+        $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+        $this->getBreadcrumbs($ligne);
+
         return $this->render('TrezLogicielTrezBundle:Facture:edit.html.twig', array(
             'form' => $form->createView(),
             'facture' => $object,
@@ -99,5 +110,16 @@ class FactureController extends Controller
         $this->get('session')->setFlash('info', 'Facture supprimée !');
 
         return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
+    }
+
+    private function getBreadcrumbs($ligne)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Exercice ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budget ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getId()]));
+        $breadcrumbs->addItem("Catégorie  ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégorie  ".$ligne->getSousCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Ligne ".$ligne->getnom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $ligne->getSousCategorie()->getId()]));
+        $breadcrumbs->addItem("Facture", $this->generateUrl('facture_index', ['ligne_id' => $ligne->getId()]));
     }
 }

@@ -35,6 +35,8 @@
     <div class="container">
         {% include "TrezLogicielTrezBundle:Utils:flash_message.html.twig" %}
 
+        {{ wo_render_breadcrumbs() }}
+
         {% block body %}{% endblock %}
     </div>
     <div id="footer" class="footer">

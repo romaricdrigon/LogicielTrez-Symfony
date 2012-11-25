@@ -14,6 +14,8 @@ class ExerciceController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
 
+        $this->getBreadcrumbs();
+
         return $this->render('TrezLogicielTrezBundle:Exercice:list.html.twig', array('exercices' => $exercices));
     }
 
@@ -34,6 +36,8 @@ class ExerciceController extends Controller
                 return new RedirectResponse($this->generateUrl('exercice_index'));
             }
         }
+
+        $this->getBreadcrumbs();
 
         return $this->render('TrezLogicielTrezBundle:Exercice:add.html.twig', array(
             'form' => $form->createView()
@@ -57,6 +61,8 @@ class ExerciceController extends Controller
             }
         }
 
+        $this->getBreadcrumbs();
+
         return $this->render('TrezLogicielTrezBundle:Exercice:edit.html.twig', array(
             'form' => $form->createView(),
             'exercice' => $object
@@ -73,5 +79,11 @@ class ExerciceController extends Controller
         $this->get('session')->setFlash('info', 'Exercice supprimé !');
 
         return new RedirectResponse($this->generateUrl('exercice_index'));
+    }
+
+    private function getBreadcrumbs()
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
     }
 }

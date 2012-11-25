@@ -18,6 +18,8 @@ class SousCategorieController extends Controller
             ['cle' => 'ASC']
         );
 
+        $this->getBreadcrumbs($categorie);
+
         return $this->render('TrezLogicielTrezBundle:SousCategorie:list.html.twig', [
             'sous_categories' => $sousCategories,
             'categorie' => $categorie
@@ -46,6 +48,8 @@ class SousCategorieController extends Controller
             }
         }
 
+        $this->getBreadcrumbs($categorie);
+
         return $this->render('TrezLogicielTrezBundle:SousCategorie:add.html.twig', array(
             'form' => $form->createView(),
             'categorie_id' => $categorie_id
@@ -69,6 +73,9 @@ class SousCategorieController extends Controller
             }
         }
 
+        $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
+        $this->getBreadcrumbs($categorie);
+
         return $this->render('TrezLogicielTrezBundle:SousCategorie:edit.html.twig', array(
             'form' => $form->createView(),
             'sous_categorie' => $object,
@@ -86,6 +93,15 @@ class SousCategorieController extends Controller
         $this->get('session')->setFlash('info', 'Sous-catégorie supprimée !');
 
         return new RedirectResponse($this->generateUrl('categorie_index', ['categorie_id' => $categorie_id]));
+    }
+
+    private function getBreadcrumbs($categorie)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Exercice ".$categorie->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budget ".$categorie->getBudget()->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $categorie->getBudget()->getExercice()->getId()]));
+        $breadcrumbs->addItem("Catégorie  ".$categorie->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $categorie->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégories", $this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie->getId()]));
     }
 }
 

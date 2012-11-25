@@ -18,6 +18,8 @@ class LigneController extends Controller
             ['cle' => 'ASC']
         );
 
+        $this->getBreadcrumbs($sous_categorie);
+
         return $this->render('TrezLogicielTrezBundle:Ligne:list.html.twig', [
             'lignes' => $lignes,
             'sous_categorie' => $sous_categorie
@@ -27,10 +29,10 @@ class LigneController extends Controller
     public function addAction($sous_categorie_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $sousCategorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
+        $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
 
         $object = new Ligne();
-        $object->setSousCategorie($sousCategorie);
+        $object->setSousCategorie($sous_categorie);
 
         $form = $this->get('form.factory')->create(new LigneType(), $object);
 
@@ -46,6 +48,8 @@ class LigneController extends Controller
                 return new RedirectResponse($this->generateUrl('ligne_index', ['sousCategorie_id' => $sous_categorie_id]));
             }
         }
+
+        $this->getBreadcrumbs($sous_categorie);
 
         return $this->render('TrezLogicielTrezBundle:Ligne:add.html.twig', array(
             'form' => $form->createView(),
@@ -70,6 +74,9 @@ class LigneController extends Controller
             }
         }
 
+        $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
+        $this->getBreadcrumbs($sous_categorie);
+
         return $this->render('TrezLogicielTrezBundle:Ligne:edit.html.twig', array(
             'form' => $form->createView(),
             'ligne' => $object,
@@ -87,5 +94,15 @@ class LigneController extends Controller
         $this->get('session')->setFlash('info', 'Ligne supprimée !');
 
         return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
+    }
+
+    private function getBreadcrumbs($sous_categorie)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Exercice ".$sous_categorie->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budget ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $sous_categorie->getCategorie()->getBudget()->getExercice()->getId()]));
+        $breadcrumbs->addItem("Catégorie  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégorie  ".$sous_categorie->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Lignes", $this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie->getId()]));
     }
 }

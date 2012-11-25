@@ -15,6 +15,8 @@ class BudgetController extends Controller
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
         $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->findByExercice($exercice);
 
+        $this->getBreadcrumbs($exercice);
+
         return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', [
             'budgets' => $budgets,
             'exercice' => $exercice
@@ -44,6 +46,8 @@ class BudgetController extends Controller
             }
         }
 
+        $this->getBreadcrumbs($exercice);
+
         return $this->render('TrezLogicielTrezBundle:Budget:add.html.twig', array(
             'form' => $form->createView(),
             'exercice_id' => $exercice_id
@@ -67,6 +71,9 @@ class BudgetController extends Controller
             }
         }
 
+        $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
+        $this->getBreadcrumbs($exercice_id, $exercice);
+
         return $this->render('TrezLogicielTrezBundle:Budget:edit.html.twig', array(
             'form' => $form->createView(),
             'budget' => $object,
@@ -84,5 +91,12 @@ class BudgetController extends Controller
         $this->get('session')->setFlash('info', 'Budget supprimé !');
 
         return new RedirectResponse($this->generateUrl('budget_index', ['exercice_id' => $exercice_id]));
+    }
+
+    private function getBreadcrumbs($exercice)
+    {
+        $breadcrumbs = $this->get("white_october_breadcrumbs");
+        $breadcrumbs->addItem("Exercice ".$exercice->getEdition(), $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budgets", $this->generateUrl('budget_index', ['exercice_id' => $exercice->getId()]));
     }
 }

@@ -13,10 +13,18 @@ class ExerciceType extends AbstractType
         $builder
             ->add('edition', 'text')
             ->add('annee_1', 'date', array(
-                'widget' => 'single_text',
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'format' => 'dd / MM / yyyy',
+                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
+                'data' => new \DateTime()
             ))
             ->add('annee_2', 'date', array(
-                'widget' => 'single_text',
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'format' => 'dd / MM / yyyy',
+                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
+                'data' => new \DateTime()
             ))
         ;
     }

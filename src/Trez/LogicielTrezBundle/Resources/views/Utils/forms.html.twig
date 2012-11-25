@@ -1,9 +1,9 @@
-{% macro field(field, label, attrs, parent_class) %}
+{% macro field(field, label, attrs, parent_class, help) %}
     <div class="control-group {{ form_errors(field) ? 'error' : '' }} {{ parent_class }}">
         <label class="control-label">{{ label }}</label>
         <div class="controls">
             {{ form_widget(field, { 'attr': attrs|default({}) }) }}
-            <span class="help-inline">{{ form_errors(field) }}</span>
+            <span class="help-inline">{{ form_errors(field) }}{{ help | raw }}</span>
         </div>
     </div>
 {% endmacro %}

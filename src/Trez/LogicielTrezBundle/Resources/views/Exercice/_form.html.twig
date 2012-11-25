@@ -5,13 +5,11 @@
 
     <fieldset>
         {{ forms.field(form.edition, 'Édition') }}
-        {{ forms.field(form.annee_1, 'Année 1', {'class': 'date-selects'}, 'force-height') }}
-        {{ forms.field(form.annee_2, 'Année 2', {'class': 'date-selects'}, 'force-height') }}
+        {{ forms.field(form.annee_1, 'Année 1', {'class': 'date-selects'}, '', "Seule l'année est importante") }}
+        {{ forms.field(form.annee_2, 'Année 2', {'class': 'date-selects'}, '', "Seule l'année est importante") }}
     </fieldset>
 
     {{ form_rest(form) }}
-
-    <div><i>Dans le formulaire ci-dessus, seules les ann&eacute;es sont importantes parmi les 3 menus d&eacute;roulants.</i></div>
 
     <div class="form-actions">
         <input type="submit" class="btn btn-primary" value="Valider">&nbsp;

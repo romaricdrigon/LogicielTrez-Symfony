@@ -1,14 +1,29 @@
+# copy to parameters.yml, edit with *your values*
 parameters:
+    # database information
     database_driver: pdo_mysql
-    database_host: YOUR_DB_HOST
+    database_host: *YOUR_DB_HOST*
     database_path: null
-    database_port: ITS_PORT
-    database_name: YOUR_BB_NAME
-    database_user: YOUR_DB_USER
-    database_password: YOUR_DB_PASSWORD
+    database_port: *ITS_PORT*
+    database_name: *YOUR_BB_NAME*
+    database_user: *YOUR_DB_USER*
+    database_password: *YOUR_DB_PASSWORD*
+
+    # mail information (not useful at the moment)
     mailer_transport: smtp
     mailer_host: localhost
     mailer_user: null
     mailer_password: null
+
     locale: fr
-    secret: YOUR_SECRET
+
+    # generate a secret passphrase
+    # concatenate 2 from here should be good :
+    # http://www.random.org/strings/?num=1&len=20&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new
+    secret: *YOUR_SECRET*
+
+    # users for basic authentification
+    # as many as you want
+    # role is not used at the moment, leave ROLE_ADMIN
+    users:
+        *YOUR_USERNAME*: { password: *YOUR_PASSWORD*, roles: 'ROLE_ADMIN' }

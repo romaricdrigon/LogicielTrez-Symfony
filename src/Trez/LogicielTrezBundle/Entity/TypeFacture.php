@@ -24,6 +24,10 @@ class TypeFacture
      */
     private $nom;
 
+    /**
+     * @var boolean $sens
+     */
+    private $sens;
 
     /**
      * Get id
@@ -80,11 +84,6 @@ class TypeFacture
     {
         return $this->nom;
     }
-    /**
-     * @var boolean $sens
-     */
-    private $sens;
-
 
     /**
      * Set sens

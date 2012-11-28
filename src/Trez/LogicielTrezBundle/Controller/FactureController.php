@@ -19,9 +19,12 @@ class FactureController extends Controller
 
         $this->getBreadcrumbs($ligne);
 
+        $ligne->getFreeTotal($c, $d);
+
         return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', [
             'factures' => $factures,
-            'ligne' => $ligne
+            'ligne' => $ligne,
+            'is_full' => ($c === 0.0) && ($d === 0.0)
         ]);
     }
 

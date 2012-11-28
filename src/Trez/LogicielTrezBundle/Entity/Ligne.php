@@ -275,8 +275,8 @@ class Ligne
     */
     public function getFreeTotal(&$credit, &$debit)
     {
-        $total_debit = 0;
-        $total_credit = 0;
+        $total_debit = 0.0;
+        $total_credit = 0.0;
 
         foreach ($this->factures as $facture) {
             // rappel : convention du banquier
@@ -313,5 +313,4 @@ class Ligne
                 null);
         }
     }
-
 }

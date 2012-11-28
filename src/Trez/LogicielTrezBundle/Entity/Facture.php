@@ -3,9 +3,12 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Facture
+ *  * @Assert\Callback(methods={"isUnderTotal"})
  */
 class Facture
 {
@@ -48,6 +51,27 @@ class Facture
      * @var string $ref_paiement
      */
     private $ref_paiement;
+
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\Ligne
+     * @Assert\Valid
+     */
+    private $ligne;
+
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\Tiers
+     */
+    private $tiers;
+
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\MethodePaiement
+     */
+    private $methodePaiement;
+
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\TypeFacture
+     */
+    private $typeFacture;
 
 
     /**
@@ -220,26 +244,6 @@ class Facture
     {
         return $this->ref_paiement;
     }
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\Ligne
-     */
-    private $ligne;
-
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\Tiers
-     */
-    private $tiers;
-
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\MethodePaiement
-     */
-    private $methodePaiement;
-
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\TypeFacture
-     */
-    private $typeFacture;
-
 
     /**
      * Set ligne
@@ -331,5 +335,22 @@ class Facture
     public function getTypeFacture()
     {
         return $this->typeFacture;
+    }
+
+    /*
+     * Check if we don't exceed ligne total (debit or credit)
+     */
+    function isUnderTotal(ExecutionContext $context)
+    {
+        $this->ligne->getFreeTotal($credit, $debit);
+
+        $depassement = ($this->typeFacture->getSens() === true) ? $this->montant-$credit : $this->montant-$debit;
+
+        if ($depassement > 0) {
+            $context->addViolationAtSubPath('montant',
+                'Cette facture dépasse du total de la ligne de %montant% €',
+                ['%montant%' => $depassement],
+                null);
+        }
     }
 }

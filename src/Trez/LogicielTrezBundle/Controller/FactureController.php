@@ -56,6 +56,8 @@ class FactureController extends Controller
             $form->bindRequest($this->get('request'));
 
             if ($form->isValid()) {
+                // TODO : if user asked to adjust the line, we now take care of the stuff
+
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 

@@ -31,6 +31,7 @@ Trez\LogicielTrezBundle\Entity\Facture:
     manyToOne:
         ligne:
             targetEntity: Ligne
+            inversedBy: factures
         tiers:
             targetEntity: Tiers
         methodePaiement:

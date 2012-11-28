@@ -3,9 +3,12 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Ligne
+ * @Assert\Callback(methods={"isUnderTotalConstraint"})
  */
 class Ligne
 {
@@ -43,6 +46,19 @@ class Ligne
      * @var Trez\LogicielTrezBundle\Entity\SousCategorie
      */
     private $sousCategorie;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $factures;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->factures = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -220,4 +236,82 @@ class Ligne
     {
         return $this->sousCategorie;
     }
+
+    /**
+     * Add factures
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Facture $factures
+     * @return Ligne
+     */
+    public function addFacture(\Trez\LogicielTrezBundle\Entity\Facture $factures)
+    {
+        $this->factures[] = $factures;
+    
+        return $this;
+    }
+
+    /**
+     * Remove factures
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Facture $factures
+     */
+    public function removeFacture(\Trez\LogicielTrezBundle\Entity\Facture $factures)
+    {
+        $this->factures->removeElement($factures);
+    }
+
+    /**
+     * Get factures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFactures()
+    {
+        return $this->factures;
+    }
+
+   /*
+    * Get the remaining (free) money in a ligne
+    */
+    public function getFreeTotal(&$credit, &$debit)
+    {
+        $total_debit = 0;
+        $total_credit = 0;
+
+        foreach ($this->factures as $facture) {
+            // rappel : convention du banquier
+            if ($facture->getTypeFacture()->getSens() === true) {
+                $total_credit += $facture->getMontant();
+            } else {
+                $total_debit += $facture->getMontant();
+            }
+        }
+
+        $credit = $this->credit-$total_credit;
+        $debit = $this->debit-$total_debit;
+    }
+
+    /*
+     * Custom validator base on previous function :
+     * check if factures total
+     * did not exceed debit or credit
+     */
+    public function isUnderTotalConstraint(ExecutionContext $context)
+    {
+        $this->getFreeTotal($credit, $debit);
+
+        if ($credit < 0) {
+            $context->addViolationAtSubPath('credit',
+                'Le total des factures dépasse le crédit de la ligne de %depassement% €',
+                ['%depassement%' => $credit*-1],
+                null);
+        }
+        if ($debit < 0) {
+            $context->addViolationAtSubPath('debit',
+                'Le total des factures dépasse le débit de la ligne de %depassement% €',
+                ['%depassement%' => $debit*-1],
+                null);
+        }
+    }
+
 }

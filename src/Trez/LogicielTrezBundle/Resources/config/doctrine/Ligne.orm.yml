@@ -21,6 +21,10 @@ Trez\LogicielTrezBundle\Entity\Ligne:
             type: decimal
         credit:
             type: decimal
+    oneToMany:
+        factures:
+            targetEntity: Facture
+            mappedBy: ligne
     manyToOne:
         sousCategorie:
             targetEntity: SousCategorie

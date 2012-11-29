@@ -8,7 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Facture
- *  * @Assert\Callback(methods={"isUnderTotal"})
+ *  @Assert\Callback(methods={"isUnderTotal"})
+ *  @Assert\Callback(methods={"isNotNull"})
  */
 class Facture
 {
@@ -340,7 +341,7 @@ class Facture
     /*
      * Check if we don't exceed ligne total (debit or credit)
      */
-    function isUnderTotal(ExecutionContext $context)
+    public function isUnderTotal(ExecutionContext $context)
     {
         $this->ligne->getFreeTotal($credit, $debit);
 
@@ -351,6 +352,16 @@ class Facture
                 'Cette facture dépasse du total de la ligne de %montant% €',
                 ['%montant%' => $depassement],
                 null);
+        }
+    }
+
+    /*
+     * Check if montant is not null
+     */
+    public function isNotNull(ExecutionContext $context)
+    {
+        if ($this->montant === 0.0) {
+            $context->addViolationAtSubPath('montant', 'Une facture ne peut pas avoir un montant nul', [], null);
         }
     }
 }

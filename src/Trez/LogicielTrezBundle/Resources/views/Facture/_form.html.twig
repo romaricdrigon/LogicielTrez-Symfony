@@ -36,7 +36,9 @@
     {{ form_rest(form) }}
 
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
+        <input type="submit" class="btn btn-primary" name="add"  value="Valider">&nbsp;
+        <input type="submit" class="btn btn-warning" name="adjust" value="Valider et ajuster la ligne"
+               title="La ligne sera ajustée afin que son total soit égal au total des factures, celle-ci inclue, en tenant compte du sens (débit ou crédit)">&nbsp;
         <a href="{{ path('facture_index', {'ligne_id': ligne_id}) }}" class="btn">Annuler</a>
     </div>
 </form>
@@ -58,7 +60,7 @@
             var _date = new Date();
 
             $('#trez_logicieltrezbundle_facturetype_date_paiement_day').val(_date.getDate());
-            $('#trez_logicieltrezbundle_facturetype_date_paiement_month').val((_date.getMonth()+1)%12);
+            $('#trez_logicieltrezbundle_facturetype_date_paiement_month').val((_date.getMonth()+1)%13);
             $('#trez_logicieltrezbundle_facturetype_date_paiement_year').val(_date.getFullYear());
         });
 

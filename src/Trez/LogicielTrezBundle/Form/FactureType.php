@@ -55,7 +55,8 @@ class FactureType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Trez\LogicielTrezBundle\Entity\Facture'
+            'data_class' => 'Trez\LogicielTrezBundle\Entity\Facture',
+            'validation_groups' => ['under_total', 'Default']
         ));
     }
 

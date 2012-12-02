@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Ligne
- * @Assert\Callback(methods={"isUnderTotalConstraint"})
+ * @Assert\Callback(methods={"isUnderTotalConstraint"}, groups={"under_total"})
  */
 class Ligne
 {
@@ -270,15 +270,19 @@ class Ligne
         return $this->factures;
     }
 
-   /*
-    * Get the remaining (free) money in a ligne
-    */
-    public function getFreeTotal(&$credit, &$debit)
+    /*
+     * Get the sum of all factures
+     */
+    public function getFacturesTotal(&$credit, &$debit, $excluded_facture = -1)
     {
         $total_debit = 0.0;
         $total_credit = 0.0;
 
         foreach ($this->factures as $facture) {
+            if ($facture->getId() === $excluded_facture) {
+                continue;
+            }
+
             // rappel : convention du banquier
             if ($facture->getTypeFacture()->getSens() === true) {
                 $total_credit += $facture->getMontant();
@@ -286,6 +290,17 @@ class Ligne
                 $total_debit += $facture->getMontant();
             }
         }
+
+        $credit = $total_credit;
+        $debit = $total_debit;
+    }
+
+   /*
+    * Get the remaining (free) money in a ligne
+    */
+    public function getFreeTotal(&$credit, &$debit, $exclude_facture = -1)
+    {
+        $this->getFacturesTotal($total_credit, $total_debit, $exclude_facture);
 
         $credit = $this->credit-$total_credit;
         $debit = $this->debit-$total_debit;
@@ -311,6 +326,21 @@ class Ligne
                 'Le total des factures dépasse le débit de la ligne de %depassement% €',
                 ['%depassement%' => $debit*-1],
                 null);
+        }
+    }
+
+    /*
+     * Adjust a ligne debit/credit so it's exactly the sum
+     * of all factures
+     */
+    public function adjustTotal($sens)
+    {
+        $this->getFacturesTotal($credit, $debit);
+
+        if ($sens == true) {
+            $this->credit = $credit;
+        } else {
+            $this->debit = $debit;
         }
     }
 }

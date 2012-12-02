@@ -48,26 +48,39 @@ class FactureController extends Controller
 
     public function addAction($ligne_id)
     {
+        $request = $this->get('request');
         $em = $this->get('doctrine.orm.entity_manager');
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
 
         $object = new Facture();
         $object->setLigne($ligne);
-        $form = $this->get('form.factory')->create(new FactureType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
+            // if user asked to adjust the ligne total, we disable some validation
+            if ($request->request->get('adjust', false)) {
+                $form = $this->get('form.factory')->create(new FactureType(), $object, ['validation_groups' => ['Default']]);
+            } else {
+                $form = $this->get('form.factory')->create(new FactureType(), $object);
+            }
+
             $form->bindRequest($this->get('request'));
 
             if ($form->isValid()) {
-                // TODO : if user asked to adjust the line, we now take care of the stuff
+                $em->persist($object);
+                $em->flush();
 
-                $this->get('doctrine.orm.entity_manager')->persist($object);
-                $this->get('doctrine.orm.entity_manager')->flush();
+                // if user asked to adjust the ligne total just do it
+                if ($request->request->get('adjust', false)) {
+                    $object->getLigne()->adjustTotal($object->getTypeFacture()->getSens());
+                    $em->flush(); // we have to flush before AND after, a second time
+                }
 
                 $this->get('session')->setFlash('success', "La facture a bien été émise");
 
                 return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
             }
+        } else {
+            $form = $this->get('form.factory')->create(new FactureType(), $object);
         }
 
         $this->getBreadcrumbs($ligne);
@@ -80,19 +93,34 @@ class FactureController extends Controller
 
     public function editAction($ligne_id, $id)
     {
+        $request = $this->get('request');
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
-        $form = $this->get('form.factory')->create(new FactureType(), $object);
 
-        if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+        if ('POST' === $request->getMethod()) {
+            // if user asked to adjust the ligne total, we disable some validation
+            if ($request->request->get('adjust', false)) {
+                $form = $this->get('form.factory')->create(new FactureType(), $object, ['validation_groups' => ['Default']]);
+            } else {
+                $form = $this->get('form.factory')->create(new FactureType(), $object);
+            }
+
+            $form->bindRequest($request);
+
             if ($form->isValid()) {
+                // if user asked to adjust the ligne total just do it
+                if ($request->request->get('adjust', false)) {
+                    $object->getLigne()->adjustTotal($object->getTypeFacture()->getSens());
+                }
+
                 $em->flush();
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
             }
+        } else {
+            $form = $this->get('form.factory')->create(new FactureType(), $object);
         }
 
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);

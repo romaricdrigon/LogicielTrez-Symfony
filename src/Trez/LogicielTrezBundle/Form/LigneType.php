@@ -27,7 +27,8 @@ class LigneType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Trez\LogicielTrezBundle\Entity\Ligne'
+            'data_class' => 'Trez\LogicielTrezBundle\Entity\Ligne',
+            'validation_groups' => ['under_total', 'Default']
         ));
     }
 

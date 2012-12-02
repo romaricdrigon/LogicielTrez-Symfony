@@ -8,8 +8,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Facture
- *  @Assert\Callback(methods={"isUnderTotal"})
- *  @Assert\Callback(methods={"isNotNull"})
+ *  @Assert\Callback(methods={"isUnderTotal"}, groups={"under_total"})
+ *  @Assert\Callback(methods={"isNotNull"}, groups={"under_total"})
  */
 class Facture
 {
@@ -343,7 +343,7 @@ class Facture
      */
     public function isUnderTotal(ExecutionContext $context)
     {
-        $this->ligne->getFreeTotal($credit, $debit);
+        $this->ligne->getFreeTotal($credit, $debit, $this->id);
 
         $depassement = ($this->typeFacture->getSens() === true) ? $this->montant-$credit : $this->montant-$debit;
 

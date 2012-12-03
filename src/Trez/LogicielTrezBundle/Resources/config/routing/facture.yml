@@ -7,7 +7,7 @@ facture_detail:
     defaults: { _controller: TrezLogicielTrezBundle:Facture:detail }
 
 facture_add:
-    pattern: /add/{ligne_id}
+    pattern: /add/{ligne_id}/{type_id}
     defaults: { _controller: TrezLogicielTrezBundle:Facture:add }
 
 facture_edit:

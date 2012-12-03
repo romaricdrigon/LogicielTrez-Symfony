@@ -11,7 +11,7 @@ class FactureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero', 'integer')
+            ->add('numero', 'integer', ['disabled' => true])
             ->add('objet', 'text')
             ->add('montant', 'money')
             ->add('date', 'date', [
@@ -47,7 +47,8 @@ class FactureType extends AbstractType
             ])
             ->add('typeFacture', 'entity', [
                 'class' => 'Trez\LogicielTrezBundle\Entity\TypeFacture',
-                'property' => 'abr'
+                'property' => 'abr',
+                'disabled' => true
             ])
         ;
     }

@@ -13,6 +13,7 @@ class FactureController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+        $type_factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
         $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
             ['ligne' => $ligne],
             ['numero' => 'DESC']);
@@ -24,6 +25,7 @@ class FactureController extends Controller
         return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', [
             'factures' => $factures,
             'ligne' => $ligne,
+            'type_factures' => $type_factures,
             'is_full' => ($c === 0.0) && ($d === 0.0)
         ]);
     }
@@ -46,7 +48,7 @@ class FactureController extends Controller
         ));
     }
 
-    public function addAction($ligne_id)
+    public function addAction($ligne_id, $type_id)
     {
         $request = $this->get('request');
         $em = $this->get('doctrine.orm.entity_manager');
@@ -54,6 +56,14 @@ class FactureController extends Controller
 
         $object = new Facture();
         $object->setLigne($ligne);
+
+        // take care of type facture and numerotation
+        $type_facture = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->find($type_id);
+        $object->setTypeFacture($type_facture);
+
+        $exercice = $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice();
+        $last_numero = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getLastFactureNumero($exercice->getId(), $type_id);
+        $object->setNumero($last_numero[0]['numero']+1);
 
         if ('POST' === $this->get('request')->getMethod()) {
             // if user asked to adjust the ligne total, we disable some validation
@@ -87,7 +97,8 @@ class FactureController extends Controller
 
         return $this->render('TrezLogicielTrezBundle:Facture:add.html.twig', array(
             'form' => $form->createView(),
-            'ligne_id' => $ligne_id
+            'ligne_id' => $ligne_id,
+            'type_facture_id' => $type_id
         ));
     }
 

@@ -36,14 +36,18 @@
     </table>
 
     <div>
-        {% if is_full == true %}
-            <a href="#" class='btn btn-primary disabled'>
+        <div class="btn-group">
+            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
                 <i class="icon-plus"></i> &Eacute;mettre une facture
+                <span class="caret"></span>
             </a>
-        {% else %}
-            <a href="{{ path('facture_add', {'ligne_id': ligne.id}) }}" class='btn btn-primary'>
-                <i class="icon-plus"></i> &Eacute;mettre une facture
-            </a>
-        {% endif %}
+            <ul class="dropdown-menu">
+                {% for type in type_factures %}
+                    <li><a href="{{ path('facture_add', {'ligne_id': ligne.id, 'type_id': type.id}) }}">
+                        <b>{{ type.abr }}</b> - {{ type.nom }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
 {% endblock %}

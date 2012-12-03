@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class ExerciceRepository extends EntityRepository
 {
+    public function getLastFactureNumero($exercice_id, $type_facture_id)
+    {
+        $em = $this->getEntityManager();
+        $dql =  'SELECT f.numero FROM TrezLogicielTrezBundle:Facture f '
+            .'JOIN f.ligne l '
+            .'JOIN l.sousCategorie s '
+            .'JOIN s.categorie c '
+            .'JOIN c.budget b '
+            .'JOIN b.exercice e '
+            .'JOIN f.typeFacture t '
+            .'WHERE e.id = ?1 AND t.id = ?2 '
+            .'ORDER BY f.numero DESC';
+
+        $query = $em->createQuery($dql);
+        $query->setParameters([1 => $exercice_id, 2 => $type_facture_id]);
+
+        $result = $query->getScalarResult();
+        $result[]['numero'] = '0';
+
+        return $result;
+    }
 }

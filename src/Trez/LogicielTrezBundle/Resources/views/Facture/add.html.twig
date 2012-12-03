@@ -13,5 +13,5 @@
 {% block body %}
     <h1>&Eacute;mettre une facture</h1>
 
-    {% include "TrezLogicielTrezBundle:Facture:_form.html.twig" with {'route': 'facture_add', 'route_options': {'ligne_id': ligne_id}, 'ligne_id': ligne_id} %}
+    {% include "TrezLogicielTrezBundle:Facture:_form.html.twig" with {'route': 'facture_add', 'route_options': {'ligne_id': ligne_id, 'type_id': type_facture_id}, 'ligne_id': ligne_id} %}
 {%  endblock %}

@@ -98,10 +98,10 @@ class SousCategorieController extends Controller
     private function getBreadcrumbs($categorie)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercice ".$categorie->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budget ".$categorie->getBudget()->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $categorie->getBudget()->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégorie  ".$categorie->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $categorie->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégories", $this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie->getId()]));
+        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budgets de ".$categorie->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $categorie->getBudget()->getExercice()->getId()]));
+        $breadcrumbs->addItem("Catégories de ".$categorie->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $categorie->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégories de  ".$categorie->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie->getId()]));
     }
 }
 

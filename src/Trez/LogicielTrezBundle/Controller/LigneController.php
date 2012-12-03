@@ -99,10 +99,10 @@ class LigneController extends Controller
     private function getBreadcrumbs($sous_categorie)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercice ".$sous_categorie->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budget ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $sous_categorie->getCategorie()->getBudget()->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégorie  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégorie  ".$sous_categorie->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Lignes", $this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie->getId()]));
+        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budgets de ".$sous_categorie->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Catégories de ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégories de  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Lignes de  ".$sous_categorie->getNom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie->getId()]));
     }
 }

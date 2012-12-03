@@ -96,7 +96,7 @@ class BudgetController extends Controller
     private function getBreadcrumbs($exercice)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercice ".$exercice->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets", $this->generateUrl('budget_index', ['exercice_id' => $exercice->getId()]));
+        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budgets de ".$exercice->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $exercice->getId()]));
     }
 }

@@ -159,11 +159,11 @@ class FactureController extends Controller
     private function getBreadcrumbs($ligne)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercice ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budget ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégorie  ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégorie  ".$ligne->getSousCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Ligne ".$ligne->getnom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $ligne->getSousCategorie()->getId()]));
-        $breadcrumbs->addItem("Facture", $this->generateUrl('facture_index', ['ligne_id' => $ligne->getId()]));
+        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budgets de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getId()]));
+        $breadcrumbs->addItem("Catégories de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégories de ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Lignes de ".$ligne->getSousCategorie()->getNom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $ligne->getSousCategorie()->getId()]));
+        $breadcrumbs->addItem("Factures de ".$ligne->getnom(), $this->generateUrl('facture_index', ['ligne_id' => $ligne->getId()]));
     }
 }

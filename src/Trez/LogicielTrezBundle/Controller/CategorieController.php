@@ -99,8 +99,8 @@ class CategorieController extends Controller
     private function getBreadcrumbs($budget)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercice ".$budget->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budget ".$budget->getNom(), $this->generateUrl('budget_index', ['exercice_id' => $budget->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégories", $this->generateUrl('categorie_index', ['budget_id' => $budget->getId()]));
+        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
+        $breadcrumbs->addItem("Budgets de ".$budget->getExercice()->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $budget->getExercice()->getId()]));
+        $breadcrumbs->addItem("Catégories de ".$budget->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $budget->getId()]));
     }
 }

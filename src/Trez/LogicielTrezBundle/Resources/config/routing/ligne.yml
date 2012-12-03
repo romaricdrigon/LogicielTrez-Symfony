@@ -13,3 +13,7 @@ ligne_edit:
 ligne_delete:
     pattern: /delete/{sous_categorie_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Ligne:delete }
+
+ligne_adjust:
+    pattern: /adjust/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Ligne:adjust }

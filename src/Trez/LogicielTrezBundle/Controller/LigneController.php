@@ -84,7 +84,7 @@ class LigneController extends Controller
         ));
     }
 
-    public function deleteAction($sous_categorie_id ,$id)
+    public function deleteAction($sous_categorie_id, $id)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($id);
@@ -94,6 +94,16 @@ class LigneController extends Controller
         $this->get('session')->setFlash('info', 'Ligne supprimée !');
 
         return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
+    }
+
+    public function adjustAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($id);
+        $ligne->adjustTotal('all');
+        $em->flush();
+
+        return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $id]));
     }
 
     private function getBreadcrumbs($sous_categorie)

@@ -337,7 +337,10 @@ class Ligne
     {
         $this->getFacturesTotal($credit, $debit);
 
-        if ($sens == true) {
+        if ($sens === 'all') {
+            $this->credit = $credit;
+            $this->debit = $debit;
+        } else if ($sens == true) {
             $this->credit = $credit;
         } else {
             $this->debit = $debit;

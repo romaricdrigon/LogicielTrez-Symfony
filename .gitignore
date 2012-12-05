@@ -43,6 +43,7 @@ Desktop.ini
 .project
 .settings/*
 .idea/*
+.buildpath
 
 # Composer #
 ############

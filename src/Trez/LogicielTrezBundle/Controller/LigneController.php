@@ -45,7 +45,7 @@ class LigneController extends Controller
 
                 $this->get('session')->setFlash('success', "La ligne a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('ligne_index', ['sousCategorie_id' => $sous_categorie_id]));
+                return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
             }
         }
 

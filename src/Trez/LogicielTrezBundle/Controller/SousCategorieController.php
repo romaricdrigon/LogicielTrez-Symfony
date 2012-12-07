@@ -13,10 +13,7 @@ class SousCategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
-        $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->findByCategorie(
-            ['categorie' => $categorie],
-            ['cle' => 'ASC']
-        );
+        $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAll($categorie_id);
 
         $this->getBreadcrumbs($categorie);
 

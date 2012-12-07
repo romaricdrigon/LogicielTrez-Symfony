@@ -13,7 +13,7 @@ class BudgetController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
-        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->findByExercice($exercice);
+        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->getAll($exercice);
 
         $this->getBreadcrumbs($exercice);
 

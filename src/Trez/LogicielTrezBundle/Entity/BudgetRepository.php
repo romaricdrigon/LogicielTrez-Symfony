@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class BudgetRepository extends EntityRepository
 {
+    public function getAll($exercice_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select(['b', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'])
+            ->from('TrezLogicielTrezBundle:Budget', 'b')
+            ->leftJoin('b.categories', 'c')
+            ->leftJoin('c.sousCategories', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->innerJoin('b.exercice', 'e')
+            ->where('e.id = ?1')
+            ->groupBy('b.id');
+
+        $query = $qb->getQuery();
+        $query->setParameters([1 => $exercice_id]);
+
+        return $query->getResult();
+    }
 }

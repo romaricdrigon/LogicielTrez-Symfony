@@ -74,6 +74,11 @@ class Facture
      */
     private $typeFacture;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $tvas;
+
 
     /**
      * Get id
@@ -363,5 +368,46 @@ class Facture
         if ($this->montant === 0.0) {
             $context->addViolationAtSubPath('montant', 'Une facture ne peut pas avoir un montant nul', [], null);
         }
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tvas = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add tvas
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Tva $tvas
+     * @return Facture
+     */
+    public function addTva(\Trez\LogicielTrezBundle\Entity\Tva $tvas)
+    {
+        $this->tvas[] = $tvas;
+    
+        return $this;
+    }
+
+    /**
+     * Remove tvas
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Tva $tvas
+     */
+    public function removeTva(\Trez\LogicielTrezBundle\Entity\Tva $tvas)
+    {
+        $this->tvas->removeElement($tvas);
+    }
+
+    /**
+     * Get tvas
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTvas()
+    {
+        return $this->tvas;
     }
 }

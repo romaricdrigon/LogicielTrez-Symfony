@@ -14,10 +14,9 @@ Trez\LogicielTrezBundle\Entity\Tva:
         montant_tva:
             type: decimal
             scale: 2
-    oneToOne:
-        facture:
-            targetEntity: Facture
     manyToOne:
         classeTva:
             targetEntity: ClasseTva
+        facture:
+            targetEntity: Facture
     lifecycleCallbacks: {  }

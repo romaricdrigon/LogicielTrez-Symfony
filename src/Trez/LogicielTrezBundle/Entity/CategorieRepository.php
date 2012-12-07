@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategorieRepository extends EntityRepository
 {
+    public function getAll($budget_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select(['c', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'])
+            ->from('TrezLogicielTrezBundle:Categorie', 'c')
+            ->leftJoin('c.sousCategories', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->innerJoin('c.budget', 'b')
+            ->where('b.id = ?1')
+            ->groupBy('c.id')
+            ->orderBy('c.cle', 'ASC');
+
+        $query = $qb->getQuery();
+        $query->setParameters([1 => $budget_id]);
+
+        return $query->getResult();
+    }
 }

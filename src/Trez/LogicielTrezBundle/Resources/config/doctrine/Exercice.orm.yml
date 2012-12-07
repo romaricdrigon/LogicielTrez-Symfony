@@ -16,4 +16,8 @@ Trez\LogicielTrezBundle\Entity\Exercice:
             type: date
         annee_2:
             type: date
+    oneToMany:
+        budgets:
+            targetEntity: Budget
+            mappedBy: exercice
     lifecycleCallbacks: {  }

@@ -20,4 +20,8 @@ Trez\LogicielTrezBundle\Entity\Categorie:
     manyToOne:
         budget:
             targetEntity: Budget
+    oneToMany:
+        sousCategories:
+            targetEntity: sousCategorie
+            mappedBy: categorie
     lifecycleCallbacks: {  }

@@ -29,6 +29,11 @@ class Exercice
      */
     private $annee_2;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $budgets;
+
 
     /**
      * Get id
@@ -107,5 +112,46 @@ class Exercice
     public function getAnnee2()
     {
         return $this->annee_2;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->budgets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add budgets
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Budget $budgets
+     * @return Exercice
+     */
+    public function addBudget(\Trez\LogicielTrezBundle\Entity\Budget $budgets)
+    {
+        $this->budgets[] = $budgets;
+    
+        return $this;
+    }
+
+    /**
+     * Remove budgets
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Budget $budgets
+     */
+    public function removeBudget(\Trez\LogicielTrezBundle\Entity\Budget $budgets)
+    {
+        $this->budgets->removeElement($budgets);
+    }
+
+    /**
+     * Get budgets
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBudgets()
+    {
+        return $this->budgets;
     }
 }

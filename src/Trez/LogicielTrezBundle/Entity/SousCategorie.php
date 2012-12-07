@@ -29,6 +29,11 @@ class SousCategorie
      */
     private $cle;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $lignes;
+
 
     /**
      * Get id
@@ -163,5 +168,46 @@ class SousCategorie
     public function getCategorie()
     {
         return $this->categorie;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->lignes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add lignes
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Ligne $lignes
+     * @return SousCategorie
+     */
+    public function addLigne(\Trez\LogicielTrezBundle\Entity\Ligne $lignes)
+    {
+        $this->lignes[] = $lignes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Ligne $lignes
+     */
+    public function removeLigne(\Trez\LogicielTrezBundle\Entity\Ligne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
     }
 }

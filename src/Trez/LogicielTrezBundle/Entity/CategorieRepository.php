@@ -29,4 +29,24 @@ class CategorieRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getLastCle($budget_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('c.cle')
+            ->from('TrezLogicielTrezBundle:Categorie', 'c')
+            ->innerJoin('c.budget', 'b')
+            ->where('b.id = ?1')
+            ->orderBy('c.cle', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->setParameters([1 => $budget_id]);
+
+        $result = $qb->getQuery()->getResult();
+        $result[]['cle'] = 0;
+
+        return $result;
+    }
 }

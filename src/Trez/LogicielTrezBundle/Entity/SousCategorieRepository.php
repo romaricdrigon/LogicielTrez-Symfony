@@ -28,4 +28,24 @@ class SousCategorieRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getLastCle($categorie_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('s.cle')
+            ->from('TrezLogicielTrezBundle:SousCategorie', 's')
+            ->innerJoin('s.categorie', 'c')
+            ->where('c.id = ?1')
+            ->orderBy('s.cle', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->setParameters([1 => $categorie_id]);
+
+        $result = $qb->getQuery()->getResult();
+        $result[]['cle'] = 0;
+
+        return $result;
+    }
 }

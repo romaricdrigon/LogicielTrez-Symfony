@@ -27,9 +27,12 @@ class SousCategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
+        $cle = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getLastCle($categorie_id);
 
         $object = new SousCategorie();
         $object->setCategorie($categorie);
+        $object->setCle($cle[0]['cle']+1);
+
         $form = $this->get('form.factory')->create(new SousCategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {

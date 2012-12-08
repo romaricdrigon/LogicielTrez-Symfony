@@ -27,9 +27,11 @@ class CategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
+        $cle = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getLastCle($budget_id);
 
         $object = new Categorie();
         $object->setBudget($budget);
+        $object->setCle($cle[0]['cle']+1);
 
         $form = $this->get('form.factory')->create(new CategorieType(), $object);
 

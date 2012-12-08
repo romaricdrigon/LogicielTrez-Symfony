@@ -24,11 +24,9 @@ class BudgetRepository extends EntityRepository
             ->leftJoin('s.lignes', 'l')
             ->innerJoin('b.exercice', 'e')
             ->where('e.id = ?1')
-            ->groupBy('b.id');
+            ->groupBy('b.id')
+            ->setParameters([1 => $exercice_id]);
 
-        $query = $qb->getQuery();
-        $query->setParameters([1 => $exercice_id]);
-
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }
 }

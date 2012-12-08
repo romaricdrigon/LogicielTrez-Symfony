@@ -23,11 +23,9 @@ class SousCategorieRepository extends EntityRepository
             ->innerJoin('s.categorie', 'c')
             ->where('c.id = ?1')
             ->groupBy('s.id')
-            ->orderBy('s.cle', 'ASC');
+            ->orderBy('s.cle', 'ASC')
+            ->setParameters([1 => $categorie_id]);
 
-        $query = $qb->getQuery();
-        $query->setParameters([1 => $categorie_id]);
-
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }
 }

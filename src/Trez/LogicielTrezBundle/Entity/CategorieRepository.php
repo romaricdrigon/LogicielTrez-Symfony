@@ -24,11 +24,9 @@ class CategorieRepository extends EntityRepository
             ->innerJoin('c.budget', 'b')
             ->where('b.id = ?1')
             ->groupBy('c.id')
-            ->orderBy('c.cle', 'ASC');
+            ->orderBy('c.cle', 'ASC')
+            ->setParameters([1 => $budget_id]);
 
-        $query = $qb->getQuery();
-        $query->setParameters([1 => $budget_id]);
-
-        return $query->getResult();
+        return $qb->getQuery()->getResult();
     }
 }

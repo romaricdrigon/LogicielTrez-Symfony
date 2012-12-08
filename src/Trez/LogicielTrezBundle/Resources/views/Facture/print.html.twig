@@ -1,0 +1,103 @@
+<!--extends 'TrezLogicielTrezBundle::layout.html.twig'-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}LogicielTrez{% endblock %}</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    {% block stylesheets %}
+        <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/trezlogicieltrez/css/style.css') }}" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/trezlogicieltrez/css/print.css') }}" />
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body >
+	<div class="page" style="padding-left:10px;">
+	<table width=100%;>
+		<tr>
+			<td>
+				INSERER LE LOGO
+			</td>
+			<td>
+				<table>
+					<tr><td>Club des 24 Heures de l'INSA</td></tr>
+					<tr><td>Rdc bat. D - 20,av Albert Einstein</td></tr>
+					<tr><td>69621 VILLEURBANNE Cedex</td></tr>
+					<tr><td>Tel : 04 72 43 70 00</td></tr>
+					<tr><td>Fax : 04 72 43 87 37</td></tr>
+				</table>
+			</td>
+			<td>
+				Facture n° : {{ facture.typeFacture.abr }} {{ facture.numero }}<br/>
+			</td>
+		</tr>
+	</table>
+	
+	<br/>
+	<div>BANDEAU DE FACTURE</div>
+	<br/>
+	<table width=100%;>
+		<tr>
+			<td width=25%>
+				Date {{ facture.date|date("m/d/Y") }}
+			</td>
+			<td width=40%>
+				&nbsp;
+			</td>
+			<td>
+				<fieldset>
+					<legend>Adressé à</legend>
+					Nom : <br/>
+					Adresse: <br/>
+				</fieldset>	
+			</td>
+		</tr>
+	</table>
+
+	<br/>
+	<table width=100%; border=1px;>
+		<thead>
+			<th>Description</th>
+			<th width=15%; >Montant HT</th>
+		</thead>
+
+		<tbody>
+		<tr>
+			<td>
+			<h5>{{ facture.objet }}</h5>
+			<span>{{ facture.commentaire }}</span>
+			</td>
+			<td>
+			{{ facture.montant }}€
+			</td>
+		</tr>
+		</tbody>
+	</table>
+	
+	<table align="right" width=100%>
+		{% for tva in tvas %}
+		<tr>
+			<td>&nbsp;</td>
+			<td align="left"; width=20%;>TVA à {{ tva.classeTva.taux }}%</td>
+			<td align="left"; width=15%;>{{ tva.montantTva }}€</td>
+		</tr>
+		{% endfor %}
+		<tr>
+			<td >&nbsp;</td>
+			<td align="left"; width=20%;>Total TTC</td>
+			<td align="left"; width=15%;>{{ totalTTC }}€</td>
+		</tr>
+	</table>
+
+	<fieldset>
+		<legend>Paiement</legend>
+		Réglement par virement ou par chèque à l'ordre du Club des 24 heures de l'INSA <br/>
+		INSERER LE RIB ICI<br/>
+		Réglement 30 jours fin de mois
+	</fieldset>	
+	<br/>
+	TVA Intracommunautaire : FR93 322 927 674 00018       NAF   913E
+	</div>
+</body>
+</html>

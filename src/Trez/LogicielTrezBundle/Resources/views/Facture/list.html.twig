@@ -23,6 +23,7 @@
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('facture_detail', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="D&eacute;tail"><i class="icon-eye-open"></i></a>
+                            <a class="btn btn-small" href="{{ path('facture_print', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="Imprimer"><i class="icon-print"></i></a>
                             <a class="btn btn-small" href="{{ path('facture_edit', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                             <a class="btn btn-small"
                                href="{{ path('facture_delete', {'ligne_id': ligne.id, 'id': facture.id}) }}"

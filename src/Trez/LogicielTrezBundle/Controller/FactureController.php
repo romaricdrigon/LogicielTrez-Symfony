@@ -143,6 +143,27 @@ class FactureController extends Controller
             'ligne_id' => $ligne_id
         ));
     }
+    
+    public function printAction($ligne_id, $id)
+    {
+    	$em = $this->get('doctrine.orm.entity_manager');
+    	$object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
+    	$tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
+    			['facture' => $object]
+    	);	
+    	
+    	$totalTTC = $object->getMontant();
+    	foreach ($tvas as $tva)
+    	{
+    		$totalTTC += $tva->getMontantTVA();
+    	}
+    	
+    	return $this->render('TrezLogicielTrezBundle:Facture:print.html.twig', array(
+    			'facture' => $object,
+    			'tvas' => $tvas, 
+    			'totalTTC' => $totalTTC
+    	));
+    }
 
     public function deleteAction($ligne_id ,$id)
     {

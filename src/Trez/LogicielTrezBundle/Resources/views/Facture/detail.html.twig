@@ -3,24 +3,17 @@
 {% block body %}
     <h1>D&eacute;tail de la facture {{ facture.typeFacture.abr }} {{ facture.numero }}</h1>
 
-<table>
+<table class="table">
+<tbody>
     <tr>
-        <td>Objet :</td>
+        <td>Objet:</td>
         <td width=5>&nbsp;</td>
         <td>{{ facture.objet }}</td>
     </tr>
-
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-
     <tr>
         <td>Montant :</td>
         <td width=5>&nbsp;</td>
         <td>{{ facture.montant }}</td>
-    </tr>
-    <tr>
-        <td colspan="3">&nbsp;</td>
     </tr>
 
     {% for tva in tvas %}
@@ -30,19 +23,11 @@
             <td>{{ tva.montantTva }}</td>
         </tr>
     {% endfor %}
-
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-
+    
     <tr>
         <td>Date :</td>
         <td width=5>&nbsp;</td>
         <td>{{ facture.date|date("m/d/Y") }}</td>
-    </tr>
-
-    <tr>
-        <td colspan="3">&nbsp;</td>
     </tr>
 
     {% if facture.datePaiement != null %}
@@ -54,17 +39,9 @@
         </tr>
 
         <tr>
-            <td colspan="3">&nbsp;</td>
-        </tr>
-
-        <tr>
             <td>Méthode de Paiement :</td>
             <td width=5>&nbsp;</td>
             <td>{{ facture.methodePaiement.nom }}</td>
-        </tr>
-
-        <tr>
-            <td colspan="3">&nbsp;</td>
         </tr>
 
     {% endif %}
@@ -74,18 +51,14 @@
         <td width=5>&nbsp;</td>
         <td>{{ facture.refPaiement }}</td>
     </tr>
-
-    <tr>
-        <td colspan="3">&nbsp;</td>
-    </tr>
-
+    
     <tr>
         <td>Commentaire :</td>
         <td width=5>&nbsp;</td>
         <td>{{ facture.commentaire }}</td>
     </tr>
 
-
+</tbody>
 </table>
 
     <div class="form-actions">

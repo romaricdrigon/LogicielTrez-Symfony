@@ -17,9 +17,9 @@
             {% for budget in budgets %}
                 <tr>
                     <td>{{ budget.0.nom }}</td>
-                    <td>{{ budget.debit|default('-') }}</td>
-                    <td>{{ budget.credit|default('-') }}</td>
-                    <td><i>{{ budget.credit - budget.debit }}</i></td>
+                    <td>{{ budget.debit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ budget.credit|number_format(0, ',', ' ') }}</td>
+                    <td><i>{{ (budget.credit - budget.debit)|number_format(0, ',', ' ') }}</i></td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('categorie_index', {'budget_id': budget.0.id}) }}" title="Acc&eacute;der aux cat&eacute;gories"><i class="icon-download"></i></a>

@@ -24,6 +24,11 @@ class Budget
      */
     private $categories;
 
+    /**
+     * @var boolean
+     */
+    private $verrouille;
+
 
     /**
      * Get id
@@ -125,5 +130,28 @@ class Budget
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Set verrouille
+     *
+     * @param boolean $verrouille
+     * @return Budget
+     */
+    public function setVerrouille($verrouille)
+    {
+        $this->verrouille = $verrouille;
+    
+        return $this;
+    }
+
+    /**
+     * Get verrouille
+     *
+     * @return boolean 
+     */
+    public function getVerrouille()
+    {
+        return $this->verrouille;
     }
 }

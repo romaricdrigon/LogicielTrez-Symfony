@@ -11,6 +11,8 @@ Trez\LogicielTrezBundle\Entity\Budget:
         nom:
             type: string
             length: 255
+        verrouille:
+            type: boolean
     manyToOne:
         exercice:
             targetEntity: Exercice

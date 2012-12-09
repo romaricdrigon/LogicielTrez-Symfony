@@ -17,6 +17,9 @@ class BudgetType extends AbstractType
                 'property' => 'edition',
                 'disabled' => true
             ])
+            ->add('verrouille', 'checkbox', [
+                'required' => false
+            ])
         ;
     }
 

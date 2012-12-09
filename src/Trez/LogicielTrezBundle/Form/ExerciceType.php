@@ -15,17 +15,18 @@ class ExerciceType extends AbstractType
             ->add('annee_1', 'date', array(
                 'input' => 'datetime',
                 'widget' => 'choice',
-                'format' => 'dd / MM / yyyy',
-                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
-                'data' => new \DateTime()
+                'format' => 'dd MM yyyy',
+                'pattern' => '{{ day }} {{ month }} {{ year }}'
             ))
             ->add('annee_2', 'date', array(
                 'input' => 'datetime',
                 'widget' => 'choice',
-                'format' => 'dd / MM / yyyy',
-                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
-                'data' => new \DateTime()
+                'format' => 'dd MM yyyy',
+                'pattern' => '{{ day }} {{ month }} {{ year }}'
             ))
+            ->add('verrouille', 'checkbox', [
+                'required' => false
+            ])
         ;
     }
 

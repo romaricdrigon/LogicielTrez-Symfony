@@ -34,6 +34,11 @@ class Exercice
      */
     private $budgets;
 
+    /**
+     * @var boolean
+     */
+    private $verrouille;
+
 
     /**
      * Get id
@@ -153,5 +158,28 @@ class Exercice
     public function getBudgets()
     {
         return $this->budgets;
+    }
+
+    /**
+     * Set verrouille
+     *
+     * @param boolean $verrouille
+     * @return Exercice
+     */
+    public function setVerrouille($verrouille)
+    {
+        $this->verrouille = $verrouille;
+    
+        return $this;
+    }
+
+    /**
+     * Get verrouille
+     *
+     * @return boolean 
+     */
+    public function getVerrouille()
+    {
+        return $this->verrouille;
     }
 }

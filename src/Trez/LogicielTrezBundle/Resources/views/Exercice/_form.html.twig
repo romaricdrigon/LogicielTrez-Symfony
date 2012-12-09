@@ -5,8 +5,9 @@
 
     <fieldset>
         {{ forms.field(form.edition, 'Édition') }}
-        {{ forms.field(form.annee_1, 'Année 1', {'class': 'date-selects'}, '', "Seule l'année est importante") }}
-        {{ forms.field(form.annee_2, 'Année 2', {'class': 'date-selects'}, '', "Seule l'année est importante") }}
+        {{ forms.field(form.annee_1, 'Année 1', {'class': 'date-selects'}) }}
+        {{ forms.field(form.annee_2, 'Année 2', {'class': 'date-selects'}) }}
+        {{ forms.field(form.verrouille, 'Verrouillé', {}, '', "<i>Les fils (budgets, factures) d'un exercice verrouillé ne pourront plus être édités</i>") }}
     </fieldset>
 
     {{ form_rest(form) }}
@@ -18,9 +19,9 @@
 </form>
 
 <script type="text/javascript">
-    // we set some values in useless selects and disable them
-    $('#trez_logicieltrezbundle_exercicetype_annee_1_day').val(1).attr('disabled', 'disabled');
-    $('#trez_logicieltrezbundle_exercicetype_annee_1_month').val(1).attr('disabled', 'disabled');
-    $('#trez_logicieltrezbundle_exercicetype_annee_2_day').val(1).attr('disabled', 'disabled');
-    $('#trez_logicieltrezbundle_exercicetype_annee_2_month').val(1).attr('disabled', 'disabled');
+    // we set some values in useless selects and hide them
+    $('#trez_logicieltrezbundle_exercicetype_annee_1_day').val(1).hide();
+    $('#trez_logicieltrezbundle_exercicetype_annee_1_month').val(1).hide();
+    $('#trez_logicieltrezbundle_exercicetype_annee_2_day').val(1).hide();
+    $('#trez_logicieltrezbundle_exercicetype_annee_2_month').val(1).hide();
 </script>

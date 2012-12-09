@@ -52,6 +52,7 @@ class ExerciceController extends Controller
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
+
             if ($form->isValid()) {
                 $em->flush();
 

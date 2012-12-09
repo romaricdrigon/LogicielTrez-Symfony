@@ -15,7 +15,7 @@
         </thead>
         <tbody>
             {% for budget in budgets %}
-                <tr>
+                <tr {% if budget.0.verrouille == true %}class="error"{% endif %}>
                     <td>{{ budget.0.nom }}</td>
                     <td>{{ budget.debit|number_format(0, ',', ' ') }}</td>
                     <td>{{ budget.credit|number_format(0, ',', ' ') }}</td>

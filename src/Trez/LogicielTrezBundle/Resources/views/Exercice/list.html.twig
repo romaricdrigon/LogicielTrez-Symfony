@@ -14,7 +14,7 @@
         </thead>
         <tbody>
             {% for exercice in exercices %}
-                <tr>
+                <tr {% if exercice.verrouille == true %}class="error"{% endif %}>
                     <td>{{ exercice.edition }}</td>
                     <td>{{ exercice.annee1|date("Y") }}</td>
                     <td>{{ exercice.annee2|date("Y") }}</td>

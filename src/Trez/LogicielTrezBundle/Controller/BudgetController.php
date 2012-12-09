@@ -62,6 +62,7 @@ class BudgetController extends Controller
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
+
             if ($form->isValid()) {
                 $em->flush();
 
@@ -72,7 +73,7 @@ class BudgetController extends Controller
         }
 
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
-        $this->getBreadcrumbs($exercice_id, $exercice);
+        $this->getBreadcrumbs($exercice);
 
         return $this->render('TrezLogicielTrezBundle:Budget:edit.html.twig', array(
             'form' => $form->createView(),

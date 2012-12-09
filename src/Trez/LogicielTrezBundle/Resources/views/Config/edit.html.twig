@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la variable de config {{ config.cle }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Config:_form.html.twig" with {'route': 'config_edit', 'route_options': {'cle': config.cle, 'id': config.id}, 'id': config.id} %}
+{%  endblock %}

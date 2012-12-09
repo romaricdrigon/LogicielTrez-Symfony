@@ -1,0 +1,196 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Gestion de la configuration</h1>
+<div class="accordion" id="accordion2">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#tva">
+			Liste des tva
+			</a>
+		</div>
+	<div id="tva" class="accordion-body collapse in">
+		<div class="accordion-inner">
+			<table class="table">  
+					<thead>  
+					  <tr>  
+						<th>ID</th>  
+						<th>Nom</th>  
+						<th>Taux</th>   
+						<th>Actif</th>   
+						<th width="50"></th>   
+					  </tr>  
+					</thead>  
+					
+					<tbody>  
+					 {% for tva in tvas %}
+					  <tr>  
+						<td>{{ tva.id }}</td>  
+						<td>{{ tva.nom }}</td>  
+						<td>{{ tva.taux }}</td>  
+						<td>{{ tva.actif }}</td> 
+						<td>
+						    <div class="btn-group">
+								<a class="btn btn-small" href="{{ path('classeTva_edit', {'id': tva.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+								<a class="btn btn-small"
+								   href="{{ path('classeTva_delete', {'id': tva.id}) }}"
+								   onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la classe de tva \'{{ tva.nom }}\' ?');"
+								   title="Supprimer"><i class="icon-remove"></i></a>
+							</div>
+						</td>
+					  </tr>  
+					 {% endfor %}
+				</tbody> 
+			</table>
+			<div>
+				<a href="{{ path('classeTva_add') }}" class='btn btn-primary'>
+				<i class="icon-plus"></i> Ajouter une classe de tva</a>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#facture">
+			Liste des types de facture
+			</a>
+		</div>
+		<div id="facture" class="accordion-body collapse">
+			<div class="accordion-inner">
+				<table class="table">  
+						<thead>  
+						  <tr>  
+							<th>ID</th>  
+							<th>Abr&eacute;viation</th>  
+							<th>Nom</th> 
+							<th>Sens</th>   
+							<th width="50"></th>   
+						  </tr>  
+						</thead>  
+						
+						<tbody>  
+							{% for facture in factures %}
+							<tr>  
+								<td>{{ facture.id }}</td> 
+								<td>{{ facture.abr }}</td>   
+								<td>{{ facture.nom }}</td>  
+								<td>{{ facture.sens }}</td>  
+								<td>
+									<div class="btn-group">
+										<a class="btn btn-small" href="{{ path('typeFacture_edit', {'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+										<a class="btn btn-small"
+										   href="{{ path('typeFacture_delete', {'id': facture.id}) }}"
+										   onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le type de facture \'{{ facture.nom }}\' ?');"
+										   title="Supprimer"><i class="icon-remove"></i></a>
+									</div>
+								</td>
+							</tr>  
+							{% endfor %}
+					</tbody> 
+				</table>
+				<div>
+					<a href="{{ path('typeFacture_add') }}" class='btn btn-primary'>
+					<i class="icon-plus"></i> Ajouter un type de facture</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#paiement">
+			Liste des m&eacute;thode de paiement
+			</a>
+		</div>
+		<div id="paiement" class="accordion-body collapse">
+			<div class="accordion-inner">
+			<table class="table">  
+			<caption></caption>
+					<thead>  
+					  <tr>  
+						<th>ID</th>  
+						<th>Nom</th>    
+						<th width="50"></th>  
+					  </tr>  
+					</thead>  
+					
+					<tbody>  
+					  
+					  {% for paiement in paiements %}
+					  <tr>  
+							<td>{{ paiement.id }}</td> 
+							<td>{{ paiement.nom }}</td> 
+							<td>
+								<div class="btn-group">
+									<a class="btn btn-small" href="{{ path('methodePaiement_edit', {'id': paiement.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+									<a class="btn btn-small"
+									   href="{{ path('methodePaiement_delete', {'id': paiement.id}) }}"
+									   onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le type de paiement \'{{ paiement.nom }}\' ?');"
+									   title="Supprimer"><i class="icon-remove"></i></a>
+								</div>
+							</td>
+					   </tr>   
+					   {% endfor %}
+					  
+				</tbody> 
+			</table>
+				<div>
+					<a href="{{ path('methodePaiement_add') }}" class='btn btn-primary'>
+					<i class="icon-plus"></i> Ajouter une m&eacute;thode de paiement</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#general">
+			Config générale
+			</a>
+		</div>
+		<div id="general" class="accordion-body collapse">
+			<div class="accordion-inner">
+			<table class="table">  
+			<caption></caption>
+					<thead>  
+					  <tr>  
+						<th>Cl&eacute;</th>  
+						<th>Valeur</th>    
+						<th width="50"></th>  
+					  </tr>  
+					</thead>  
+					
+					<tbody>  
+					  
+					  {% for config in configs %}
+					  <tr>  
+							<td>{{ config.cle }}</td> 
+							<td>{{ config.valeur }}</td> 
+							<td>
+								<div class="btn-group">
+									<a class="btn btn-small" href="{{ path('config_edit', {'id': config.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+									<a class="btn btn-small"
+									   href="{{ path('config_delete', {'id': config.id}) }}"
+									   onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la config {{ config.cle }} ?');"
+									   title="Supprimer"><i class="icon-remove"></i></a>
+								</div>
+							</td>
+					   </tr>   
+					   {% endfor %}
+					  
+				</tbody> 
+			</table>
+				<div>
+					<a href="{{ path('config_add') }}" class='btn btn-primary'>
+					<i class="icon-plus"></i> Ajouter une config g&eacute;n&eacute;rale</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+    
+
+    
+    
+{% endblock %}

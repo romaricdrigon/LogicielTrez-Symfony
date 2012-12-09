@@ -38,7 +38,7 @@ class MethodePaiementController extends Controller
 
                 $this->get('session')->setFlash('success', "La méthode de paiement a bien été ajouté");
 
-                return new RedirectResponse($this->generateUrl('methodePaiement_index'));
+                return new RedirectResponse($this->generateUrl('config_index'));
             }
         }
 
@@ -60,7 +60,7 @@ class MethodePaiementController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('methodePaiement_index'));
+                return new RedirectResponse($this->generateUrl('config_index'));
             }
         }
 
@@ -79,6 +79,6 @@ class MethodePaiementController extends Controller
 
         $this->get('session')->setFlash('info', 'Methode de paiement supprimée !');
 
-        return new RedirectResponse($this->generateUrl('methodePaiement_index'));
+        return new RedirectResponse($this->generateUrl('config_index'));
     }
 }

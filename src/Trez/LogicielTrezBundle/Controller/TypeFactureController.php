@@ -38,7 +38,7 @@ class TypeFactureController extends Controller
 
                 $this->get('session')->setFlash('success', "Le type de facture a bien été ajouté");
 
-                return new RedirectResponse($this->generateUrl('typeFacture_index'));
+                return new RedirectResponse($this->generateUrl('config_index'));
             }
         }
 
@@ -60,7 +60,7 @@ class TypeFactureController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('typeFacture_index'));
+                return new RedirectResponse($this->generateUrl('config_index'));
             }
         }
 
@@ -79,6 +79,6 @@ class TypeFactureController extends Controller
 
         $this->get('session')->setFlash('info', 'Type de facture supprimé !');
 
-        return new RedirectResponse($this->generateUrl('typeFacture_index'));
+        return new RedirectResponse($this->generateUrl('config_index'));
     }
 }

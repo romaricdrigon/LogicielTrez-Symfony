@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la m&eacute;thode de paiement {{ methodePaiement.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:MethodePaiement:_form.html.twig" with {'route': 'methodePaiement_edit', 'route_options': {'nom': methodePaiement.nom, 'id': methodePaiement.id}, 'id': methodePaiement.id} %}
+{%  endblock %}

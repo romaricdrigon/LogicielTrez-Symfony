@@ -20,8 +20,16 @@ class ConfigController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $configs = $em->getRepository('TrezLogicielTrezBundle:Config')->findAll();
-
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('configs' => $configs));
+        $tvas = $em->getRepository('TrezLogicielTrezBundle:ClasseTva')->findAll();
+        $paiements = $em->getRepository('TrezLogicielTrezBundle:MethodePaiement')->findAll();
+        $factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
+        
+        return $this->render('TrezLogicielTrezBundle:Config:list.html.twig', 
+        	array(	'configs' => $configs,
+        			'tvas' => $tvas,		
+        			'paiements' => $paiements,
+        			'factures' => $factures
+        	));
     }
 
     public function addAction()

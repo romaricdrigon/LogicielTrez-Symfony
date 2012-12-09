@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter une variable de config</h1>
+
+    {% include "TrezLogicielTrezBundle:Config:_form.html.twig" with {'route': 'config_add'} %}
+{%  endblock %}

@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter le type de facture {{ TypeFacture.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:TypeFacture:_form.html.twig" with {'route': 'typeFacture_edit', 'route_options': {'nom': TypeFacture.nom, 'id': TypeFacture.id}, 'id': TypeFacture.id} %}
+{%  endblock %}

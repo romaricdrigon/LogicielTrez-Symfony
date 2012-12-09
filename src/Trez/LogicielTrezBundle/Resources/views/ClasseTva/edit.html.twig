@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter la classe de tva {{ classeTva.id }}</h1>
+
+    {% include "TrezLogicielTrezBundle:ClasseTva:_form.html.twig" with {'route': 'classeTva_edit', 'route_options': {'taux': classeTva.taux, 'id': classeTva.id}, 'id': classeTva.id} %}
+{%  endblock %}

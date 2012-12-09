@@ -12,4 +12,40 @@ use Doctrine\ORM\EntityRepository;
  */
 class SousCategorieRepository extends EntityRepository
 {
+    public function getAll($categorie_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select(['s', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'])
+            ->from('TrezLogicielTrezBundle:sousCategorie', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->innerJoin('s.categorie', 'c')
+            ->where('c.id = ?1')
+            ->groupBy('s.id')
+            ->orderBy('s.cle', 'ASC')
+            ->setParameters([1 => $categorie_id]);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getLastCle($categorie_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('s.cle')
+            ->from('TrezLogicielTrezBundle:SousCategorie', 's')
+            ->innerJoin('s.categorie', 'c')
+            ->where('c.id = ?1')
+            ->orderBy('s.cle', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->setParameters([1 => $categorie_id]);
+
+        $result = $qb->getQuery()->getResult();
+        $result[]['cle'] = 0;
+
+        return $result;
+    }
 }

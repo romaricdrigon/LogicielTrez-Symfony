@@ -8,6 +8,8 @@
         <tr>
             <th>Cl&eacute;</th>
             <th>Nom</th>
+            <th>Débit</th>
+            <th>Crédit</th>
             <th>Commentaire</th>
             <th width="70"></th>
         </tr>
@@ -15,16 +17,18 @@
         <tbody>
             {% for sous_categorie in sous_categories %}
                 <tr>
-                    <td>{{ sous_categorie.cle }}</td>
-                    <td>{{ sous_categorie.nom }}</td>
-                    <td>{{ sous_categorie.commentaire }}</td>
+                    <td>{{ sous_categorie.0.cle }}</td>
+                    <td>{{ sous_categorie.0.nom }}</td>
+                    <td>{{ sous_categorie.debit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ sous_categorie.credit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ sous_categorie.0.commentaire }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="{{ path('ligne_index', {'sous_categorie_id': sous_categorie.id}) }}" title="Acc&eacute;der aux lignes"><i class="icon-download"></i></a>
-                            <a class="btn btn-small" href="{{ path('sous_categorie_edit', {'categorie_id': categorie.id, 'id': sous_categorie.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small" href="{{ path('ligne_index', {'sous_categorie_id': sous_categorie.0.id}) }}" title="Acc&eacute;der aux lignes"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('sous_categorie_edit', {'categorie_id': categorie.id, 'id': sous_categorie.0.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                             <a class="btn btn-small"
-                               href="{{ path('sous_categorie_delete', {'categorie_id': categorie.id, 'id': sous_categorie.id}) }}"
-                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la sous-catégorie {{ sous_categorie.nom }} ?');"
+                               href="{{ path('sous_categorie_delete', {'categorie_id': categorie.id, 'id': sous_categorie.0.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la sous-catégorie {{ sous_categorie.0.nom }} ?');"
                                title="Supprimer"><i class="icon-remove"></i></a>
                         </div>
                     </td>

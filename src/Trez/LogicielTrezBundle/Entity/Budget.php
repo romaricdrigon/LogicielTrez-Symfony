@@ -19,6 +19,11 @@ class Budget
      */
     private $nom;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categories;
+
 
     /**
      * Get id
@@ -79,5 +84,46 @@ class Budget
     public function getExercice()
     {
         return $this->exercice;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add categories
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Categorie $categories
+     * @return Budget
+     */
+    public function addCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Categorie $categories
+     */
+    public function removeCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

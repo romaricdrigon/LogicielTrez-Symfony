@@ -20,4 +20,8 @@ Trez\LogicielTrezBundle\Entity\SousCategorie:
     manyToOne:
         categorie:
             targetEntity: Categorie
+    oneToMany:
+        lignes:
+            targetEntity: Ligne
+            mappedBy: sousCategorie
     lifecycleCallbacks: {  }

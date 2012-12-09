@@ -13,10 +13,7 @@ class CategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
-        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->findBy(
-            ['budget' => $budget],
-            ['cle' => 'ASC']
-        );
+        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAll($budget_id);
 
         $this->getBreadcrumbs($budget);
 
@@ -30,9 +27,11 @@ class CategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
+        $cle = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getLastCle($budget_id);
 
         $object = new Categorie();
         $object->setBudget($budget);
+        $object->setCle($cle[0]['cle']+1);
 
         $form = $this->get('form.factory')->create(new CategorieType(), $object);
 

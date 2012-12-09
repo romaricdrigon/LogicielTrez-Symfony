@@ -14,4 +14,8 @@ Trez\LogicielTrezBundle\Entity\Budget:
     manyToOne:
         exercice:
             targetEntity: Exercice
+    oneToMany:
+        categories:
+            targetEntity: Categorie
+            mappedBy: budget
     lifecycleCallbacks: {  }

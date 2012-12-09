@@ -7,20 +7,26 @@
         <thead>
         <tr>
             <th>Nom</th>
+            <th>Débit</th>
+            <th>Crédit</th>
+            <th>Solde</th>
             <th width="70"></th>
         </tr>
         </thead>
         <tbody>
             {% for budget in budgets %}
                 <tr>
-                    <td>{{ budget.nom }}</td>
+                    <td>{{ budget.0.nom }}</td>
+                    <td>{{ budget.debit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ budget.credit|number_format(0, ',', ' ') }}</td>
+                    <td><i>{{ (budget.credit - budget.debit)|number_format(0, ',', ' ') }}</i></td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="{{ path('categorie_index', {'budget_id': budget.id}) }}" title="Acc&eacute;der aux cat&eacute;gories"><i class="icon-download"></i></a>
-                            <a class="btn btn-small" href="{{ path('budget_edit', {'exercice_id': exercice.id, 'id': budget.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small" href="{{ path('categorie_index', {'budget_id': budget.0.id}) }}" title="Acc&eacute;der aux cat&eacute;gories"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('budget_edit', {'exercice_id': exercice.id, 'id': budget.0.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                             <a class="btn btn-small"
-                               href="{{ path('budget_delete', {'exercice_id': exercice.id, 'id': budget.id}) }}"
-                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le budget {{ budget.nom }} ?');"
+                               href="{{ path('budget_delete', {'exercice_id': exercice.id, 'id': budget.0.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le budget {{ budget.0.nom }} ?');"
                                title="Supprimer"><i class="icon-remove"></i></a>
                         </div>
                     </td>

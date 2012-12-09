@@ -34,6 +34,11 @@ class Categorie
      */
     private $budget;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $sousCategories;
+
 
     /**
      * Get id
@@ -135,5 +140,46 @@ class Categorie
     public function getBudget()
     {
         return $this->budget;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->sousCategories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add sousCategories
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories
+     * @return Categorie
+     */
+    public function addSousCategorie(\Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories)
+    {
+        $this->sousCategories[] = $sousCategories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove sousCategories
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories
+     */
+    public function removeSousCategorie(\Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories)
+    {
+        $this->sousCategories->removeElement($sousCategories);
+    }
+
+    /**
+     * Get sousCategories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSousCategories()
+    {
+        return $this->sousCategories;
     }
 }

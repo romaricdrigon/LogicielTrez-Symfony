@@ -28,6 +28,10 @@ Trez\LogicielTrezBundle\Entity\Facture:
             type: string
             length: 255
             nullable: true
+    oneToMany:
+        tvas:
+            targetEntity: Tva
+            mappedBy: facture
     manyToOne:
         ligne:
             targetEntity: Ligne

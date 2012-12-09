@@ -8,6 +8,8 @@
         <tr>
             <th>Cl&eacute;</th>
             <th>Nom</th>
+            <th>Débit</th>
+            <th>Crédit</th>
             <th>Commentaire</th>
             <th width="70"></th>
         </tr>
@@ -15,16 +17,18 @@
         <tbody>
             {% for categorie in categories %}
                 <tr>
-                    <td>{{ categorie.cle }}</td>
-                    <td>{{ categorie.nom }}</td>
-                    <td>{{ categorie.commentaire }}</td>
+                    <td>{{ categorie.0.cle }}</td>
+                    <td>{{ categorie.0.nom }}</td>
+                    <td>{{ categorie.debit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ categorie.credit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ categorie.0.commentaire }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="{{ path('sous_categorie_index', {'categorie_id': categorie.id}) }}" title="Acc&eacute;der aux sous-cat&eacute;gories"><i class="icon-download"></i></a>
-                            <a class="btn btn-small" href="{{ path('categorie_edit', {'budget_id': budget.id, 'id': categorie.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small" href="{{ path('sous_categorie_index', {'categorie_id': categorie.0.id}) }}" title="Acc&eacute;der aux sous-cat&eacute;gories"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('categorie_edit', {'budget_id': budget.id, 'id': categorie.0.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                             <a class="btn btn-small"
-                               href="{{ path('categorie_delete', {'budget_id': budget.id, 'id': categorie.id}) }}"
-                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la catégorie {{ categorie.nom }} ?');"
+                               href="{{ path('categorie_delete', {'budget_id': budget.id, 'id': categorie.0.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la catégorie {{ categorie.0.nom }} ?');"
                                title="Supprimer"><i class="icon-remove"></i></a>
                         </div>
                     </td>

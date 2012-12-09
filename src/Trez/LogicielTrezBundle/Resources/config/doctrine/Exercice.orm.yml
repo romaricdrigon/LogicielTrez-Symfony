@@ -22,4 +22,4 @@ Trez\LogicielTrezBundle\Entity\Exercice:
         budgets:
             targetEntity: Budget
             mappedBy: exercice
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks: {}

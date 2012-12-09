@@ -154,4 +154,21 @@ class Budget
     {
         return $this->verrouille;
     }
+
+    /*
+     * Check and block flush if exercice is verrouille (locked)
+     * Either the budget or the exercice may be locked
+     */
+    public function checkExerciceVerrouille()
+    {
+        $this->exercice->checkVerrouille();
+    }
+    public function checkVerrouille()
+    {
+        if ($this->verrouille === true) {
+            throw new \Exception("Vous ne pouvez pas modifier les membres d'un exercice verrouillé");
+        }
+
+        $this->exercice->checkVerrouille();
+    }
 }

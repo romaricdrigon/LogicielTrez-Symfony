@@ -24,4 +24,6 @@ Trez\LogicielTrezBundle\Entity\Categorie:
         sousCategories:
             targetEntity: sousCategorie
             mappedBy: categorie
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        preFlush: [ checkVerrouille ]
+        preRemove: [ checkVerrouille ]

@@ -28,4 +28,6 @@ Trez\LogicielTrezBundle\Entity\Ligne:
     manyToOne:
         sousCategorie:
             targetEntity: SousCategorie
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        preFlush: [ checkVerrouille ]
+        preRemove: [ checkVerrouille ]

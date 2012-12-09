@@ -42,4 +42,6 @@ Trez\LogicielTrezBundle\Entity\Facture:
             targetEntity: MethodePaiement
         typeFacture:
             targetEntity: TypeFacture
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        preFlush: [ checkVerrouille ]
+        preRemove: [ checkVerrouille ]

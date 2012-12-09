@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Exercice
@@ -181,5 +182,12 @@ class Exercice
     public function getVerrouille()
     {
         return $this->verrouille;
+    }
+
+    public function checkVerrouille()
+    {
+        if ($this->verrouille === true) {
+            throw new \Exception("Vous ne pouvez pas modifier les membres d'un budget verrouillé");
+        }
     }
 }

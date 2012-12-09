@@ -210,4 +210,12 @@ class SousCategorie
     {
         return $this->lignes;
     }
+
+    /*
+     * Check if parent is verrouille, thus throw an exception
+     */
+    public function checkVerrouille()
+    {
+        $this->categorie->checkVerrouille();
+    }
 }

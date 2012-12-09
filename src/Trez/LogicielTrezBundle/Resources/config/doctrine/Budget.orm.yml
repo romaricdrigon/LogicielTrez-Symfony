@@ -20,4 +20,6 @@ Trez\LogicielTrezBundle\Entity\Budget:
         categories:
             targetEntity: Categorie
             mappedBy: budget
-    lifecycleCallbacks: {  }
+    lifecycleCallbacks:
+        preFlush: [ checkExerciceVerrouille ]
+        preRemove: [ checkExerciceVerrouille ]

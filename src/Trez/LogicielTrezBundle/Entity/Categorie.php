@@ -182,4 +182,12 @@ class Categorie
     {
         return $this->sousCategories;
     }
+
+    /*
+     * Check if parent is verrouille, thus throw an exception
+     */
+    public function checkVerrouille()
+    {
+        $this->budget->checkVerrouille();
+    }
 }

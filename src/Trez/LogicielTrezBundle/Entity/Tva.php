@@ -164,4 +164,12 @@ class Tva
     {
         return $this->classeTva;
     }
+
+    /*
+     * Check if parent is verrouille, thus throw an exception
+     */
+    public function checkVerrouille()
+    {
+        $this->facture->checkVerrouille();
+    }
 }

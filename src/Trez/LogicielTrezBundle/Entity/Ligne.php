@@ -346,4 +346,12 @@ class Ligne
             $this->debit = $debit;
         }
     }
+
+    /*
+     * Check if parent is verrouille, thus throw an exception
+     */
+    public function checkVerrouille()
+    {
+        $this->sousCategorie->checkVerrouille();
+    }
 }

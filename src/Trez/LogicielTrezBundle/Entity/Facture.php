@@ -410,4 +410,12 @@ class Facture
     {
         return $this->tvas;
     }
+
+    /*
+     * Check if parent is verrouille, thus throw an exception
+     */
+    public function checkVerrouille()
+    {
+        $this->ligne->checkVerrouille();
+    }
 }

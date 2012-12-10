@@ -21,7 +21,7 @@ class TiersController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $tiers = $em->getRepository('TrezLogicielTrezBundle:Tiers')->findAll();
 
-        return $this->render('TrezLogicielTrezBundle:Default:index.html.twig', array('tiers' => $tiers));
+        return $this->render('TrezLogicielTrezBundle:Tiers:list.html.twig', array('tiers' => $tiers));
     }
 
     public function addAction()

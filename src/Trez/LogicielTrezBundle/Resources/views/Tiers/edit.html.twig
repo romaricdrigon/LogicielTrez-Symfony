@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter le tiers {{ tiers.nom }}</h1>
+
+    {% include "TrezLogicielTrezBundle:Tiers:_form.html.twig" with {'route': 'tiers_edit', 'route_options': {'id': tiers.id}} %}
+{%  endblock %}

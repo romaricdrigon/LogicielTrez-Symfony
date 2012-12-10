@@ -1,0 +1,54 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Liste des tiers</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>T&eacute;l&eacute;phone</th>
+            <th>Mail</th>
+            <th>Fax</th>
+            <th>Adresse</th>
+            <th>Responsable</th>
+            <th>RIB</th>
+            <th>Ordre des chèques</th>
+            <th>Commentaires</th>
+            <th width="70"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for tier in tiers %}
+                <tr>
+                    <td>{{ tier.id }}</td>
+                    <td>{{ tier.nom }}</td>
+					<td>{{ tier.telephone }}</td>
+                    <td>{{ tier.mail }}</td>
+                    <td>{{ tier.fax }}</td>
+                    <td>{{ tier.adresse }}</td>
+                    <td>{{ tier.responsable }}</td>
+                    <td>{{ tier.rib }}</td>
+                    <td>{{ tier.ordreCheque }}</td>
+                    <td>{{ tier.commentaire }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <a class="btn btn-small" href="{{ path('tiers_edit', {'id': tier.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small"
+                               href="{{ path('tiers_delete', {'id': tier.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le tiers \'{{ tier.nom }}\' ?');"
+                               title="Supprimer"><i class="icon-remove"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <a href="{{ path('tiers_add') }}" class='btn btn-primary'>
+            <i class="icon-plus"></i> Ajouter un tiers
+        </a>
+    </div>
+{% endblock %}

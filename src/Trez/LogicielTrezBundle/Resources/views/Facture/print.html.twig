@@ -14,12 +14,13 @@
 </head>
 <body >
 	<div class="page" style="padding-left:10px;">
+	<div class="bandeau">
 	<table width=100%;>
 		<tr>
-			<td>
-				<img href="{{ asset('bundles/trezlogicieltrez/img/logo24hinsa.png') }}" alt="LOGO" />
+			<td width=30%;>
+				<img src="{{ asset('bundles/trezlogicieltrez/img/logo24hinsa.png') }}" alt="LOGO" width="200mm"/>
 			</td>
-			<td>
+			<td width=30%;>
 				<table>
 					<tr><td>Club des 24 Heures de l'INSA</td></tr>
 					<tr><td>Rdc bat. D - 20,av Albert Einstein</td></tr>
@@ -28,19 +29,25 @@
 					<tr><td>Fax : 04 72 43 87 37</td></tr>
 				</table>
 			</td>
-			<td>
+			<td width=30%;>
 				Facture n° : {{ facture.typeFacture.abr }} {{ facture.numero }}<br/>
 			</td>
 		</tr>
 	</table>
-	
-	<br/>
-	<div>BANDEAU DE FACTURE</div>
-	<br/>
+	<div class="bandeau" style="background-image:url({{ asset('bundles/trezlogicieltrez/img/bandeau.png')}}); 
+	text-align: right; background-repeat:repeat-x;"><span style="margin-right:50mm ;background-color:white; font-size: 19px;">&nbsp;FACTURE&nbsp;</span></div>
+<div class="cleared";></div>
+	</div>
+
+<div class="contenu">
 	<table width=100%;>
 		<tr>
 			<td width=25%>
-				Date {{ facture.date|date("m/d/Y") }}
+				<fieldset>
+					<legend>Date: </legend>
+					{{ facture.date|date("m/d/Y") }}
+				</fieldset>	
+				
 			</td>
 			<td width=40%>
 				&nbsp;
@@ -55,7 +62,8 @@
 		</tr>
 	</table>
 
-	<br/>
+<br/><br/>
+
 	<table width=100%; border=1px;>
 		<thead>
 			<th>Description</th>
@@ -89,15 +97,18 @@
 			<td align="left"; width=15%;>{{ totalTTC }}€</td>
 		</tr>
 	</table>
+<div class="cleared";></div>
+</div>
 
+<div class="pied">
 	<fieldset>
 		<legend>Paiement</legend>
 		Réglement par virement ou par chèque à l'ordre du Club des 24 heures de l'INSA <br/>
-		INSERER LE RIB ICI<br/>
+		30056 00175 01750028667 81<br/>
 		Réglement 30 jours fin de mois
 	</fieldset>	
-	<br/>
-	TVA Intracommunautaire : FR93 322 927 674 00018       NAF   913E
+	<p style="font-style: italic;">TVA Intracommunautaire : FR93 322 927 674 00018       NAF   913E</p>
 	</div>
+</div>
 </body>
 </html>

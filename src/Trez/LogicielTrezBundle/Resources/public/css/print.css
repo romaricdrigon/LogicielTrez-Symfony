@@ -6,3 +6,44 @@
 	height:297mm; 
 	/*background-color: #CFCFCF;*/
 }
+.bandeau{
+    height:60mm; 	
+	
+}
+.contenu{
+	height:187mm; 
+	
+}
+.pied{
+    height:50mm;
+    text-align : center;
+	
+}
+.cleared {
+    float: none;
+    clear: both;
+    margin: 0;
+    padding: 0;
+    border: none;
+    font-size:1px;
+}
+.bloc_3 {
+    float:left;
+    margin-left: 2%;
+    width: 30%;
+    min-width: 30%;
+    max-width: 30%;
+    padding:5px;
+}
+fieldset{
+    margin-top: 10px;
+    padding : 10px;
+    border: 1px solid ;
+    border-radius: 3px 3px 3px 3px; 
+}
+legend{
+	border : none;
+	line-height: 10px;
+	text-align: left;
+	
+}

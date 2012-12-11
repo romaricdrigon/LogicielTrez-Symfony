@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class LigneRepository extends EntityRepository
 {
+    public function getLastCle($sous_categorie_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('l.cle')
+            ->from('TrezLogicielTrezBundle:Ligne', 'l')
+            ->innerJoin('l.sousCategorie', 'c')
+            ->where('c.id = ?1')
+            ->orderBy('l.cle', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1)
+            ->setParameters([1 => $sous_categorie_id]);
+
+        $result = $qb->getQuery()->getResult();
+        $result[]['cle'] = 0;
+
+        return $result;
+    }
 }

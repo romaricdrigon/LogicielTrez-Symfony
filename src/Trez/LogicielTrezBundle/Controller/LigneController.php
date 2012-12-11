@@ -30,9 +30,11 @@ class LigneController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
+        $cle = $em->getRepository('TrezLogicielTrezBundle:Ligne')->getLastCle($sous_categorie_id);
 
         $object = new Ligne();
         $object->setSousCategorie($sous_categorie);
+        $object->setCle($cle[0]['cle']+1);
 
         $form = $this->get('form.factory')->create(new LigneType(), $object);
 

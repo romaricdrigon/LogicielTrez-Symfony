@@ -13,7 +13,9 @@ class TypeFactureType extends AbstractType
         $builder
             ->add('abr')
             ->add('nom')
-            ->add('sens')
+            ->add('sens', 'checkbox', [
+            	'required' => false
+            ])
         ;
     }
 

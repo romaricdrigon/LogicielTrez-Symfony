@@ -13,7 +13,10 @@ class ClasseTvaType extends AbstractType
         $builder
             ->add('nom')
             ->add('taux')
-            ->add('actif')
+            ->add('actif', 'checkbox', [
+            	'required' => false, 
+            	'data' =>true
+            ])
         ;
     }
 

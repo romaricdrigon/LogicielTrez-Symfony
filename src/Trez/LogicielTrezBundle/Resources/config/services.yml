@@ -5,3 +5,7 @@ services:
 #    trez_logiciel_trez.example:
 #        class: %trez_logiciel_trez.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+    twig.extension.evaluate:
+        class: Trez\LogicielTrezBundle\Twig\Extension\EvaluateExtension
+        tags:
+            - { name: twig.extension }

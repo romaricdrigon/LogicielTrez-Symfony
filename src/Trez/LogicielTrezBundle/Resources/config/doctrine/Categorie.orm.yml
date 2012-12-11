@@ -22,7 +22,7 @@ Trez\LogicielTrezBundle\Entity\Categorie:
             targetEntity: Budget
     oneToMany:
         sousCategories:
-            targetEntity: sousCategorie
+            targetEntity: SousCategorie
             mappedBy: categorie
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]

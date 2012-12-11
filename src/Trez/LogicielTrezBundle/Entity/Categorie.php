@@ -142,6 +142,14 @@ class Categorie
         return $this->budget;
     }
 
+    /*
+     * Check if parent is verrouille, thus throw an exception
+     */
+    public function checkVerrouille()
+    {
+        $this->budget->checkVerrouille();
+    }
+    
     /**
      * Constructor
      */
@@ -153,10 +161,10 @@ class Categorie
     /**
      * Add sousCategories
      *
-     * @param \Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories
+     * @param \Trez\LogicielTrezBundle\Entity\SousCategorie $sousCategories
      * @return Categorie
      */
-    public function addSousCategorie(\Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories)
+    public function addSousCategorie(\Trez\LogicielTrezBundle\Entity\SousCategorie $sousCategories)
     {
         $this->sousCategories[] = $sousCategories;
     
@@ -166,9 +174,9 @@ class Categorie
     /**
      * Remove sousCategories
      *
-     * @param \Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories
+     * @param \Trez\LogicielTrezBundle\Entity\SousCategorie $sousCategories
      */
-    public function removeSousCategorie(\Trez\LogicielTrezBundle\Entity\sousCategorie $sousCategories)
+    public function removeSousCategorie(\Trez\LogicielTrezBundle\Entity\SousCategorie $sousCategories)
     {
         $this->sousCategories->removeElement($sousCategories);
     }
@@ -181,13 +189,5 @@ class Categorie
     public function getSousCategories()
     {
         return $this->sousCategories;
-    }
-
-    /*
-     * Check if parent is verrouille, thus throw an exception
-     */
-    public function checkVerrouille()
-    {
-        $this->budget->checkVerrouille();
     }
 }

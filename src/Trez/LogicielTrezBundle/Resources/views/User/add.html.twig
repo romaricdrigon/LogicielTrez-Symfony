@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un utilisateur</h1>
+
+    {% include "TrezLogicielTrezBundle:User:_form.html.twig" with {'route': 'user_add'} %}
+{%  endblock %}

@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter l'utilisateur {{ user.username }}</h1>
+
+    {% include "TrezLogicielTrezBundle:User:_form.html.twig" with {'route': 'user_edit', 'route_options': {'id': user.id}} %}
+{%  endblock %}

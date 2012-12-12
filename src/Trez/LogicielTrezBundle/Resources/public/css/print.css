@@ -2,8 +2,8 @@
     Elemeny généraux
 */
 .page{
-	width:210mm; 
-	height:297mm; 
+	width:200mm; 
+	height:290mm; 
 	/*background-color: #CFCFCF;*/
 }
 .bandeau{
@@ -11,7 +11,7 @@
 	
 }
 .contenu{
-	height:187mm; 
+	height:180mm; 
 	
 }
 .pied{

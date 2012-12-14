@@ -114,7 +114,7 @@ class LigneController extends Controller
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
         $breadcrumbs->addItem("Budgets de ".$sous_categorie->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
         $breadcrumbs->addItem("Catégories de ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégories de  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
+        $breadcrumbs->addItem("Sous-catégories de  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $sous_categorie->getCategorie()->getId()]));
         $breadcrumbs->addItem("Lignes de  ".$sous_categorie->getNom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie->getId()]));
     }
 }

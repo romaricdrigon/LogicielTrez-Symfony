@@ -23,9 +23,9 @@ class Ligne
     private $nom;
 
     /**
-     * @var string $description
+     * @var string $commentaire
      */
-    private $description;
+    private $commentaire;
 
     /**
      * @var integer $cle
@@ -92,29 +92,6 @@ class Ligne
     public function getNom()
     {
         return $this->nom;
-    }
-
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Ligne
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
     }
 
     /**
@@ -185,11 +162,6 @@ class Ligne
     {
         return $this->credit;
     }
-    /**
-     * @var string $commentaire
-     */
-    private $commentaire;
-
 
     /**
      * Set commentaire
@@ -353,5 +325,19 @@ class Ligne
     public function checkVerrouille()
     {
         $this->sousCategorie->checkVerrouille();
+    }
+
+    /*
+     * Duplicate a ligne object
+     */
+    public function duplicate()
+    {
+        $ligne = new Ligne();
+        $ligne->setCle($this->cle)
+                ->setCommentaire($this->commentaire);
+
+        // we stop here, we don't go through Factures
+
+        return $ligne;
     }
 }

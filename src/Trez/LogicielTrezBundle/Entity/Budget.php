@@ -171,4 +171,18 @@ class Budget
 
         $this->exercice->checkVerrouille();
     }
+
+    /*
+     * Duplicate a budget object
+     */
+    public function duplicate()
+    {
+        $n_budget = new Budget();
+        $n_budget->setNom('Copie de ' . $this->nom)
+                    ->setExercice($this->exercice)
+                    ->setVerrouille(false);
+        // verrouille has to be false
+
+        return $n_budget;
+    }
 }

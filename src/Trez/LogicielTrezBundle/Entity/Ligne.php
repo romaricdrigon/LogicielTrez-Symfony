@@ -334,9 +334,10 @@ class Ligne
     {
         $ligne = new Ligne();
         $ligne->setCle($this->cle)
-                ->setCommentaire($this->commentaire);
-
-        // we stop here, we don't go through Factures
+                ->setCommentaire($this->commentaire)
+                ->setNom($this->nom)
+                ->setCredit($this->credit)
+                ->setDebit($this->debit);
 
         return $ligne;
     }

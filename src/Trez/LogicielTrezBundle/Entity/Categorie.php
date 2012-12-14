@@ -190,4 +190,18 @@ class Categorie
     {
         return $this->sousCategories;
     }
+
+    /*
+     * Duplicate a categorie object
+     */
+    public function duplicate()
+    {
+        $n_categorie = new Categorie();
+        $n_categorie->setNom($this->nom)
+                    ->setCle($this->cle)
+                    ->setCommentaire($this->commentaire);
+        // we skip verrouille parameter
+
+        return $n_categorie;
+    }
 }

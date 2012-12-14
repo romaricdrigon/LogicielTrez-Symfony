@@ -218,4 +218,18 @@ class SousCategorie
     {
         $this->categorie->checkVerrouille();
     }
+
+    /*
+     * Duplicate a sous-categorie object
+     */
+    public function duplicate()
+    {
+        $n_sous_categorie = new SousCategorie();
+        $n_sous_categorie->setCle($this->cle)
+                        ->setCommentaire($this->commentaire)
+                        ->setNom($this->nom)
+                        ->setDescription($this->description);
+
+        return $n_sous_categorie;
+    }
 }

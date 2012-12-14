@@ -13,3 +13,7 @@ budget_edit:
 budget_delete:
     pattern: /delete/{exercice_id}/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Budget:delete }
+
+budget_duplicate:
+    pattern: /duplicate/{exercice_id}/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:duplicate }

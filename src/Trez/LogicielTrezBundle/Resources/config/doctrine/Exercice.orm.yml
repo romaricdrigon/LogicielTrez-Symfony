@@ -22,4 +22,5 @@ Trez\LogicielTrezBundle\Entity\Exercice:
         budgets:
             targetEntity: Budget
             mappedBy: exercice
+            cascade: [ remove ]
     lifecycleCallbacks: {}

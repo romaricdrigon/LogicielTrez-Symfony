@@ -25,6 +25,7 @@ Trez\LogicielTrezBundle\Entity\Ligne:
         factures:
             targetEntity: Facture
             mappedBy: ligne
+            cascade: [ remove ]
     manyToOne:
         sousCategorie:
             targetEntity: SousCategorie

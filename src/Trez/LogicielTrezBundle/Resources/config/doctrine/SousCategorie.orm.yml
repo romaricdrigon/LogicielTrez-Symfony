@@ -24,6 +24,7 @@ Trez\LogicielTrezBundle\Entity\SousCategorie:
         lignes:
             targetEntity: Ligne
             mappedBy: sousCategorie
+            cascade: [ remove ]
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]
         preRemove: [ checkVerrouille ]

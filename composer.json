@@ -20,7 +20,6 @@
         "jms/di-extra-bundle": "1.1.*",
         "twitter/bootstrap": "2.1",
         "jquery/jquery": "1.8.2",
-        "jquery/jqueryui": "1.8.24",
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev"
     },
@@ -44,17 +43,6 @@
                 "dist": {
                     "url": "http://code.jquery.com/jquery.min.js",
                     "type": "file"
-                }
-            }
-        },
-        {
-            "type": "package",
-            "package": {
-                "name": "jquery/jqueryui",
-                "version": "1.8.24",
-                "dist": {
-                    "url": "http://jqueryui.com/download/jquery-ui-1.8.24.custom.zip",
-                    "type": "zip"
                 }
             }
         },

@@ -3,11 +3,12 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -25,9 +26,19 @@ class User
     private $password;
 
     /**
+     * @var string $mail
+     */
+    private $mail;
+
+    /**
      * @var string $type
      */
     private $type;
+
+    /**
+     * @var string
+     */
+    private $salt;
 
 
     /**
@@ -108,11 +119,6 @@ class User
     {
         return $this->type;
     }
-    /**
-     * @var string $mail
-     */
-    private $mail;
-
 
     /**
      * Set mail
@@ -135,5 +141,77 @@ class User
     public function getMail()
     {
         return $this->mail;
+    }
+
+    /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return User
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    // set salt at init
+    public function __construct()
+    {
+        $this->salt = md5(uniqid(null, true));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            ) = unserialize($serialized);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function equals(UserInterface $user)
+    {
+        return ($this->username === $user->getUsername()) && ($this->mail === $user->getMail());
     }
 }

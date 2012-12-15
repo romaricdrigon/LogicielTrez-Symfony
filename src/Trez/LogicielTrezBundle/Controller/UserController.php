@@ -19,15 +19,20 @@ class UserController extends Controller
 
     public function addAction()
     {
+        $em = $this->get('doctrine.orm.entity_manager');
         $object = new User();
+        $encoder = $this->get('security.encoder_factory')->getEncoder($object);
         $form = $this->get('form.factory')->create(new UserType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
 
             if ($form->isValid()) {
-                $this->get('doctrine.orm.entity_manager')->persist($object);
-                $this->get('doctrine.orm.entity_manager')->flush();
+                $password = $encoder->encodePassword($object->getPassword(), $object->getSalt());
+                $object->setPassword($password);
+
+                $em->persist($object);
+                $em->flush();
 
                 $this->get('session')->setFlash('success', "L'utilisateur a bien été ajouté");
 
@@ -44,11 +49,16 @@ class UserController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
+        $encoder = $this->get('security.encoder_factory')->getEncoder($object);
         $form = $this->get('form.factory')->create(new UserType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
             if ($form->isValid()) {
+                // password field is required so it'll modified anyway
+                $password = $encoder->encodePassword($object->getPassword(), $object->getSalt());
+                $object->setPassword($password);
+
                 $em->flush();
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');

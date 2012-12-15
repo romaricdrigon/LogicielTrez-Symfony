@@ -11,4 +11,8 @@ security:
                 users: %users%
 
     encoders:
+        # so we can add (dirtyly) users via config file
+        # DEPRECATED
         Symfony\Component\Security\Core\User\User: plaintext
+        # for User objects
+        Trez\LogicielTrezBundle\Entity\User: sha512

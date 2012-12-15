@@ -40,6 +40,11 @@ class Exercice
      */
     private $verrouille;
 
+    /**
+     * @var string
+     */
+    private $prefixe_factures;
+
 
     /**
      * Get id
@@ -189,5 +194,28 @@ class Exercice
         if ($this->verrouille === true) {
             throw new \Exception("Vous ne pouvez pas modifier les membres d'un budget verrouillé");
         }
+    }
+
+    /**
+     * Set prefixe_factures
+     *
+     * @param string $prefixeFactures
+     * @return Exercice
+     */
+    public function setPrefixeFactures($prefixeFactures)
+    {
+        $this->prefixe_factures = $prefixeFactures;
+    
+        return $this;
+    }
+
+    /**
+     * Get prefixe_factures
+     *
+     * @return string 
+     */
+    public function getPrefixeFactures()
+    {
+        return $this->prefixe_factures;
     }
 }

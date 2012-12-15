@@ -16,7 +16,7 @@
         <tbody>
             {% for facture in factures %}
                 <tr>
-                    <td>{{ facture.numero }}</td>
+                    <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
                     <td>{{ facture.objet }}</td>
                     <td>{{ facture.date|date("d/m/Y") }}</td>
                     <td>{{ facture.montant|number_format(0, ',', ' ') }}</td>

@@ -27,6 +27,7 @@ class ExerciceType extends AbstractType
             ->add('verrouille', 'checkbox', [
                 'required' => false
             ])
+            ->add('prefixe_factures', 'text')
         ;
     }
 

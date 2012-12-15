@@ -18,6 +18,10 @@ Trez\LogicielTrezBundle\Entity\Exercice:
             type: date
         verrouille:
             type: boolean
+        prefixe_factures:
+            type: string
+            length: 20
+            nullable: true
     oneToMany:
         budgets:
             targetEntity: Budget

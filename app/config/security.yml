@@ -6,13 +6,12 @@ security:
                 realm: "Veuillez vous authentifier"
 
     providers:
-        in_memory:
-            memory:
-                users: %users%
+        database:
+            entity: { class: TrezLogicielTrezBundle:User, property: username }
 
     encoders:
-        # so we can add (dirtyly) users via config file
-        # DEPRECATED
-        Symfony\Component\Security\Core\User\User: plaintext
         # for User objects
-        Trez\LogicielTrezBundle\Entity\User: sha512
+        Trez\LogicielTrezBundle\Entity\User:
+            algorithm: sha512
+            iterations: 1
+            encode_as_base64: true

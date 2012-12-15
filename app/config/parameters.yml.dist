@@ -18,12 +18,12 @@ parameters:
     locale: fr
 
     # generate a secret passphrase
-    # concatenate 2 from here should be good :
+    # concatenate 2 strings from here should be good :
     # http://www.random.org/strings/?num=1&len=20&digits=on&upperalpha=on&loweralpha=on&unique=on&format=html&rnd=new
     secret: *YOUR_SECRET*
 
-    # users for basic authentification
-    # as many as you want
-    # role is not used at the moment, leave ROLE_ADMIN
-    users:
-        *YOUR_USERNAME*: { password: *YOUR_PASSWORD*, roles: 'ROLE_ADMIN' }
+    # you have to create an User in the database
+    # use '' as a salt, password must be encrypted:
+    # SHA512, 1 pass, base64 encoded
+    # you can use this site:
+    # http://hash.online-convert.com/sha512-generator

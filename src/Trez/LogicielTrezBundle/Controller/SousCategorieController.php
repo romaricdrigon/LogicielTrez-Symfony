@@ -17,10 +17,10 @@ class SousCategorieController extends Controller
 
         $this->getBreadcrumbs($categorie);
 
-        return $this->render('TrezLogicielTrezBundle:SousCategorie:list.html.twig', [
+        return $this->render('TrezLogicielTrezBundle:SousCategorie:list.html.twig', array(
             'sous_categories' => $sousCategories,
             'categorie' => $categorie
-        ]);
+        ));
     }
 
     public function addAction($categorie_id)
@@ -44,7 +44,7 @@ class SousCategorieController extends Controller
 
                 $this->get('session')->setFlash('success', "La sous-catégorie a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie_id]));
+                return new RedirectResponse($this->generateUrl('sous_categorie_index', array('categorie_id' => $categorie_id)));
             }
         }
 
@@ -69,7 +69,7 @@ class SousCategorieController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie_id]));
+                return new RedirectResponse($this->generateUrl('sous_categorie_index', array('categorie_id' => $categorie_id)));
             }
         }
 
@@ -92,16 +92,16 @@ class SousCategorieController extends Controller
 
         $this->get('session')->setFlash('info', 'Sous-catégorie supprimée !');
 
-        return new RedirectResponse($this->generateUrl('categorie_index', ['categorie_id' => $categorie_id]));
+        return new RedirectResponse($this->generateUrl('categorie_index', array('categorie_id' => $categorie_id)));
     }
 
     private function getBreadcrumbs($categorie)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$categorie->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $categorie->getBudget()->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégories de ".$categorie->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $categorie->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégories de  ".$categorie->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $categorie->getId()]));
+        $breadcrumbs->addItem("Budgets de ".$categorie->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $categorie->getBudget()->getExercice()->getId())));
+        $breadcrumbs->addItem("Catégories de ".$categorie->getBudget()->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $categorie->getBudget()->getId())));
+        $breadcrumbs->addItem("Sous-catégories de  ".$categorie->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $categorie->getId())));
     }
 }
 

@@ -355,7 +355,7 @@ class Facture
         if ($depassement > 0) {
             $context->addViolationAtSubPath('montant',
                 'Cette facture dépasse du total de la ligne de %montant% €',
-                ['%montant%' => $depassement],
+                array('%montant%' => $depassement),
                 null);
         }
     }
@@ -366,7 +366,7 @@ class Facture
     public function isNotNull(ExecutionContext $context)
     {
         if ($this->montant === 0.0) {
-            $context->addViolationAtSubPath('montant', 'Une facture ne peut pas avoir un montant nul', [], null);
+            $context->addViolationAtSubPath('montant', 'Une facture ne peut pas avoir un montant nul', array(), null);
         }
     }
 

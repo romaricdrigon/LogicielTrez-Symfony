@@ -17,10 +17,10 @@ class CategorieController extends Controller
 
         $this->getBreadcrumbs($budget);
 
-        return $this->render('TrezLogicielTrezBundle:Categorie:list.html.twig', [
+        return $this->render('TrezLogicielTrezBundle:Categorie:list.html.twig', array(
             'categories' => $categories,
             'budget' => $budget
-        ]);
+        ));
     }
 
     public function addAction($budget_id)
@@ -44,7 +44,7 @@ class CategorieController extends Controller
 
                 $this->get('session')->setFlash('success', "La catégorie a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('categorie_index', ['budget_id' => $budget_id]));
+                return new RedirectResponse($this->generateUrl('categorie_index', array('budget_id' => $budget_id)));
             }
         }
 
@@ -69,7 +69,7 @@ class CategorieController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('categorie_index', ['budget_id' => $budget_id]));
+                return new RedirectResponse($this->generateUrl('categorie_index', array('budget_id' => $budget_id)));
             }
         }
 
@@ -92,14 +92,14 @@ class CategorieController extends Controller
 
         $this->get('session')->setFlash('info', 'Catégorie supprimée !');
 
-        return new RedirectResponse($this->generateUrl('categorie_index', ['budget_id' => $budget_id]));
+        return new RedirectResponse($this->generateUrl('categorie_index', array('budget_id' => $budget_id)));
     }
 
     private function getBreadcrumbs($budget)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$budget->getExercice()->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $budget->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégories de ".$budget->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $budget->getId()]));
+        $breadcrumbs->addItem("Budgets de ".$budget->getExercice()->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $budget->getExercice()->getId())));
+        $breadcrumbs->addItem("Catégories de ".$budget->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $budget->getId())));
     }
 }

@@ -12,15 +12,15 @@ class LigneType extends AbstractType
     {
         $builder
             ->add('nom', 'text')
-            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('commentaire', 'textarea', array('required' => false))
             ->add('cle', 'integer')
             ->add('debit', 'money')
             ->add('credit', 'money')
-            ->add('sousCategorie', 'entity', [
+            ->add('sousCategorie', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\SousCategorie',
                 'property' => 'nom',
                 'disabled' => true
-            ])
+            ))
         ;
     }
 
@@ -28,7 +28,7 @@ class LigneType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Trez\LogicielTrezBundle\Entity\Ligne',
-            'validation_groups' => ['under_total', 'Default']
+            'validation_groups' => array('under_total', 'Default')
         ));
     }
 

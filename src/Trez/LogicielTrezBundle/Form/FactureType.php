@@ -11,45 +11,45 @@ class FactureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numero', 'integer', ['disabled' => true])
+            ->add('numero', 'integer', array('disabled' => true))
             ->add('objet', 'text')
             ->add('montant', 'money')
-            ->add('date', 'date', [
+            ->add('date', 'date', array(
                 'input' => 'datetime',
                 'widget' => 'choice',
                 'format' => 'dd / MM / yyyy',
                 'pattern' => '{{ day }} / {{ month }} / {{ year }}',
                 'data' => new \DateTime()
-            ])
-            ->add('date_paiement', 'date', [
+            ))
+            ->add('date_paiement', 'date', array(
                 'input' => 'datetime',
                 'widget' => 'choice',
                 'format' => 'dd / MM / yyyy',
                 'pattern' => '{{ day }} / {{ month }} / {{ year }}',
                 'required' => false
-            ])
-            ->add('commentaire', 'textarea', ['required' => false])
-            ->add('ref_paiement', 'text', ['required' => false])
-            ->add('ligne', 'entity', [
+            ))
+            ->add('commentaire', 'textarea', array('required' => false))
+            ->add('ref_paiement', 'text', array('required' => false))
+            ->add('ligne', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\Ligne',
                 'property' => 'nom',
                 'disabled' => true
-            ])
-            ->add('tiers', 'entity', [
+            ))
+            ->add('tiers', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\Tiers',
                 'property' => 'nom'
-            ])
-            ->add('methodePaiement', 'entity', [
+            ))
+            ->add('methodePaiement', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\MethodePaiement',
                 'property' => 'nom',
                 'empty_value' => 'Choisissez...',
                 'required' => false
-            ])
-            ->add('typeFacture', 'entity', [
+            ))
+            ->add('typeFacture', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\TypeFacture',
                 'property' => 'abr',
                 'disabled' => true
-            ])
+            ))
         ;
     }
 
@@ -57,7 +57,7 @@ class FactureType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'Trez\LogicielTrezBundle\Entity\Facture',
-            'validation_groups' => ['under_total', 'Default']
+            'validation_groups' => array('under_total', 'Default')
         ));
     }
 

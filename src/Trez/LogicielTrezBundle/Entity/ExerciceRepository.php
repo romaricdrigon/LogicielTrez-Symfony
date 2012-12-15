@@ -26,7 +26,7 @@ class ExerciceRepository extends EntityRepository
             .'ORDER BY f.numero DESC';
 
         $query = $em->createQuery($dql);
-        $query->setParameters([1 => $exercice_id, 2 => $type_facture_id]);
+        $query->setParameters(array(1 => $exercice_id, 2 => $type_facture_id));
 
         $result = $query->getScalarResult();
         $result[]['numero'] = '0';

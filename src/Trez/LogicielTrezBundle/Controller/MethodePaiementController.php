@@ -75,7 +75,7 @@ class MethodePaiementController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:MethodePaiement')->find($id);
             //We test if this object is used, if not we can delete it
-        $isUsed = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(['methodePaiement' => $object]);
+        $isUsed = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(array('methodePaiement' => $object));
         if ($isUsed == null)
         {
         	$this->get('session')->setFlash('info', 'Méthode de paiement supprimée !');

@@ -17,10 +17,10 @@ class BudgetController extends Controller
 
         $this->getBreadcrumbs($exercice);
 
-        return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', [
+        return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', array(
             'budgets' => $budgets,
             'exercice' => $exercice
-        ]);
+        ));
     }
 
     public function addAction($exercice_id)
@@ -42,7 +42,7 @@ class BudgetController extends Controller
 
                 $this->get('session')->setFlash('success', "Le budget a bien été ajouté");
 
-                return new RedirectResponse($this->generateUrl('budget_index', ['exercice_id' => $exercice_id]));
+                return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
             }
         }
 
@@ -68,7 +68,7 @@ class BudgetController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('budget_index', ['exercice_id' => $exercice_id]));
+                return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
             }
         }
 
@@ -114,7 +114,7 @@ class BudgetController extends Controller
 
         $this->get('session')->setFlash('success', "Ce budget a bien été sauvegardé/dupliqué");
 
-        return new RedirectResponse($this->generateUrl('budget_index', ['exercice_id' => $exercice_id]));
+        return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
     }
 
     public function deleteAction($exercice_id ,$id)
@@ -126,13 +126,13 @@ class BudgetController extends Controller
 
         $this->get('session')->setFlash('info', 'Budget supprimé !');
 
-        return new RedirectResponse($this->generateUrl('budget_index', ['exercice_id' => $exercice_id]));
+        return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
     }
 
     private function getBreadcrumbs($exercice)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$exercice->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $exercice->getId()]));
+        $breadcrumbs->addItem("Budgets de ".$exercice->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $exercice->getId())));
     }
 }

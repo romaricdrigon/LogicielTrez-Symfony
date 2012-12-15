@@ -46,7 +46,7 @@ class TvaController extends Controller
 
                 $this->get('session')->setFlash('success', "La tva a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('tva_index', ['facture_id' => $facture_id]));
+                return new RedirectResponse($this->generateUrl('tva_index', array('facture_id' => $facture_id)));
             }
         }
 
@@ -68,7 +68,7 @@ class TvaController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('tva_index', ['facture_id' => $facture_id]));
+                return new RedirectResponse($this->generateUrl('tva_index', array('facture_id' => $facture_id)));
             }
         }
 
@@ -87,6 +87,6 @@ class TvaController extends Controller
 
         $this->get('session')->setFlash('info', 'Tva supprimée !');
 
-        return new RedirectResponse($this->generateUrl('tva_index', ['facture_id' => $facture_id]));
+        return new RedirectResponse($this->generateUrl('tva_index', array('facture_id' => $facture_id)));
     }
 }

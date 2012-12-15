@@ -75,7 +75,7 @@ class ClasseTvaController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:ClasseTva')->find($id);
         //We test if this object is used, if not we can delete it
-        $isUsed = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(['classeTva' => $object]);
+        $isUsed = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(array('classeTva' => $object));
         if ($isUsed == null)
         {
         	$this->get('session')->setFlash('info', 'Classe de TVA supprimée !');

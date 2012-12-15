@@ -24,9 +24,9 @@ class ExerciceType extends AbstractType
                 'format' => 'dd MM yyyy',
                 'pattern' => '{{ day }} {{ month }} {{ year }}'
             ))
-            ->add('verrouille', 'checkbox', [
+            ->add('verrouille', 'checkbox', array(
                 'required' => false
-            ])
+            ))
             ->add('prefixe_factures', 'text')
         ;
     }

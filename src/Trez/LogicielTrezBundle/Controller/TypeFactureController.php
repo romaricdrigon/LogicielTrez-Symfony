@@ -75,7 +75,7 @@ class TypeFactureController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->find($id);
         //We test if this object is used, if not we can delete it
-        $isUsed = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(['typeFacture' => $object]);
+        $isUsed = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(array('typeFacture' => $object));
         if ($isUsed == null)
         {
         	$this->get('session')->setFlash('info', 'Type de facture supprimé !');

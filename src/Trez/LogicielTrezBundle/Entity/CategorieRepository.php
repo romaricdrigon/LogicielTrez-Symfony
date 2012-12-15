@@ -17,7 +17,7 @@ class CategorieRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select(['c', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'])
+        $qb->select(array('c', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
             ->from('TrezLogicielTrezBundle:Categorie', 'c')
             ->leftJoin('c.sousCategories', 's')
             ->leftJoin('s.lignes', 'l')
@@ -25,7 +25,7 @@ class CategorieRepository extends EntityRepository
             ->where('b.id = ?1')
             ->groupBy('c.id')
             ->orderBy('c.cle', 'ASC')
-            ->setParameters([1 => $budget_id]);
+            ->setParameters(array(1 => $budget_id));
 
         return $qb->getQuery()->getResult();
     }
@@ -42,7 +42,7 @@ class CategorieRepository extends EntityRepository
             ->orderBy('c.cle', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(1)
-            ->setParameters([1 => $budget_id]);
+            ->setParameters(array(1 => $budget_id));
 
         $result = $qb->getQuery()->getResult();
         $result[]['cle'] = 0;

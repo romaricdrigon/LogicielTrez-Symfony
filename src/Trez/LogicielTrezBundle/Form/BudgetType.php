@@ -12,14 +12,14 @@ class BudgetType extends AbstractType
     {
         $builder
             ->add('nom', 'text')
-            ->add('exercice', 'entity', [
+            ->add('exercice', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\Exercice',
                 'property' => 'edition',
                 'disabled' => true
-            ])
-            ->add('verrouille', 'checkbox', [
+            ))
+            ->add('verrouille', 'checkbox', array(
                 'required' => false
-            ])
+            ))
         ;
     }
 

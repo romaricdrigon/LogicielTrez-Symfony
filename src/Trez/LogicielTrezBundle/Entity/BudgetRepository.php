@@ -17,7 +17,7 @@ class BudgetRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select(['b', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'])
+        $qb->select(array('b', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
             ->from('TrezLogicielTrezBundle:Budget', 'b')
             ->leftJoin('b.categories', 'c')
             ->leftJoin('c.sousCategories', 's')
@@ -25,7 +25,7 @@ class BudgetRepository extends EntityRepository
             ->innerJoin('b.exercice', 'e')
             ->where('e.id = ?1')
             ->groupBy('b.id')
-            ->setParameters([1 => $exercice_id]);
+            ->setParameters(array(1 => $exercice_id));
 
         return $qb->getQuery()->getResult();
     }

@@ -24,7 +24,7 @@ class LigneRepository extends EntityRepository
             ->orderBy('l.cle', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(1)
-            ->setParameters([1 => $sous_categorie_id]);
+            ->setParameters(array(1 => $sous_categorie_id));
 
         $result = $qb->getQuery()->getResult();
         $result[]['cle'] = 0;

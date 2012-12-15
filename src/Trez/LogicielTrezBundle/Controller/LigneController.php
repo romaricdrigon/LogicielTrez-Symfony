@@ -14,16 +14,16 @@ class LigneController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
         $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findBy(
-            ['sousCategorie' => $sous_categorie_id],
-            ['cle' => 'ASC']
+            array('sousCategorie' => $sous_categorie_id),
+            array('cle' => 'ASC')
         );
 
         $this->getBreadcrumbs($sous_categorie);
 
-        return $this->render('TrezLogicielTrezBundle:Ligne:list.html.twig', [
+        return $this->render('TrezLogicielTrezBundle:Ligne:list.html.twig', array(
             'lignes' => $lignes,
             'sous_categorie' => $sous_categorie
-        ]);
+        ));
     }
 
     public function addAction($sous_categorie_id)
@@ -47,7 +47,7 @@ class LigneController extends Controller
 
                 $this->get('session')->setFlash('success', "La ligne a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
+                return new RedirectResponse($this->generateUrl('ligne_index', array('sous_categorie_id' => $sous_categorie_id)));
             }
         }
 
@@ -72,7 +72,7 @@ class LigneController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
+                return new RedirectResponse($this->generateUrl('ligne_index', array('sous_categorie_id' => $sous_categorie_id)));
             }
         }
 
@@ -95,7 +95,7 @@ class LigneController extends Controller
 
         $this->get('session')->setFlash('info', 'Ligne supprimée !');
 
-        return new RedirectResponse($this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie_id]));
+        return new RedirectResponse($this->generateUrl('ligne_index', array('sous_categorie_id' => $sous_categorie_id)));
     }
 
     public function adjustAction($id)
@@ -105,7 +105,7 @@ class LigneController extends Controller
         $ligne->adjustTotal('all');
         $em->flush();
 
-        return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $id]));
+        return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $id)));
     }
 
     private function getBreadcrumbs($sous_categorie)
@@ -113,8 +113,8 @@ class LigneController extends Controller
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
         $breadcrumbs->addItem("Budgets de ".$sous_categorie->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Catégories de ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $sous_categorie->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégories de  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $sous_categorie->getCategorie()->getId()]));
-        $breadcrumbs->addItem("Lignes de  ".$sous_categorie->getNom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $sous_categorie->getId()]));
+        $breadcrumbs->addItem("Catégories de ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $sous_categorie->getCategorie()->getBudget()->getId())));
+        $breadcrumbs->addItem("Sous-catégories de  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $sous_categorie->getCategorie()->getId())));
+        $breadcrumbs->addItem("Lignes de  ".$sous_categorie->getNom(), $this->generateUrl('ligne_index', array('sous_categorie_id' => $sous_categorie->getId())));
     }
 }

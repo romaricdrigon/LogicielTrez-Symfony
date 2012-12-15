@@ -15,19 +15,19 @@ class FactureController extends Controller
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
         $type_factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
         $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
-            ['ligne' => $ligne],
-            ['numero' => 'DESC']);
+            array('ligne' => $ligne),
+            array('numero' => 'DESC'));
 
         $this->getBreadcrumbs($ligne);
 
         $ligne->getFreeTotal($c, $d);
 
-        return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', [
+        return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', array(
             'factures' => $factures,
             'ligne' => $ligne,
             'type_factures' => $type_factures,
             'is_full' => ($c === 0.0) && ($d === 0.0)
-        ]);
+        ));
     }
 
     public function detailAction($ligne_id, $id)
@@ -35,7 +35,7 @@ class FactureController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
         $tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
-            ['facture' => $object]
+            array('facture' => $object)
         );
 
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
@@ -68,7 +68,7 @@ class FactureController extends Controller
         if ('POST' === $this->get('request')->getMethod()) {
             // if user asked to adjust the ligne total, we disable some validation
             if ($request->request->get('adjust', false)) {
-                $form = $this->get('form.factory')->create(new FactureType(), $object, ['validation_groups' => ['Default']]);
+                $form = $this->get('form.factory')->create(new FactureType(), $object, array('validation_groups' => array('Default')));
             } else {
                 $form = $this->get('form.factory')->create(new FactureType(), $object);
             }
@@ -87,7 +87,7 @@ class FactureController extends Controller
 
                 $this->get('session')->setFlash('success', "La facture a bien été émise");
 
-                return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
+                return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
             }
         } else {
             $form = $this->get('form.factory')->create(new FactureType(), $object);
@@ -111,7 +111,7 @@ class FactureController extends Controller
         if ('POST' === $request->getMethod()) {
             // if user asked to adjust the ligne total, we disable some validation
             if ($request->request->get('adjust', false)) {
-                $form = $this->get('form.factory')->create(new FactureType(), $object, ['validation_groups' => ['Default']]);
+                $form = $this->get('form.factory')->create(new FactureType(), $object, array('validation_groups' => array('Default')));
             } else {
                 $form = $this->get('form.factory')->create(new FactureType(), $object);
             }
@@ -128,7 +128,7 @@ class FactureController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
+                return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
             }
         } else {
             $form = $this->get('form.factory')->create(new FactureType(), $object);
@@ -149,7 +149,7 @@ class FactureController extends Controller
     	$em = $this->get('doctrine.orm.entity_manager');
     	$object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
     	$tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
-    			['facture' => $object]
+    			array('facture' => $object)
     	);	
     	
     	$totalTTC = $object->getMontant();
@@ -174,17 +174,17 @@ class FactureController extends Controller
 
         $this->get('session')->setFlash('info', 'Facture supprimée !');
 
-        return new RedirectResponse($this->generateUrl('facture_index', ['ligne_id' => $ligne_id]));
+        return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
     }
 
     private function getBreadcrumbs($ligne)
     {
         $breadcrumbs = $this->get("white_october_breadcrumbs");
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', ['exercice_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getId()]));
-        $breadcrumbs->addItem("Catégories de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', ['budget_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Sous-catégories de ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', ['categorie_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId()]));
-        $breadcrumbs->addItem("Lignes de ".$ligne->getSousCategorie()->getNom(), $this->generateUrl('ligne_index', ['sous_categorie_id' => $ligne->getSousCategorie()->getId()]));
-        $breadcrumbs->addItem("Factures de ".$ligne->getnom(), $this->generateUrl('facture_index', ['ligne_id' => $ligne->getId()]));
+        $breadcrumbs->addItem("Budgets de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getId())));
+        $breadcrumbs->addItem("Catégories de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId())));
+        $breadcrumbs->addItem("Sous-catégories de ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId())));
+        $breadcrumbs->addItem("Lignes de ".$ligne->getSousCategorie()->getNom(), $this->generateUrl('ligne_index', array('sous_categorie_id' => $ligne->getSousCategorie()->getId())));
+        $breadcrumbs->addItem("Factures de ".$ligne->getnom(), $this->generateUrl('facture_index', array('ligne_id' => $ligne->getId())));
     }
 }

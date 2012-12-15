@@ -12,13 +12,13 @@ class CategorieType extends AbstractType
     {
         $builder
             ->add('nom', 'text')
-            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('commentaire', 'textarea', array('required' => false))
             ->add('cle', 'integer')
-            ->add('budget', 'entity', [
+            ->add('budget', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\Budget',
                 'property' => 'nom',
                 'disabled' => true
-            ])
+            ))
         ;
     }
 

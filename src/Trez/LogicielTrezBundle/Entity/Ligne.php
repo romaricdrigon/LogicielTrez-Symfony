@@ -290,13 +290,13 @@ class Ligne
         if ($credit < 0) {
             $context->addViolationAtSubPath('credit',
                 'Le total des factures dépasse le crédit de la ligne de %depassement% €',
-                ['%depassement%' => $credit*-1],
+                array('%depassement%' => $credit*-1),
                 null);
         }
         if ($debit < 0) {
             $context->addViolationAtSubPath('debit',
                 'Le total des factures dépasse le débit de la ligne de %depassement% €',
-                ['%depassement%' => $debit*-1],
+                array('%depassement%' => $debit*-1),
                 null);
         }
     }

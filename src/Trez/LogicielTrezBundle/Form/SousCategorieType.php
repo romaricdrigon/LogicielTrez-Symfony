@@ -12,13 +12,13 @@ class SousCategorieType extends AbstractType
     {
         $builder
             ->add('nom', 'text')
-            ->add('commentaire', 'textarea', ['required' => false])
+            ->add('commentaire', 'textarea', array('required' => false))
             ->add('cle', 'integer')
-            ->add('categorie', 'entity', [
+            ->add('categorie', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\Categorie',
                 'property' => 'nom',
                 'disabled' => true
-            ])
+            ))
         ;
     }
 

@@ -17,14 +17,14 @@ class SousCategorieRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select(['s', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'])
+        $qb->select(array('s', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
             ->from('TrezLogicielTrezBundle:sousCategorie', 's')
             ->leftJoin('s.lignes', 'l')
             ->innerJoin('s.categorie', 'c')
             ->where('c.id = ?1')
             ->groupBy('s.id')
             ->orderBy('s.cle', 'ASC')
-            ->setParameters([1 => $categorie_id]);
+            ->setParameters(array(1 => $categorie_id));
 
         return $qb->getQuery()->getResult();
     }
@@ -41,7 +41,7 @@ class SousCategorieRepository extends EntityRepository
             ->orderBy('s.cle', 'DESC')
             ->setFirstResult(0)
             ->setMaxResults(1)
-            ->setParameters([1 => $categorie_id]);
+            ->setParameters(array(1 => $categorie_id));
 
         $result = $qb->getQuery()->getResult();
         $result[]['cle'] = 0;

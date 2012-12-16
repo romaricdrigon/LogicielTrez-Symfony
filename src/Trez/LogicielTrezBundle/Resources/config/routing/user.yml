@@ -10,6 +10,10 @@ user_edit:
     pattern: /edit/{id}
     defaults: { _controller: TrezLogicielTrezBundle:User:edit }
 
+user_change_password:
+    pattern: /change_password/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:User:changePassword }
+
 user_delete:
     pattern: /delete/{id}
     defaults: { _controller: TrezLogicielTrezBundle:User:delete }

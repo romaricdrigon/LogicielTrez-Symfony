@@ -6,25 +6,19 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserType extends AbstractType
+class UserPassword extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username')
+            ->add('username', 'text', array(
+                'disabled' => true
+            ))
             ->add('password', 'repeated', array(
                 'type' => 'password',
                 'invalid_message' => 'Les deux mots de passe doivent correspondre',
                 'first_options'  => array('label' => 'Mot de passe :'),
                 'second_options' => array('label' => 'Répétez le mot de passe :'),
-            ))
-            ->add('mail', 'email')
-            ->add('type', 'choice', array(
-                'choices' => array(
-                    'ROLE_USER' => 'Lecteur',
-                    'ROLE_ADMIN' => 'Administrateur',
-                    'DISABLED' => 'Désactivé'
-                )
             ))
         ;
     }
@@ -38,6 +32,6 @@ class UserType extends AbstractType
 
     public function getName()
     {
-        return 'trez_logicieltrezbundle_usertype';
+        return 'trez_logicieltrezbundle_userpassword';
     }
 }

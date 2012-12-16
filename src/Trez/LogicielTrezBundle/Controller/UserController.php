@@ -111,6 +111,11 @@ class UserController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
+
+        if ($this->get('security.context')->getToken()->getUser()->equals($object)) {
+            throw new \Exception("Vous ne pouvez pas vous supprimer vous-même !");
+        }
+
         $em->remove($object);
         $em->flush();
 

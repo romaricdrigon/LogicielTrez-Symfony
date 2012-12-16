@@ -3,12 +3,13 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
  */
-class User implements AdvancedUserInterface, \Serializable
+class User implements UserInterface, AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer $id

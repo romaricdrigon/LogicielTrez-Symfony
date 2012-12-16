@@ -2,6 +2,9 @@ _welcome:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:Default:index }
 
+logout:
+    pattern: /logout
+
 budget:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/budget.yml"
     prefix:   /budget

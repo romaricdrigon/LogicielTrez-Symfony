@@ -1,6 +1,6 @@
 {% import 'TrezLogicielTrezBundle:Utils:utils.html.twig' as utils %}
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,6 +36,14 @@
                         <!--TODO: Afficher seulement en fonction des droits-->
                         <li><a href="{{ url('user_index') }}">Utilisateurs</a></li>
                     </ul>
+                    <div class="pull-right userbox">
+                        {% if app.user.id is defined %}
+                            Bonjour, <a href="{{ url('user_change_password', {id: app.user.id }) }}">{{ app.user.username }}</a> !
+                        {% else %}
+                            Bonjour, <span class="white">{{ app.user.username }}</span> !
+                        {% endif %}
+                         <a href="{{ url('logout') }}"><span class="icon-off icon-white"></span></a>
+                    </div>
                 </div>
             </div>
         </div>

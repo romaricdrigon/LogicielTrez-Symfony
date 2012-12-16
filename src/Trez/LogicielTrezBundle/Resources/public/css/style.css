@@ -41,10 +41,23 @@ h3 {
 .hidden {
     display: none !important;
 }
+.white {
+    color: #eee;
+}
 
 /*
     Elements de la page
 */
+.brand {
+    font-weight: bold;
+    /* a smooth effect stolen from TB site :) */
+    -webkit-transition: all .2s linear;
+    -moz-transition: all .2s linear;
+    transition: all .2s linear;
+}
+.userbox {
+    padding: 10px 15px;
+}
 .footer {
     margin-top: 70px;
     padding: 70px 0;

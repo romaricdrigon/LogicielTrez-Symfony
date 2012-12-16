@@ -3,16 +3,25 @@ security:
         secured_area:
             pattern:    ^/
             http_basic:
-                realm: "Veuillez vous authentifier"
+                realm: "Vous devez vous authentifier"
+            logout:
+                path: /logout
+                target: /
     providers:
+        database:
+            entity: { class: TrezLogicielTrezBundle:User, property: username }
         # mainly for first usage, using parameters.ini file
         in_memory:
             memory:
                 users: %users%
-        database:
-            entity: { class: TrezLogicielTrezBundle:User, property: username }
     encoders:
-        Symfony\Component\Security\Core\User\User: plaintext
-        Trez\LogicielTrezBundle\Entity\User: sha512
+        Trez\LogicielTrezBundle\Entity\User:
+            algorithm: sha512
+            iterations: 1
+            encode_as_base64: true
+        Symfony\Component\Security\Core\User\User:
+            algorithm: sha512
+            iterations: 1
+            encode_as_base64: true
     acl:
         connection: default

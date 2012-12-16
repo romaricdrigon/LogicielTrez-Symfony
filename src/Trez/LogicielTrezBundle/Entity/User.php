@@ -3,12 +3,12 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
  */
-class User implements UserInterface, \Serializable
+class User implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -213,5 +213,32 @@ class User implements UserInterface, \Serializable
     public function equals(UserInterface $user)
     {
         return ($this->username === $user->getUsername()) && ($this->mail === $user->getMail());
+    }
+
+    /*
+     * AdvancedUserInteface add this methods
+     */
+    public function isAccountNonExpired()
+    {
+        return true;
+    }
+
+    public function isAccountNonLocked()
+    {
+        return true;
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        if ($this->type === 'DISABLED') {
+            return false;
+        }
+
+        return true;
     }
 }

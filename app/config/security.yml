@@ -1,5 +1,8 @@
 security:
     firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         secured_area:
             pattern:    ^/
             http_basic:
@@ -7,6 +10,7 @@ security:
             logout:
                 path: /logout
                 target: /
+                invalidate_session: true
     access_control:
         # first, exceptions: pages for all users
         -

@@ -3,10 +3,12 @@
 <html>
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}LogicielTrez{% endblock %}</title>
     <link rel="shortcut icon" href="/favicon.ico">
     {% block stylesheets %}
         <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap.min.css') }}" />
+        <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap-responsive.min.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/trezlogicieltrez/css/style.css') }}" />
     {% endblock %}
     {% block javascripts %}

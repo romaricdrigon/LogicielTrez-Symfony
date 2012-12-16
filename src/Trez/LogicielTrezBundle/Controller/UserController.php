@@ -5,6 +5,9 @@ namespace Trez\LogicielTrezBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
+use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
+use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Trez\LogicielTrezBundle\Entity\User;
 use Trez\LogicielTrezBundle\Form\UserType;
 use Trez\LogicielTrezBundle\Form\UserEdit;
@@ -50,14 +53,27 @@ class UserController extends Controller
 
     public function editAction($id)
     {
+        $request = $this->get('request');
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
         $form = $this->get('form.factory')->create(new UserEdit(), $object);
 
-        if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+        if ('POST' === $request->getMethod()) {
+            $form->bindRequest($request);
             if ($form->isValid()) {
                 $em->flush();
+
+                // now we take care of ACLs
+                $aclProvider = $this->get('security.acl.provider');
+                $categories = $form->get('categories')->getData();
+
+                foreach ($categories as $categorie) {
+                    $objectIdentity = ObjectIdentity::fromDomainObject($categorie);
+                    $acl = $aclProvider->createAcl($objectIdentity);
+                    $securityIdentity = UserSecurityIdentity::fromAccount($object);
+                    $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_VIEW);
+                    $aclProvider->updateAcl($acl);
+                }
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 

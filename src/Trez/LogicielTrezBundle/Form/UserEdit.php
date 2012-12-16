@@ -20,6 +20,12 @@ class UserEdit extends AbstractType
                     'INACTIVE' => 'Désactivé'
                 )
             ))
+            ->add('categories', 'entity', array(
+                'class' => 'TrezLogicielTrezBundle:Categorie',
+                'multiple' => true,
+                'required' => false,
+                'mapped' => false
+            ))
         ;
     }
 

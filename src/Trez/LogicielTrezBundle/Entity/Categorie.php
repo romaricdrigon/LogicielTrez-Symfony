@@ -204,4 +204,10 @@ class Categorie
 
         return $n_categorie;
     }
+
+    // used is UserEdit form
+    public function __toString()
+    {
+        return $this->budget->getExercice()->getEdition() . ' > ' . $this->budget->getNom() . ' > ' . $this->nom;
+    }
 }

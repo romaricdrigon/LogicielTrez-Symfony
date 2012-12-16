@@ -11,6 +11,7 @@
             {{ forms.field(form.username, 'Nom d\'utilisateur') }}
             {{ forms.field(form.mail, 'Adresse e-mail') }}
             {{ forms.field(form.type, 'Type') }}
+            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge'}, '', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
         </fieldset>
 
         {{ form_rest(form) }}

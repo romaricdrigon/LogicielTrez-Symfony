@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Trez\LogicielTrezBundle\Entity\SousCategorie;
 use Trez\LogicielTrezBundle\Form\SousCategorieType;
 
@@ -14,6 +15,14 @@ class SousCategorieController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
         $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAll($categorie_id);
+
+        // check if user is ok
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('VIEW', $categorie) === false
+            && $sc->isGranted('ROLE_ADMIN') === false)
+        {
+            throw new AccessDeniedException();
+        }
 
         $this->getBreadcrumbs($categorie);
 

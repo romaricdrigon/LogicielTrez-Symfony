@@ -7,6 +7,42 @@ security:
             logout:
                 path: /logout
                 target: /
+    access_control:
+        # first, exceptions: pages for all users
+        -
+            path: ^/$
+            roles: ROLE_USER
+        -
+            path: ^/logout
+            roles: ROLE_USER
+        -
+            path: ^/user/change_password
+            roles: ROLE_USER
+        -
+            path: ^/exercice/$
+            roles: ROLE_USER
+        -
+            path: ^/budget/\d+$
+            roles: ROLE_USER
+        -
+            path: ^/categorie/\d+$
+            roles: ROLE_USER
+        -
+            path: ^/sous_categorie/\d+$
+            roles: ROLE_USER
+        -
+            path: ^/ligne/\d+$
+            roles: ROLE_USER
+        -
+            path: ^/facture/\d+$
+            roles: ROLE_USER
+        -
+            path: ^/facture/detail/\d+/?\d+$
+            roles: ROLE_USER
+        # the other pages are only for admins
+        -
+            path: ^/
+            roles: ROLE_ADMIN
     providers:
         database:
             entity: { class: TrezLogicielTrezBundle:User, property: username }
@@ -25,3 +61,5 @@ security:
             encode_as_base64: true
     acl:
         connection: default
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER

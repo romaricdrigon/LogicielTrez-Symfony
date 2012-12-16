@@ -31,10 +31,11 @@
                 <div class="nav-collapse collapse">
                     <ul class="nav">
                         <li><a href="{{ url('exercice_index') }}">Exercices</a></li>
-                        <li><a href="{{ url('tiers_index') }}">Tiers</a></li>
-                        <li><a href="{{ url('config_index') }}">Configuration</a></li>
-                        <!--TODO: Afficher seulement en fonction des droits-->
-                        <li><a href="{{ url('user_index') }}">Utilisateurs</a></li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="{{ url('tiers_index') }}">Tiers</a></li>
+                            <li><a href="{{ url('config_index') }}">Configuration</a></li>
+                            <li><a href="{{ url('user_index') }}">Utilisateurs</a></li>
+                        {% endif %}
                     </ul>
                     <div class="pull-right userbox">
                         {% if app.user.id is defined %}

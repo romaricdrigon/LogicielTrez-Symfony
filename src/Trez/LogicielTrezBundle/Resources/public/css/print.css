@@ -7,17 +7,13 @@
 	/*background-color: #CFCFCF;*/
 }
 .bandeau{
-    height:60mm; 	
-	
+    height:60mm;
 }
 .contenu{
-	height:180mm; 
-	
+	height:180mm;
 }
 .pied{
-    height:50mm;
-    text-align : center;
-	
+    text-align : center;	
 }
 .cleared {
     float: none;

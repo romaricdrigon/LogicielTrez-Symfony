@@ -185,4 +185,9 @@ class Budget
 
         return $n_budget;
     }
+
+    public function getFullNom()
+    {
+        return $this->exercice->getEdition() . ' - ' . $this->nom;
+    }
 }

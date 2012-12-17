@@ -1,6 +1,16 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 {% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.css') }}" />
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.jquery.min.js') }}"></script>
+{% endblock %}
+
 {% block body %}
     <h1>&Eacute;diter l'utilisateur {{ user.username }}</h1>
 
@@ -11,7 +21,7 @@
             {{ forms.field(form.username, 'Nom d\'utilisateur') }}
             {{ forms.field(form.mail, 'Adresse e-mail') }}
             {{ forms.field(form.type, 'Type') }}
-            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge'}, '', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
+            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge chosen-categories', 'data-placeholder': 'Choisissez des catégories'}, '', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
         </fieldset>
 
         {{ form_rest(form) }}
@@ -21,5 +31,12 @@
             <a href="{{ path('user_index') }}" class="btn">Annuler</a>
         </div>
     </form>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // transform multiple select into the chosen one
+            $('.chosen-categories').chosen({no_results_text: "Vous n'avez pas de budgets/cat&eacute;gories !"});
+        });
+    </script>
 
 {%  endblock %}

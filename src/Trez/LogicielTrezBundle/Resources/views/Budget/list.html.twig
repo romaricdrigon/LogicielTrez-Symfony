@@ -23,11 +23,13 @@
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('categorie_index', {'budget_id': budget.0.id}) }}" title="Acc&eacute;der aux cat&eacute;gories"><i class="icon-download"></i></a>
-                            <a class="btn btn-small" href="{{ path('budget_edit', {'exercice_id': exercice.id, 'id': budget.0.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
-                            <a class="btn btn-small"
-                               href="{{ path('budget_delete', {'exercice_id': exercice.id, 'id': budget.0.id}) }}"
-                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le budget {{ budget.0.nom }} ?');"
-                               title="Supprimer"><i class="icon-remove"></i></a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-small" href="{{ path('budget_edit', {'exercice_id': exercice.id, 'id': budget.0.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                <a class="btn btn-small"
+                                   href="{{ path('budget_delete', {'exercice_id': exercice.id, 'id': budget.0.id}) }}"
+                                   onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le budget {{ budget.0.nom }} ?');"
+                                   title="Supprimer"><i class="icon-remove"></i></a>
+                            {% endif %}
                         </div>
                     </td>
                 </tr>

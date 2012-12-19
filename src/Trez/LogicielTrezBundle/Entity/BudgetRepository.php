@@ -35,16 +35,13 @@ class BudgetRepository extends EntityRepository
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select(array('b', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
+        $qb->select(array('b', 'c.nom')) // second field is anything but we must keep an array
             ->from('TrezLogicielTrezBundle:Budget', 'b')
             ->leftJoin('b.categories', 'c')
-            ->leftJoin('c.sousCategories', 's')
-            ->leftJoin('s.lignes', 'l')
             ->innerJoin('b.exercice', 'e')
             ->innerJoin('c.users', 'u')
             ->where('e.id = ?1')
             ->andWhere('u.id = ?2')
-            ->groupBy('b.id')
             ->setParameters(array(1 => $exercice_id, 2 => $user_id));
 
         return $qb->getQuery()->getResult();

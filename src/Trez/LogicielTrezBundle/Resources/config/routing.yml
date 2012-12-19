@@ -19,7 +19,7 @@ classeTva:
       
 config:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/config.yml"
-    prefix:   /config
+    prefix:   /configuration
     
 exercice:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/exercice.yml"

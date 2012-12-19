@@ -195,8 +195,8 @@
             var _anchor = window.location.hash;
 
             if (_anchor !== '#tva') {
-                $('#tva').collapse('hide');
-                $(_anchor).collapse('show');
+                $('#tva').collapse('toggle');
+                $(_anchor).collapse('toggle');
             }
         });
     </script>

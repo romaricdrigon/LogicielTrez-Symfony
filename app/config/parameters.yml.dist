@@ -24,8 +24,7 @@ parameters:
 
     # BASIC SECURITY
     # at first, you can create an user here
-    # password is encrypted with SHA-512, base 64 encoded
-    # (you can use http://hash.online-convert.com/sha512-generator)
+    # password is not encrypted (!)
     # make sure you keep 'ROLE_ADMIN'
     # HOWEVER then it's better to rely only on the database then
     users:

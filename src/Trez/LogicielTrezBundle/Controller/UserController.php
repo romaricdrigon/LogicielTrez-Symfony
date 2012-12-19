@@ -99,7 +99,11 @@ class UserController extends Controller
 
                 $this->get('session')->setFlash('info', 'Le mot de passe a bien été changé');
 
-                return new RedirectResponse($this->generateUrl('user_index'));
+                if ($sc->isGranted('ROLE_ADMIN') === true) {
+                    return new RedirectResponse($this->generateUrl('user_index'));
+                } else {
+                    return new RedirectResponse($this->generateUrl('_welcome'));
+                }
             }
         }
 

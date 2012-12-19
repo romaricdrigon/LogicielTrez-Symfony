@@ -39,12 +39,14 @@
         </tbody>
     </table>
 
-    <div>
-        <a href="{{ path('categorie_add', {'budget_id': budget.id}) }}" class='btn btn-primary'>
-            <i class="icon-plus"></i> Ajouter une cat&eacute;gorie
-        </a>
-        <a href="{{ path('budget_duplicate', {'exercice_id': budget.exercice.id, 'id': budget.id}) }}" class='btn'>
-            Dupliquer/sauvegarder ce budget
-        </a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+            <a href="{{ path('categorie_add', {'budget_id': budget.id}) }}" class='btn btn-primary'>
+                <i class="icon-plus"></i> Ajouter une cat&eacute;gorie
+            </a>
+            <a href="{{ path('budget_duplicate', {'exercice_id': budget.exercice.id, 'id': budget.id}) }}" class='btn'>
+                Dupliquer/sauvegarder ce budget
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -37,9 +37,11 @@
         </tbody>
     </table>
 
-    <div>
-        <a href="{{ path('budget_add', {'exercice_id': exercice.id}) }}" class='btn btn-primary'>
-            <i class="icon-plus"></i> Ajouter un budget
-        </a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+            <a href="{{ path('budget_add', {'exercice_id': exercice.id}) }}" class='btn btn-primary'>
+                <i class="icon-plus"></i> Ajouter un budget
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}

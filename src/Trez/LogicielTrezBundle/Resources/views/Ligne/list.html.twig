@@ -39,9 +39,11 @@
         </tbody>
     </table>
 
-    <div>
-        <a href="{{ path('ligne_add', {'sous_categorie_id': sous_categorie.id}) }}" class='btn btn-primary'>
-            <i class="icon-plus"></i> Ajouter une ligne
-        </a>
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+            <a href="{{ path('ligne_add', {'sous_categorie_id': sous_categorie.id}) }}" class='btn btn-primary'>
+                <i class="icon-plus"></i> Ajouter une ligne
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}

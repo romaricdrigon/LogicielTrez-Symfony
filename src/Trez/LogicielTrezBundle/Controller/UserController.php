@@ -60,8 +60,6 @@ class UserController extends Controller
             if ($form->isValid()) {
                 $em->flush();
 
-                // TODO: ACLS
-
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('user_index'));
@@ -82,8 +80,9 @@ class UserController extends Controller
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
 
         // only and admin or the current user can change its password
-        if (! $sc->isGranted('ROLE_ADMIN')
-            && ! $sc->getToken()->getUser()->equals($object)) {
+        if ($object === null
+            || $sc->isGranted('ROLE_ADMIN') === false
+            && $sc->getToken()->getUser()->equals($object) === false) {
             throw new AccessDeniedException();
         }
 

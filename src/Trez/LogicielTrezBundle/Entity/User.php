@@ -280,4 +280,9 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     {
         return $this->categories;
     }
+
+    public function isCategorieAllowed($categorie)
+    {
+        return $this->categories->contains($categorie);
+    }
 }

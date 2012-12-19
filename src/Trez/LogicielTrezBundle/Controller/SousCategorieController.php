@@ -18,8 +18,10 @@ class SousCategorieController extends Controller
 
         // check if user is ok
         $sc = $this->get('security.context');
-        if (// TODO: acl
-            $sc->isGranted('ROLE_ADMIN') === false)
+        if ($sc->isGranted('ROLE_ADMIN') === false
+            && ($sc->isGranted('ROLE_USER') === true
+            && method_exists($sc->getToken()->getUser(), 'isCategorieAllowed') === true
+            && $sc->getToken()->getUser()->isCategorieAllowed($categorie) === false))
         {
             throw new AccessDeniedException();
         }

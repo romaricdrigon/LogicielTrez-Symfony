@@ -16,6 +16,7 @@ class MethodePaiementController extends Controller
      * delete(id)
      */
 
+    //not used cf config_index
     public function indexAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');
@@ -38,7 +39,7 @@ class MethodePaiementController extends Controller
 
                 $this->get('session')->setFlash('success', "La méthode de paiement a bien été ajouté");
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('config_index')."#paiement");
             }
         }
 
@@ -60,7 +61,7 @@ class MethodePaiementController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('config_index')."#paiement");
             }
         }
 
@@ -85,6 +86,6 @@ class MethodePaiementController extends Controller
         	$this->get('session')->setFlash('error', 'Cette méthode de paiement ne peut pas être supprimée !');
         }
 
-        return new RedirectResponse($this->generateUrl('config_index'));
+        return new RedirectResponse($this->generateUrl('config_index')."#paiement");
     }
 }

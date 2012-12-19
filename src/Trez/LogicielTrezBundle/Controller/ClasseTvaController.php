@@ -38,7 +38,7 @@ class ClasseTvaController extends Controller
 
                 $this->get('session')->setFlash('success', "La classe de TVA a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('config_index')."#tva");
             }
         }
 
@@ -60,7 +60,7 @@ class ClasseTvaController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('config_index')."#tva");
             }
         }
 
@@ -85,6 +85,6 @@ class ClasseTvaController extends Controller
         	$this->get('session')->setFlash('error', 'Cette classe de TVA ne peut pas être supprimée !');      	
         }
 
-        return new RedirectResponse($this->generateUrl('config_index'));
+        return new RedirectResponse($this->generateUrl('config_index')."#tva");
     }
 }

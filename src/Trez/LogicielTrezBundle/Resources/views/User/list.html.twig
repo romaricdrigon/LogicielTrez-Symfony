@@ -17,7 +17,12 @@
                 <tr>
                     <td>{{ user.username }}</td>
                     <td>{{ user.mail }}</td>
-                    <td>{{ user.type }}</td>
+                    <td>
+                        {% if user.type == 'ROLE_ADMIN' %}Administrateur
+                        {% elseif user.type == 'ROLE_USER' %}Lecteur
+                        {% elseif user.type == 'DISABLED' %}Désactivé
+                        {% else %}{{ user.type }}{% endif %}
+                    </td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('user_edit', {'id': user.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>

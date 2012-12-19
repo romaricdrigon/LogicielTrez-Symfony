@@ -46,7 +46,7 @@ class ConfigController extends Controller
 
                 $this->get('session')->setFlash('success', "La config a bien été ajoutée");
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('config_index')."#general");
             }
         }
 
@@ -68,7 +68,7 @@ class ConfigController extends Controller
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
-                return new RedirectResponse($this->generateUrl('config_index'));
+                return new RedirectResponse($this->generateUrl('config_index')."#general");
             }
         }
 
@@ -87,6 +87,6 @@ class ConfigController extends Controller
 
         $this->get('session')->setFlash('info', 'Config supprimée !');
 
-        return new RedirectResponse($this->generateUrl('config_index'));
+        return new RedirectResponse($this->generateUrl('config_index')."#general");
     }
 }

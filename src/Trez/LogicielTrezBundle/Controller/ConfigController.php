@@ -23,12 +23,14 @@ class ConfigController extends Controller
         $tvas = $em->getRepository('TrezLogicielTrezBundle:ClasseTva')->findAll();
         $paiements = $em->getRepository('TrezLogicielTrezBundle:MethodePaiement')->findAll();
         $factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
+        $templates = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->findAll();
         
         return $this->render('TrezLogicielTrezBundle:Config:list.html.twig', 
         	array(	'configs' => $configs,
         			'tvas' => $tvas,		
         			'paiements' => $paiements,
-        			'factures' => $factures
+        			'factures' => $factures,
+                    'templates' => $templates
         	));
     }
 

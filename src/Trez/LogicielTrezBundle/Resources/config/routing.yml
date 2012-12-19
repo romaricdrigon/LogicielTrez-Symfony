@@ -40,7 +40,11 @@ methodePaiement:
 sousCategorie:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/sousCategorie.yml"
     prefix:   /sous_categorie
-    
+
+templateFacture:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/templateFacture.yml"
+    prefix:   /templateFacture
+
 tiers:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/tiers.yml"
     prefix:   /tiers

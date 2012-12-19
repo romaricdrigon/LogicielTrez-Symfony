@@ -1,0 +1,15 @@
+templateFacture_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:TemplateFacture:index }
+    
+templateFacture_add:
+    pattern: /add
+    defaults: { _controller: TrezLogicielTrezBundle:TemplateFacture:add }
+
+templateFacture_edit:
+    pattern: /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:TemplateFacture:edit }
+
+templateFacture_delete:
+    pattern: /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:TemplateFacture:delete }

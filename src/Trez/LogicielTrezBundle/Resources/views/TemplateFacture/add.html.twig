@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>Ajouter un template de facture</h1>
+
+    {% include "TrezLogicielTrezBundle:TemplateFacture:_form.html.twig" with {'route': 'templateFacture_add'} %}
+{%  endblock %}

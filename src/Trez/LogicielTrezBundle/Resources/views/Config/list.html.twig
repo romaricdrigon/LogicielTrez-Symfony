@@ -188,6 +188,52 @@
                 </div>
             </div>
         </div>
+
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#template">
+                    Template Facture
+                </a>
+            </div>
+            <div id="template" class="accordion-body collapse">
+                <div class="accordion-inner">
+                    <table class="table">
+                        <caption></caption>
+                        <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Contenu</th>
+                            <th width="50"></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        {% for template in templates %}
+                            <tr>
+                                <td>{{ template.name }}</td>
+                                <td>{{ template.contenu }}</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-small" href="{{ path('templateFacture_edit', {'id': template.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                        <a class="btn btn-small"
+                                           href="{{ path('templateFacture_delete', {'id': template.id}) }}"
+                                           onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le template {{ template.name }} ?');"
+                                           title="Supprimer"><i class="icon-remove"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <div>
+                        <a href="{{ path('templateFacture_add') }}" class='btn btn-primary'>
+                            <i class="icon-plus"></i> Ajouter un template </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script type="text/javascript">
@@ -201,3 +247,5 @@
         });
     </script>
 {% endblock %}
+
+

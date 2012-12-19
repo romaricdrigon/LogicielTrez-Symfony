@@ -13,4 +13,5 @@ Trez\LogicielTrezBundle\Entity\TemplateFacture:
             length: 255
         contenu:
             type: text
+            nullable: true
     lifecycleCallbacks: {  }

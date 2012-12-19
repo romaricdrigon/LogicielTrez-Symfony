@@ -1,0 +1,7 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1>&Eacute;diter le template de facture {{ TemplateFacture.name }}</h1>
+
+    {% include "TrezLogicielTrezBundle:TemplateFacture:_form.html.twig" with {'route': 'templateFacture_edit', 'route_options': {'nom': TemplateFacture.name, 'id': TemplateFacture.id}, 'id': TemplateFacture.id} %}
+{%  endblock %}

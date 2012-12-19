@@ -21,7 +21,7 @@
             {{ forms.field(form.username, 'Nom d\'utilisateur') }}
             {{ forms.field(form.mail, 'Adresse e-mail') }}
             {{ forms.field(form.type, 'Type') }}
-            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge chosen-categories', 'data-placeholder': 'Choisissez des catégories'}, '', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
+            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge chosen-categories', 'data-placeholder': 'Choisissez des catégories'}, 'user-categories', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
         </fieldset>
 
         {{ form_rest(form) }}
@@ -36,6 +36,19 @@
         $(document).ready(function() {
             // transform multiple select into the chosen one
             $('.chosen-categories').chosen({no_results_text: "Vous n'avez pas de budgets/cat&eacute;gories !"});
+
+            // show categories only for ROLE_USER users
+            $('#trez_logicieltrezbundle_useredit_type').on('change', function() {
+                if ($('#trez_logicieltrezbundle_useredit_type').val() !== 'ROLE_USER') {
+                    $('.user-categories').hide();
+                } else {
+                    $('.user-categories').show();
+                }
+            });
+            // check it when page is ready
+            if ($('#trez_logicieltrezbundle_useredit_type').val() !== 'ROLE_USER') {
+                $('.user-categories').hide();
+            }
         });
     </script>
 

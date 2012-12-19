@@ -29,4 +29,24 @@ class BudgetRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getAllowed($exercice_id, $user_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select(array('b', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
+            ->from('TrezLogicielTrezBundle:Budget', 'b')
+            ->leftJoin('b.categories', 'c')
+            ->leftJoin('c.sousCategories', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->innerJoin('b.exercice', 'e')
+            ->innerJoin('c.users', 'u')
+            ->where('e.id = ?1')
+            ->andWhere('u.id = ?2')
+            ->groupBy('b.id')
+            ->setParameters(array(1 => $exercice_id, 2 => $user_id));
+
+        return $qb->getQuery()->getResult();
+    }
 }

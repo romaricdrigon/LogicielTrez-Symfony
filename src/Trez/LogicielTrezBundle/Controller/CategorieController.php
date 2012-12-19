@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Trez\LogicielTrezBundle\Entity\Categorie;
 use Trez\LogicielTrezBundle\Form\CategorieType;
 
@@ -13,7 +14,18 @@ class CategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
-        $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAll($budget_id);
+
+        // list only categories user can read
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+            $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAllowed($budget_id, $sc->getToken()->getUser()->getId());
+
+            if ($categories === array()) {
+                throw new AccessDeniedException();
+            }
+        } else {
+            $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAll($budget_id);
+        }
 
         $this->getBreadcrumbs($budget);
 

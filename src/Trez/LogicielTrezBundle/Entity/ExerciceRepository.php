@@ -33,4 +33,22 @@ class ExerciceRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getAllowed($user_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('e')
+            ->from('TrezLogicielTrezBundle:Exercice', 'e')
+            ->leftJoin('e.budgets', 'b')
+            ->leftJoin('b.categories', 'c')
+            ->leftJoin('c.sousCategories', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->innerJoin('c.users', 'u')
+            ->where('u.id = ?1')
+            ->setParameters(array(1 => $user_id));
+
+        return $qb->getQuery()->getResult();
+    }
 }

@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Trez\LogicielTrezBundle\Entity\Budget;
 use Trez\LogicielTrezBundle\Form\BudgetType;
 
@@ -13,7 +14,18 @@ class BudgetController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
-        $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->getAll($exercice);
+
+        // list only budgets user can read
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+            $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->getAllowed($exercice_id, $sc->getToken()->getUser()->getId());
+
+            if ($budgets === array()) {
+                throw new AccessDeniedException();
+            }
+        } else {
+            $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->getAll($exercice_id);
+        }
 
         $this->getBreadcrumbs($exercice);
 

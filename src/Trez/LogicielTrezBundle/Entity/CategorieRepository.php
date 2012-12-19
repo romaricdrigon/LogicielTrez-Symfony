@@ -49,4 +49,24 @@ class CategorieRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getAllowed($budget_id, $user_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select(array('c', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
+            ->from('TrezLogicielTrezBundle:Categorie', 'c')
+            ->innerJoin('c.budget', 'b')
+            ->innerJoin('c.users', 'u')
+            ->leftJoin('c.sousCategories', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->where('b.id = ?1')
+            ->andWhere('u.id = ?2')
+            ->groupBy('c.id')
+            ->orderBy('c.cle', 'ASC')
+            ->setParameters(array(1 => $budget_id, 2 => $user_id));
+
+        return $qb->getQuery()->getResult();
+    }
 }

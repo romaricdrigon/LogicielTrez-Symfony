@@ -12,7 +12,14 @@ class ExerciceController extends Controller
     public function indexAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+
+        // list only exercices user can read
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+            $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getAllowed($sc->getToken()->getUser()->getId());
+        } else {
+            $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+        }
 
         $this->getBreadcrumbs();
 

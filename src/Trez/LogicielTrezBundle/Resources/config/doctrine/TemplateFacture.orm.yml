@@ -1,0 +1,16 @@
+Trez\LogicielTrezBundle\Entity\TemplateFacture:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\TemplateFactureRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        name:
+            type: string
+            length: 255
+        contenu:
+            type: text
+    lifecycleCallbacks: {  }

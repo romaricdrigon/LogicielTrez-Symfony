@@ -223,7 +223,12 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     public function equals(UserInterface $user)
     {
-        return ($this->username === $user->getUsername()) && ($this->mail === $user->getMail());
+        $step1 = true;
+        if (method_exists($user, 'getId')) {
+            $step1 = ($this->id === $user->getId());
+        }
+
+        return $step1 && ($this->username === $user->getUsername()) && ($this->mail === $user->getMail());
     }
 
     /*

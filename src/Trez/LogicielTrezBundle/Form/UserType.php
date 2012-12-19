@@ -26,6 +26,12 @@ class UserType extends AbstractType
                     'DISABLED' => 'Désactivé'
                 )
             ))
+            ->add('categories', 'entity', array(
+                'class' => 'TrezLogicielTrezBundle:Categorie',
+                'multiple' => true,
+                'required' => false,
+                'group_by' => 'budget.full_nom'
+            ))
         ;
     }
 

@@ -19,8 +19,10 @@ You have some mock data in ```doc/data.sql```
 
 ## Credits ##
 
-This product use licensed work, please see :
+This product use licensed work, please see:
  * Symfony 2.1 framework
  * jQuery and jQuery-UI
+ * Chosen jQuery plugin
  * Twitter Bootstrap
  * some [icons](http://www.smashingmagazine.com/2012/11/11/dutch-icon-set-smashing-edition/) made by Dutch Icon
+ * [WhiteOctober Breadcrumbs bundle](https://github.com/whiteoctober/BreadcrumbsBundle)

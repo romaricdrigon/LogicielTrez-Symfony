@@ -24,7 +24,6 @@ class UserEdit extends AbstractType
                 'class' => 'TrezLogicielTrezBundle:Categorie',
                 'multiple' => true,
                 'required' => false,
-                'mapped' => false,
                 'group_by' => 'budget.full_nom'
             ))
         ;

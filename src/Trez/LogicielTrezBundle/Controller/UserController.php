@@ -60,8 +60,6 @@ class UserController extends Controller
             if ($form->isValid()) {
                 $em->flush();
 
-                // TODO: ACLS
-
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('user_index'));

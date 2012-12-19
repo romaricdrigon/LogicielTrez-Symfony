@@ -24,4 +24,9 @@ Trez\LogicielTrezBundle\Entity\User:
             type: string
             length: 255
             nullable: true
+    # will create a join table
+    manyToMany:
+        categories:
+            targetEntity: Categorie
+            inversedBy: users
     lifecycleCallbacks: {  }

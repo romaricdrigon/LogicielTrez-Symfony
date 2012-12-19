@@ -25,6 +25,10 @@ Trez\LogicielTrezBundle\Entity\Categorie:
             targetEntity: SousCategorie
             mappedBy: categorie
             cascade: [ remove ]
+    manyToMany:
+        users:
+            targetEntity: User
+            mappedBy: categories
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]
         preRemove: [ checkVerrouille ]

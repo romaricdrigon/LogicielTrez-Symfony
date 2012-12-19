@@ -41,6 +41,11 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     private $salt;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $categories;
+
 
     /**
      * Get id
@@ -241,5 +246,38 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
         }
 
         return true;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Categorie $categories
+     * @return User
+     */
+    public function addCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
+    {
+        $this->categories[] = $categories;
+    
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Categorie $categories
+     */
+    public function removeCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

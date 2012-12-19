@@ -5,6 +5,7 @@ namespace Trez\LogicielTrezBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
@@ -23,6 +24,10 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
 
     /**
      * @var string $password
+     * @Assert\MinLength(
+     *     limit=5,
+     *     message="Le mot de passe doit faire au moins {{ limit }} caractères."
+     * )
      */
     private $password;
 

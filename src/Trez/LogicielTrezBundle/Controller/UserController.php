@@ -5,9 +5,6 @@ namespace Trez\LogicielTrezBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Acl\Domain\ObjectIdentity;
-use Symfony\Component\Security\Acl\Domain\UserSecurityIdentity;
-use Symfony\Component\Security\Acl\Permission\MaskBuilder;
 use Trez\LogicielTrezBundle\Entity\User;
 use Trez\LogicielTrezBundle\Form\UserType;
 use Trez\LogicielTrezBundle\Form\UserEdit;
@@ -63,17 +60,7 @@ class UserController extends Controller
             if ($form->isValid()) {
                 $em->flush();
 
-                // now we take care of ACLs
-                $aclProvider = $this->get('security.acl.provider');
-                $categories = $form->get('categories')->getData();
-
-                foreach ($categories as $categorie) {
-                    $objectIdentity = ObjectIdentity::fromDomainObject($categorie);
-                    $acl = $aclProvider->createAcl($objectIdentity);
-                    $securityIdentity = UserSecurityIdentity::fromAccount($object);
-                    $acl->insertObjectAce($securityIdentity, MaskBuilder::MASK_VIEW);
-                    $aclProvider->updateAcl($acl);
-                }
+                // TODO: ACLS
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
 

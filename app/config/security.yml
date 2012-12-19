@@ -63,7 +63,5 @@ security:
             algorithm: sha512
             iterations: 1
             encode_as_base64: true
-    acl:
-        connection: default
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER

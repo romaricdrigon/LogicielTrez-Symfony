@@ -270,6 +270,11 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     
         return $this;
     }
+    // alias to prevent singularity bug
+    public function addCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
+    {
+        return $this->addCategorie($categories);
+    }
 
     /**
      * Remove categories
@@ -279,6 +284,11 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     public function removeCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
     {
         $this->categories->removeElement($categories);
+    }
+    // alias to prevent singularity bug
+    public function removeCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
+    {
+        $this->removeCategorie($categories);
     }
 
     /**

@@ -5,8 +5,8 @@
 
     <fieldset>
         {{ forms.field(form.edition, 'Édition') }}
-        {{ forms.field(form.annee_1, 'Année 1', {'class': 'date-selects'}) }}
-        {{ forms.field(form.annee_2, 'Année 2', {'class': 'date-selects'}) }}
+        {{ forms.field(form.annee_1, 'Année 1', {'class': 'date-selects'}, 'force-height') }}
+        {{ forms.field(form.annee_2, 'Année 2', {'class': 'date-selects'}, 'force-height') }}
         {{ forms.field(form.verrouille, 'Verrouillé', {}, '', "<i>Les fils (budgets, factures) d'un exercice verrouillé ne pourront plus être édités</i>") }}
         {{ forms.field(form.prefixe_factures, 'Préfixe des factures', {}, '', "<i>Le préfixe qui sera rajouté entre le type de la facture et son numéro, par exemple </i><code>1112/</code><i> pour </i><code>FR<b>1112/</b>001</code>") }}
     </fieldset>

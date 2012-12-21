@@ -188,6 +188,10 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
+        if ($this->type === null) {
+            return array();
+        }
+
         return array($this->type);
     }
 
@@ -270,7 +274,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     
         return $this;
     }
-    // alias to prevent singularity bug
+    // alias tio prevent
     public function addCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
     {
         return $this->addCategorie($categories);
@@ -285,7 +289,6 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     {
         $this->categories->removeElement($categories);
     }
-    // alias to prevent singularity bug
     public function removeCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
     {
         $this->removeCategorie($categories);

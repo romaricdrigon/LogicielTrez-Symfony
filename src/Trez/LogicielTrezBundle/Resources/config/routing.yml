@@ -56,4 +56,7 @@ typeFacture:
 user:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/user.yml"
     prefix:   /user
-    
+
+# import FpOpenIdBundle routing
+fp_openid_security:
+    resource: "@FpOpenIdBundle/Resources/config/routing/security.xml"

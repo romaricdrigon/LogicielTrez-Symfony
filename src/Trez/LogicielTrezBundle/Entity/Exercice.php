@@ -192,7 +192,7 @@ class Exercice
     public function checkVerrouille()
     {
         if ($this->verrouille === true) {
-            throw new \Exception("Vous ne pouvez pas modifier les membres d'un budget verrouillé");
+            throw new \Exception('locked exercice');
         }
     }
 

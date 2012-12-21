@@ -14,7 +14,7 @@ use Symfony\Bundle\TwigBundle\Controller\ExceptionController as OriginalExceptio
  */
 class ExceptionController extends OriginalExceptionController
 {
-    public function showAction(FlattenException $exception, DebugLoggerInterface $logger, $format)
+    public function showAction(FlattenException $exception, DebugLoggerInterface $logger = null, $format = 'html')
     {
         if ('locked exercice' === $exception->getMessage()) {
             $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un exercice verrouillé ou ses fils");

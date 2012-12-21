@@ -16,7 +16,22 @@
         {{ forms.field(form.date, 'Date', {'class': 'date-selects'}, '', '<a id="date-now" href="#">Aujourd\'hui</a>') }}
         {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers'}) }}
         {{ forms.field(form.objet, 'Objet', {'class': 'input-xlarge'}) }}
-        {{ forms.field(form.montant, 'Montant', {'class': 'input-small'}) }}
+        {{ forms.field(form.montant, 'Montant HY', {'class': 'input-small'}) }}
+    </fieldset>
+
+    <fieldset>
+        <legend>TVA</legend>
+        <div>Décrivez toutes les TVAs s'appliquant sur cette facture :</div>
+        <div class="error">{{ form_errors(form.tvas) }}</div>
+        <ul>
+            {% for tva in form.tvas %}
+                <li class="form-inline">
+                    Montant HT : {{ form_widget(tva.montant_ht, {'attr': {'class': 'input-small'}}) }}
+                     - Classe : {{ form_widget(tva.classeTva, {'attr': {'class': 'input-medium'}}) }}
+                     - Montant TVA : {{ form_widget(tva.montant_tva, {'attr': {'class': 'input-small'}}) }}
+                </li>
+            {% endfor %}
+        </ul>
     </fieldset>
 
     <fieldset>

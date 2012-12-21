@@ -11,10 +11,13 @@ class TvaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('montant_ht')
-            ->add('montant_tva')
-            ->add('facture')
-            ->add('classeTva')
+            ->add('montant_ht', 'money')
+            ->add('montant_tva', 'money')
+            // ->add('facture') // not used here
+            ->add('classeTva', 'entity', array(
+                'class' => 'Trez\LogicielTrezBundle\Entity\ClasseTva',
+                'property' => 'nom'
+            ))
         ;
     }
 

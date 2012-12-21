@@ -50,6 +50,11 @@ class FactureType extends AbstractType
                 'property' => 'abr',
                 'disabled' => true
             ))
+            ->add('tvas', 'collection', array(
+                'type' => new TvaType(),
+                'allow_add' => true,
+                'by_reference' => false
+            ))
         ;
     }
 

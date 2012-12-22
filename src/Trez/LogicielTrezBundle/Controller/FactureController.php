@@ -108,6 +108,12 @@ class FactureController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
 
+        // get the original TVAs
+        $oTvas = array();
+        foreach ($object->getTvas() as $tva) {
+            $oTvas[] = $tva;
+        }
+
         if ('POST' === $request->getMethod()) {
             // if user asked to adjust the ligne total, we disable some validation
             if ($request->request->get('adjust', false)) {
@@ -122,6 +128,18 @@ class FactureController extends Controller
                 // if user asked to adjust the ligne total just do it
                 if ($request->request->get('adjust', false)) {
                     $object->getLigne()->adjustTotal($object->getTypeFacture()->getSens());
+                }
+
+                // remove removed TVAs
+                foreach ($object->getTvas() as $nTva) {
+                    foreach ($oTvas as $key => $oTva) {
+                        if ($oTva->getId() === $nTva->getId()) {
+                            unset($oTvas[$key]);
+                        }
+                    }
+                }
+                foreach ($oTvas as $tvaToDelete) {
+                    $em->remove($tvaToDelete);
                 }
 
                 $em->flush();

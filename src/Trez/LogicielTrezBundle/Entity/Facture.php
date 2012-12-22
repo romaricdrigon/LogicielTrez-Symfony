@@ -386,6 +386,8 @@ class Facture
      */
     public function addTva(\Trez\LogicielTrezBundle\Entity\Tva $tvas)
     {
+        $tvas->setFacture($this); // added because we're the inverse side
+
         $this->tvas[] = $tvas;
     
         return $this;

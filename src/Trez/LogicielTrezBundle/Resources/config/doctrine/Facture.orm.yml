@@ -32,6 +32,7 @@ Trez\LogicielTrezBundle\Entity\Facture:
         tvas:
             targetEntity: Tva
             mappedBy: facture
+            cascade: [ persist, remove ]
     manyToOne:
         ligne:
             targetEntity: Ligne

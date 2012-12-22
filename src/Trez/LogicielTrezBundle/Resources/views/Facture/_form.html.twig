@@ -16,22 +16,31 @@
         {{ forms.field(form.date, 'Date', {'class': 'date-selects'}, '', '<a id="date-now" href="#">Aujourd\'hui</a>') }}
         {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers'}) }}
         {{ forms.field(form.objet, 'Objet', {'class': 'input-xlarge'}) }}
-        {{ forms.field(form.montant, 'Montant HY', {'class': 'input-small'}) }}
+        {{ forms.field(form.montant, 'Montant HT', {'class': 'input-small'}) }}
     </fieldset>
 
     <fieldset>
         <legend>TVA</legend>
-        <div>Décrivez toutes les TVAs s'appliquant sur cette facture :</div>
+        <div>Décrivez toutes les TVAs s'appliquant sur cette facture : <a href="#" class="btn btn-small" id="add-tva-form">Ajouter une TVA</a></div>
         <div class="error">{{ form_errors(form.tvas) }}</div>
-        <ul>
+        {% set prototype = '<li class="form-inline" id="tva___name__">' ~
+                            'Montant HT : ' ~ form_widget(form.tvas.vars.prototype.montant_ht, {'attr': {'class': 'input-small'}}) ~
+                            ' - Classe : ' ~ form_widget(form.tvas.vars.prototype.classeTva, {'attr': {'class': 'input-medium'}}) ~
+                            ' - Montant TVA : ' ~ form_widget(form.tvas.vars.prototype.montant_tva, {'attr': {'class': 'input-small'}}) ~
+                            ' <a href="#" class="btn btn-danger btn-small remove-tva" data-name="__name__">' ~
+                            '<span class="icon-remove icon-white"></span></a></li>'
+        %}{# Twig will automatically HTML encode double quotes when displaying the variable #}
+        <ul id="tva-forms" data-prototype="{{ prototype }}">
             {% for tva in form.tvas %}
-                <li class="form-inline">
+                <li class="form-inline" id="tva_{{ loop.index0 }}">
                     Montant HT : {{ form_widget(tva.montant_ht, {'attr': {'class': 'input-small'}}) }}
                      - Classe : {{ form_widget(tva.classeTva, {'attr': {'class': 'input-medium'}}) }}
                      - Montant TVA : {{ form_widget(tva.montant_tva, {'attr': {'class': 'input-small'}}) }}
+                     <a href="#" class="btn btn-danger btn-small remove-tva" data-name="{{ loop.index0 }}"><span class="icon-remove icon-white"></span></a>
                 </li>
             {% endfor %}
         </ul>
+        {% do form.tvas.setRendered %}{# otherwise a "Tvas" label will be shown at the bottom #}
     </fieldset>
 
     <fieldset>
@@ -86,5 +95,22 @@
         $( "#date_paiement" ).datepicker({
             dateFormat: 'dd/mm/yy'
         });*/
+
+        // to add TVAs forms
+        $('#add-tva-form').on('click', function(e) {
+            e.preventDefault();
+
+            $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
+
+            $('.remove-tva').on('click', function(e) {
+                e.preventDefault();
+                $('#tva_' + e.currentTarget.dataset.name).remove();
+            });
+        });
+        // to remove TVAs forms
+        $('.remove-tva').on('click', function(e) {
+            e.preventDefault();
+            $('#tva_' + e.currentTarget.dataset.name).remove();
+        });
     });
 </script>

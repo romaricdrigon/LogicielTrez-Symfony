@@ -29,6 +29,16 @@ class Tva
      */
     private $montant_tva;
 
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\Facture
+     */
+    private $facture;
+
+    /**
+     * @var Trez\LogicielTrezBundle\Entity\ClasseTva
+     */
+    private $classeTva;
+
 
     /**
      * Get id
@@ -108,16 +118,6 @@ class Tva
     {
         return $this->montant_tva;
     }
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\Facture
-     */
-    private $facture;
-
-    /**
-     * @var Trez\LogicielTrezBundle\Entity\ClasseTva
-     */
-    private $classeTva;
-
 
     /**
      * Set facture

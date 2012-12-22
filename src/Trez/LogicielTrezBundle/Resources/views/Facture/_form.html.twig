@@ -23,19 +23,19 @@
         <legend>TVA</legend>
         <div>Décrivez toutes les TVAs s'appliquant sur cette facture :</div>
         <div class="error">{{ form_errors(form.tvas) }}</div>
-        {% set prototype = '<li class="form-inline" id="tva___name__">' ~
-                            'Montant HT : ' ~ form_widget(form.tvas.vars.prototype.montant_ht, {'attr': {'class': 'input-small'}}) ~
-                            ' - Classe : ' ~ form_widget(form.tvas.vars.prototype.classeTva, {'attr': {'class': 'input-medium'}}) ~
-                            ' - Montant TVA : ' ~ form_widget(form.tvas.vars.prototype.montant_tva, {'attr': {'class': 'input-small'}}) ~
+        {% set prototype = '<li class="tva form-inline" id="tva___name__">' ~
+                            'Montant HT : ' ~ form_widget(form.tvas.vars.prototype.montant_ht, {'attr': {'class': 'input-small montantHt'}}) ~
+                            ' - Classe : ' ~ form_widget(form.tvas.vars.prototype.classeTva, {'attr': {'class': 'input-medium classeTva'}}) ~
+                            ' - Montant TVA : ' ~ form_widget(form.tvas.vars.prototype.montant_tva, {'attr': {'class': 'input-small montantTva'}}) ~
                             ' <a href="#" class="btn btn-danger btn-mini remove-tva margin-left-5" data-name="__name__">' ~
                             '<span class="icon-remove icon-white inline-mini-icon"></span></a></li>'
         %}{# Twig will automatically HTML encode double quotes when displaying the variable #}
         <ul id="tva-forms" data-prototype="{{ prototype }}" class="tva-forms">
             {% for tva in form.tvas %}
                 <li class="tva form-inline" id="tva_{{ loop.index0 }}">
-                    Montant HT : {{ form_widget(tva.montant_ht, {'attr': {'class': 'input-small'}}) }}
-                     - Classe : {{ form_widget(tva.classeTva, {'attr': {'class': 'input-medium'}}) }}
-                     - Montant TVA : {{ form_widget(tva.montant_tva, {'attr': {'class': 'input-small'}}) }}
+                    Montant HT : {{ form_widget(tva.montant_ht, {'attr': {'class': 'input-small montantHt'}}) }}
+                     - Classe : {{ form_widget(tva.classeTva, {'attr': {'class': 'input-medium classeTva'}}) }}
+                     - Montant TVA : {{ form_widget(tva.montant_tva, {'attr': {'class': 'input-small montantTva'}}) }}
                      <a href="#" class="btn btn-danger btn-mini remove-tva margin-left-5" data-name="{{ loop.index0 }}">
                      <span class="icon-remove icon-white inline-mini-icon"></span></a>
                 </li>
@@ -101,26 +101,12 @@
         });*/
 
         /*
-            TVA forms - need quite a lot of script
+            TVA forms - need quite a lot of script!
          */
-
-        // to add and remove TVAs (inline) forms
-        removeTva = function(e) {
-            e.preventDefault();
-            $('#tva_' + e.currentTarget.dataset.name).remove();
-        };
-        $('#add-tva-form').on('click', function(e) {
-            e.preventDefault();
-
-            $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
-
-            $('.remove-tva').on('click', removeTva);
-        });
-        $('.remove-tva').on('click', removeTva);
 
         // hide disabled ClasseTva
         hideDisabledClasseTva = function(e) {
-            $('li.tva select').each(function(index, domEle) {
+            $('select.classeTva').each(function(index, domEle) {
                 $(domEle).find('option').each(function(index2, domEle2) {
                     if ($(domEle2).text().search('#INACTIF#') !== -1) {
                         if ($(domEle).val()-1 != index2) {
@@ -131,5 +117,39 @@
             })
         };
         hideDisabledClasseTva();
+
+        // auto-calculate montant TVA - quite hairy because of floating-number arithmetic & DOM complexity
+        calcMontantTva = function(e) {
+            var _parent = $(this).parent();
+            var _taux = /\[(\d+\.\d*)\]/.exec(_parent.find('select.classeTva option:selected').text())[1];
+            var _montant_ht = _parent.find('input.montantHt').val().replace(',', '.');
+
+            if (isNaN(_montant_ht) === false && isNaN(_taux) === false) {
+                _montant_ht = parseInt(_montant_ht*100);
+                _taux = parseInt(_taux*100);
+                _parent.find('input.montantTva').val(Math.round(_montant_ht*_taux/10000)/100);
+            }
+        };
+        // bind it to onChange on selects
+        bindCalcTva = function() {
+            $('li.tva select.classeTva').on('change', calcMontantTva);
+            $('li.tva input.montantHt').on('blur', calcMontantTva);
+
+            $('input.montantTva').addClass('uneditable-input');
+        };
+        bindCalcTva();
+
+        // to add and remove TVAs (inline) forms
+        removeTva = function(e) {
+            e.preventDefault();
+            $('#tva_' + e.currentTarget.dataset.name).remove();
+        };
+        $('#add-tva-form').on('click', function(e) {
+            e.preventDefault();
+            $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
+            $('.remove-tva').on('click', removeTva);
+            bindCalcTva();
+        });
+        $('.remove-tva').on('click', removeTva);
     });
 </script>

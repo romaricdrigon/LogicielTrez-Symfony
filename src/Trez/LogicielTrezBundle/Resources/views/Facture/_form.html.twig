@@ -32,7 +32,7 @@
         %}{# Twig will automatically HTML encode double quotes when displaying the variable #}
         <ul id="tva-forms" data-prototype="{{ prototype }}" class="tva-forms">
             {% for tva in form.tvas %}
-                <li class="form-inline" id="tva_{{ loop.index0 }}">
+                <li class="tva form-inline" id="tva_{{ loop.index0 }}">
                     Montant HT : {{ form_widget(tva.montant_ht, {'attr': {'class': 'input-small'}}) }}
                      - Classe : {{ form_widget(tva.classeTva, {'attr': {'class': 'input-medium'}}) }}
                      - Montant TVA : {{ form_widget(tva.montant_tva, {'attr': {'class': 'input-small'}}) }}
@@ -100,21 +100,36 @@
             dateFormat: 'dd/mm/yy'
         });*/
 
-        // to add TVAs forms
+        /*
+            TVA forms - need quite a lot of script
+         */
+
+        // to add and remove TVAs (inline) forms
+        removeTva = function(e) {
+            e.preventDefault();
+            $('#tva_' + e.currentTarget.dataset.name).remove();
+        };
         $('#add-tva-form').on('click', function(e) {
             e.preventDefault();
 
             $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
 
-            $('.remove-tva').on('click', function(e) {
-                e.preventDefault();
-                $('#tva_' + e.currentTarget.dataset.name).remove();
-            });
+            $('.remove-tva').on('click', removeTva);
         });
-        // to remove TVAs forms
-        $('.remove-tva').on('click', function(e) {
-            e.preventDefault();
-            $('#tva_' + e.currentTarget.dataset.name).remove();
-        });
+        $('.remove-tva').on('click', removeTva);
+
+        // hide disabled ClasseTva
+        hideDisabledClasseTva = function(e) {
+            $('li.tva select').each(function(index, domEle) {
+                $(domEle).find('option').each(function(index2, domEle2) {
+                    if ($(domEle2).text().search('#INACTIF#') !== -1) {
+                        if ($(domEle).val()-1 != index2) {
+                            $(domEle2).remove();
+                        }
+                    }
+                });
+            })
+        };
+        hideDisabledClasseTva();
     });
 </script>

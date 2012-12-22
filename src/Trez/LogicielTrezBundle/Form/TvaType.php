@@ -5,6 +5,7 @@ namespace Trez\LogicielTrezBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Doctrine\ORM\EntityRepository;
 
 class TvaType extends AbstractType
 {
@@ -15,8 +16,7 @@ class TvaType extends AbstractType
             ->add('montant_tva', 'money')
             // ->add('facture') // not used here
             ->add('classeTva', 'entity', array(
-                'class' => 'Trez\LogicielTrezBundle\Entity\ClasseTva',
-                'property' => 'nom'
+                'class' => 'Trez\LogicielTrezBundle\Entity\ClasseTva'
             ))
         ;
     }

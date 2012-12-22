@@ -108,4 +108,10 @@ class ClasseTva
     {
         return $this->actif;
     }
+
+    public function __toString()
+    {
+        $actif = $this->actif ? '' : ' #INACTIF#';
+        return $this->nom . ' [' . $this->taux .']'. $actif;
+    }
 }

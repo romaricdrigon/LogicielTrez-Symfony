@@ -44,6 +44,27 @@ h3 {
 .white {
     color: #eee;
 }
+.inline-h {
+    display: inline;
+}
+.inline-btn {
+    margin-top: -13px;
+}
+.inline-icon {
+    margin-top: 3px;
+}
+.inline-mini-icon {
+    margin-top: 0;
+}
+.margin-left-5 {
+    margin-left: 5px;
+}
+.margin-left-10 {
+    margin-left: 10px;
+}
+.margin-10 {
+    margin: 10px;;
+}
 
 /*
     Elements de la page
@@ -63,4 +84,18 @@ h3 {
     padding: 70px 0;
     background: #f5f5f5;
     border-top: 1px solid rgb(229, 229, 229);
+}
+
+/*
+    For factures form
+*/
+.tva-forms {
+    list-style: none;
+    margin: 0 0 0 20px;
+}
+.tva-forms li {
+    padding: 5px 0;
+}
+.tva-forms li:first-of-type {
+    padding: 10px 0 5px 0;
 }

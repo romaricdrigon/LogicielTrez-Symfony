@@ -21,25 +21,29 @@
 
     <fieldset>
         <legend>TVA</legend>
-        <div>Décrivez toutes les TVAs s'appliquant sur cette facture : <a href="#" class="btn btn-small" id="add-tva-form">Ajouter une TVA</a></div>
+        <div>Décrivez toutes les TVAs s'appliquant sur cette facture :</div>
         <div class="error">{{ form_errors(form.tvas) }}</div>
         {% set prototype = '<li class="form-inline" id="tva___name__">' ~
                             'Montant HT : ' ~ form_widget(form.tvas.vars.prototype.montant_ht, {'attr': {'class': 'input-small'}}) ~
                             ' - Classe : ' ~ form_widget(form.tvas.vars.prototype.classeTva, {'attr': {'class': 'input-medium'}}) ~
                             ' - Montant TVA : ' ~ form_widget(form.tvas.vars.prototype.montant_tva, {'attr': {'class': 'input-small'}}) ~
-                            ' <a href="#" class="btn btn-danger btn-small remove-tva" data-name="__name__">' ~
-                            '<span class="icon-remove icon-white"></span></a></li>'
+                            ' <a href="#" class="btn btn-danger btn-mini remove-tva margin-left-5" data-name="__name__">' ~
+                            '<span class="icon-remove icon-white inline-mini-icon"></span></a></li>'
         %}{# Twig will automatically HTML encode double quotes when displaying the variable #}
-        <ul id="tva-forms" data-prototype="{{ prototype }}">
+        <ul id="tva-forms" data-prototype="{{ prototype }}" class="tva-forms">
             {% for tva in form.tvas %}
                 <li class="form-inline" id="tva_{{ loop.index0 }}">
                     Montant HT : {{ form_widget(tva.montant_ht, {'attr': {'class': 'input-small'}}) }}
                      - Classe : {{ form_widget(tva.classeTva, {'attr': {'class': 'input-medium'}}) }}
                      - Montant TVA : {{ form_widget(tva.montant_tva, {'attr': {'class': 'input-small'}}) }}
-                     <a href="#" class="btn btn-danger btn-small remove-tva" data-name="{{ loop.index0 }}"><span class="icon-remove icon-white"></span></a>
+                     <a href="#" class="btn btn-danger btn-mini remove-tva margin-left-5" data-name="{{ loop.index0 }}">
+                     <span class="icon-remove icon-white inline-mini-icon"></span></a>
                 </li>
             {% endfor %}
         </ul>
+        <a href="#" class="btn inline-btn margin-10" id="add-tva-form">
+            <span class="icon-plus-sign"></span> Ajouter une TVA
+        </a>
         {% do form.tvas.setRendered %}{# otherwise a "Tvas" label will be shown at the bottom #}
     </fieldset>
 

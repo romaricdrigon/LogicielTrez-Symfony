@@ -37,7 +37,8 @@ class FactureType extends AbstractType
             ))
             ->add('tiers', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\Tiers',
-                'property' => 'nom'
+                'property' => 'nom',
+                'empty_value' => ''
             ))
             ->add('methodePaiement', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\MethodePaiement',

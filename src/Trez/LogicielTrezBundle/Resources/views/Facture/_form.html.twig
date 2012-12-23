@@ -14,7 +14,7 @@
             </div>
         </div>
         {{ forms.field(form.date, 'Date', {'class': 'date-selects'}, '', '<a id="date-now" href="#">Aujourd\'hui</a>') }}
-        {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers'}) }}
+        {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers', 'data-placeholder': 'Choisissez le tiers concerné'}) }}
         {{ forms.field(form.objet, 'Objet', {'class': 'input-xlarge'}) }}
         {{ forms.field(form.montant, 'Montant HT', {'class': 'input-small'}) }}
     </fieldset>

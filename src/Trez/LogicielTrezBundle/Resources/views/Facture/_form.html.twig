@@ -44,7 +44,7 @@
         <a href="#" class="btn inline-btn margin-10" id="add-tva-form">
             <span class="icon-plus-sign"></span> Ajouter une TVA
         </a>
-        <span class="darkgrey"> - Montant TTC : <span id="montant-ttc"></span></span>
+        <span class="darkgrey"> - Montant TTC : <span id="montant-ttc"></span></span><span class="text-error margin-left-10" id="tva-error"></span>
         {% do form.tvas.setRendered %}{# otherwise a "Tvas" label will be shown at the bottom #}
     </fieldset>
 
@@ -119,6 +119,19 @@
         };
         hideDisabledClasseTva();
 
+        // check if montant of TVAs (parameter) == montant facture
+        checkMontantTva = function(montant) {
+            var _diff = parseFloat($('#trez_logicieltrezbundle_facturetype_montant').val().replace(',', '.'))-montant;
+
+            if (_diff > 0) {
+                $('span#tva-error').text('Attention il manque '+number_format(_diff, 2, ',', '')+' € dans la somme des montants HT !');
+            } else if (_diff < 0) {
+                $('span#tva-error').text('Attention il y a '+number_format(Math.abs(_diff), 2, ',', '')+' € en trop dans la somme des montants HT !');
+            } else {
+                $('span#tva-error').html('<span class="icon-ok"><span>');
+            }
+        };
+
         // calculate montant TTC (montant HT + TVA)
         calcMontantTtc = function() {
             var _montant_ttc = 0;
@@ -127,6 +140,7 @@
             $('li.tva input.montantHt').each(function(index, domEle) {
                 _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
             });
+            checkMontantTva(_montant_ttc);
             $('li.tva input.montantTva').each(function(index, domEle) {
                 _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
             });
@@ -164,8 +178,10 @@
         };
         $('#add-tva-form').on('click', function(e) {
             e.preventDefault();
-            $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
-            $('.remove-tva').on('click', removeTva);
+
+             var _newTva = $($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
+            _newTva.appendTo('#tva-forms').find('.remove-tva').on('click', removeTva);
+
             hideDisabledClasseTva();
             bindCalcTva();
         });

@@ -153,7 +153,7 @@
             $('li.tva select.classeTva').on('change', calcMontantTva);
             $('li.tva input.montantHt').on('blur', calcMontantTva);
 
-            $('input.montantTva').addClass('uneditable-input');
+            $('input.montantTva').attr('readonly', 'readonly');
         };
         bindCalcTva();
 
@@ -166,7 +166,8 @@
             e.preventDefault();
             $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
             $('.remove-tva').on('click', removeTva);
-            bindCalcs();
+            hideDisabledClasseTva();
+            bindCalcTva();
         });
         $('.remove-tva').on('click', removeTva);
     });

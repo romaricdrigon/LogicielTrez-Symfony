@@ -18,6 +18,11 @@ class ClasseTva
     /**
      * @var string $nom
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *     pattern="/[\[\]]+/",
+     *     match=false,
+     *     message="Le nom ne peut contenir un crochet, soit [ ou ]"
+     * )
      */
     private $nom;
 

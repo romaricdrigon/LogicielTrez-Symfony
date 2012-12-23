@@ -115,10 +115,11 @@ class UserController extends Controller
 
     public function deleteAction($id)
     {
+        $sc = $this->get('security.context');
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
 
-        if ($this->get('security.context')->getToken()->getUser()->equals($object)) {
+        if (method_exists($sc->getToken()->getUser(), 'equals') === true && $sc->getToken()->getUser()->equals($object) === true) {
             throw new \Exception("Vous ne pouvez pas vous supprimer vous-même !");
         }
 

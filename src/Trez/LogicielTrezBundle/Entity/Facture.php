@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Trez\LogicielTrezBundle\Entity\Facture
  *  @Assert\Callback(methods={"isUnderTotal"}, groups={"under_total"})
- *  @Assert\Callback(methods={"isNotNull"}, groups={"under_total"})
+ *  @Assert\Callback(methods={"isNotNull"})
  */
 class Facture
 {

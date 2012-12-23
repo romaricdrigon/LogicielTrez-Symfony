@@ -15,11 +15,6 @@ class Tva
     private $id;
 
     /**
-     * @var string $type
-     */
-    private $type;
-
-    /**
      * @var float $montant_ht
      */
     private $montant_ht;
@@ -48,29 +43,6 @@ class Tva
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return Tva
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return string 
-     */
-    public function getType()
-    {
-        return $this->type;
     }
 
     /**

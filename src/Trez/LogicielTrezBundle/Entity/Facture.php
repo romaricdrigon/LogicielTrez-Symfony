@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Trez\LogicielTrezBundle\Entity\Facture
  *  @Assert\Callback(methods={"isUnderTotal"}, groups={"under_total"})
  *  @Assert\Callback(methods={"isNotNull"})
+ *  @Assert\Callback(methods={"isTvasCorrect"})
  */
 class Facture
 {
@@ -419,5 +420,35 @@ class Facture
     public function checkVerrouille()
     {
         $this->ligne->checkVerrouille();
+    }
+
+    /*
+     * Get the montant TTC, including TVA
+     */
+    public function getMontantTtc()
+    {
+        $montant_ttc = $this->montant;
+
+        foreach ($this->tvas as $tva) {
+            $montant_ttc += $tva->getMontantTva();
+        }
+
+        return $montant_ttc;
+    }
+
+    /*
+     * Check if not TVA is missing
+     */
+    public function isTvasCorrect(ExecutionContext $context)
+    {
+        $montant_ht = 0;
+
+        foreach ($this->tvas as $tva) {
+            $montant_ht += $tva->getMontantHt();
+        }
+
+        if ($this->montant != $montant_ht) {
+            $context->addViolationAtSubPath('tvas', 'La somme des montants HT doit être égale au montant de la facture');
+        }
     }
 }

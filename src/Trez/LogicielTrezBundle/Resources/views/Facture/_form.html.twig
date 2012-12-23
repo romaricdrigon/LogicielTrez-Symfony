@@ -22,7 +22,7 @@
     <fieldset>
         <legend>TVA</legend>
         <div>Décrivez toutes les TVAs s'appliquant sur cette facture :</div>
-        <div class="error">{{ form_errors(form.tvas) }}</div>
+        <div class="error text-error">{{ form_errors(form.tvas) }}</div>
         {% set prototype = '<li class="tva form-inline" id="tva___name__">' ~
                             'Montant HT : ' ~ form_widget(form.tvas.vars.prototype.montant_ht, {'attr': {'class': 'input-small montantHt'}}) ~
                             ' - Classe : ' ~ form_widget(form.tvas.vars.prototype.classeTva, {'attr': {'class': 'input-medium classeTva'}}) ~

@@ -21,16 +21,19 @@ class Facture
 
     /**
      * @var integer $numero
+     * @Assert\NotBlank()
      */
     private $numero;
 
     /**
      * @var string $objet
+     * @Assert\NotBlank()
      */
     private $objet;
 
     /**
      * @var float $montant
+     * @Assert\NotBlank()
      */
     private $montant;
 

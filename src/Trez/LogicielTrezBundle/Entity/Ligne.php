@@ -19,6 +19,7 @@ class Ligne
 
     /**
      * @var string $nom
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -29,16 +30,19 @@ class Ligne
 
     /**
      * @var integer $cle
+     * @Assert\NotBlank()
      */
     private $cle;
 
     /**
      * @var float $debit
+     * @Assert\NotBlank()
      */
     private $debit;
 
     /**
      * @var float $credit
+     * @Assert\NotBlank()
      */
     private $credit;
 

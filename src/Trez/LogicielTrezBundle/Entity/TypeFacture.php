@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\TypeFacture
@@ -16,11 +17,13 @@ class TypeFacture
 
     /**
      * @var string $abr
+     * @Assert\NotBlank()
      */
     private $abr;
 
     /**
      * @var string $nom
+     * @Assert\NotBlank()
      */
     private $nom;
 

@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Categorie
@@ -16,6 +17,7 @@ class Categorie
 
     /**
      * @var string $nom
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -26,6 +28,7 @@ class Categorie
 
     /**
      * @var integer $cle
+     * @Assert\NotBlank()
      */
     private $cle;
 

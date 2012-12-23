@@ -17,6 +17,7 @@ class Exercice
 
     /**
      * @var string $edition
+     * @Assert\NotBlank()
      */
     private $edition;
 

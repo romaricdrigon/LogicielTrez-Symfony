@@ -6,9 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
+ *  @UniqueEntity("username")
  */
 class User implements UserInterface, AdvancedUserInterface, \Serializable
 {
@@ -19,6 +21,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
 
     /**
      * @var string $username
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -33,11 +36,15 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
 
     /**
      * @var string $mail
+     * @Assert\Email(
+     *     message = "Une adresse e-mail valide est requise"
+     * )
      */
     private $mail;
 
     /**
      * @var string $type
+     * @Assert\Choice(choices = {"ROLE_ADMIN", "ROLE_USER", "DISABLED"}, message = "Le type doit être parmi 'ROLE_ADMIN', 'ROLE_USER' et 'DISABLED'")
      */
     private $type;
 

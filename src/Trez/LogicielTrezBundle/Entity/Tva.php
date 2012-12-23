@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Tva
@@ -16,11 +17,13 @@ class Tva
 
     /**
      * @var float $montant_ht
+     * @Assert\NotNull()
      */
     private $montant_ht;
 
     /**
      * @var float $montant_tva
+     * @Assert\NotBlank()
      */
     private $montant_tva;
 

@@ -3,9 +3,11 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Tiers
+ * @UniqueEntity("nom")
  */
 class Tiers
 {
@@ -16,6 +18,7 @@ class Tiers
 
     /**
      * @var string $nom
+     * @Assert\NotBlank()
      */
     private $nom;
 
@@ -26,6 +29,9 @@ class Tiers
 
     /**
      * @var string $mail
+     * @Assert\Email(
+     *     message = "Une adresse e-mail valide est requise"
+     * )
      */
     private $mail;
 

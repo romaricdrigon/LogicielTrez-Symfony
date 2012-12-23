@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\ClasseTva
@@ -16,11 +17,18 @@ class ClasseTva
 
     /**
      * @var string $nom
+     * @Assert\NotBlank()
      */
     private $nom;
 
     /**
      * @var float $taux
+     * @Assert\Range(
+     *      min = "0",
+     *      max = "100",
+     *      minMessage = "Un taux ne peut pas être inférieur à 0 !",
+     *      maxMessage = "Un taux ne peut pas être de plus de 100% !"
+     * )
      */
     private $taux;
 

@@ -3,6 +3,7 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Budget
@@ -16,6 +17,7 @@ class Budget
 
     /**
      * @var string $nom
+     * @Assert\NotBlank()
      */
     private $nom;
 

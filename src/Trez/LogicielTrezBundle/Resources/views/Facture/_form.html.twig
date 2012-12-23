@@ -44,6 +44,7 @@
         <a href="#" class="btn inline-btn margin-10" id="add-tva-form">
             <span class="icon-plus-sign"></span> Ajouter une TVA
         </a>
+        <span class="darkgrey"> - Montant TTC : <span id="montant-ttc"></span></span>
         {% do form.tvas.setRendered %}{# otherwise a "Tvas" label will be shown at the bottom #}
     </fieldset>
 
@@ -118,6 +119,22 @@
         };
         hideDisabledClasseTva();
 
+        // calculate montant TTC (montant HT + TVA)
+        calcMontantTtc = function() {
+            var _montant_ttc = 0;
+            var _tvas = $('li.tva').children();
+
+            $('li.tva input.montantHt').each(function(index, domEle) {
+                _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
+            });
+            $('li.tva input.montantTva').each(function(index, domEle) {
+                _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
+            });
+
+            $('#montant-ttc').text(number_format(_montant_ttc, 2, ',', ' ')+' €');
+        };
+        calcMontantTtc();
+
         // auto-calculate montant TVA - quite hairy because of floating-number arithmetic & DOM complexity
         calcMontantTva = function(e) {
             var _parent = $(this).parent();
@@ -127,10 +144,11 @@
             if (isNaN(_montant_ht) === false && isNaN(_taux) === false) {
                 _montant_ht = parseInt(_montant_ht*100);
                 _taux = parseInt(_taux*100);
-                _parent.find('input.montantTva').val(Math.round(_montant_ht*_taux/10000)/100);
+                _parent.find('input.montantTva').val(number_format((_montant_ht*_taux/10000)/100, 2, ',', ''));
             }
+
+            calcMontantTtc();
         };
-        // bind it to onChange on selects
         bindCalcTva = function() {
             $('li.tva select.classeTva').on('change', calcMontantTva);
             $('li.tva input.montantHt').on('blur', calcMontantTva);
@@ -148,7 +166,7 @@
             e.preventDefault();
             $('#tva-forms').append($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
             $('.remove-tva').on('click', removeTva);
-            bindCalcTva();
+            bindCalcs();
         });
         $('.remove-tva').on('click', removeTva);
     });

@@ -44,6 +44,9 @@ h3 {
 .white {
     color: #eee;
 }
+.darkgrey {
+    color: #666;
+}
 .inline-h {
     display: inline;
 }

@@ -212,7 +212,7 @@
                         {% for template in templates %}
                             <tr>
                                 <td>{{ template.name }}</td>
-                                <td>{{ template.contenu }}</td>
+                                <td><pre><code>{{ template.contenu }} </code></pre></td>
                                 <td>
                                     <div class="btn-group">
                                         <a class="btn btn-small" href="{{ path('templateFacture_edit', {'id': template.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>

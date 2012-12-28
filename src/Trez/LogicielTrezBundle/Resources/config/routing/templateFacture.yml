@@ -13,3 +13,7 @@ templateFacture_edit:
 templateFacture_delete:
     pattern: /delete/{id}
     defaults: { _controller: TrezLogicielTrezBundle:TemplateFacture:delete }
+
+templateFacture_templating:
+    pattern: /templating/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:TemplateFacture:templating }

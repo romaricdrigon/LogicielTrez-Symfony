@@ -12,7 +12,7 @@ class TemplateFactureType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('contenu', 'textarea', array('required' => false))
+            ->add('contenu', 'textarea', array('required' => false, 'attr' => array('style' => 'width :800px; height: 300px;', 'class' => 'codepress javascript linenumbers-off')))
         ;
     }
 

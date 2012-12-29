@@ -10,7 +10,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
- *  @UniqueEntity("username")
+ * @UniqueEntity(fields={"username"}, message="Ce nom d'utilisateur est déjà pris (à la casse près)")
+ * @UniqueEntity(fields={"mail"}, message="Cette adresse e-mail est déjà utilisée")
+ * Note: UniqueEntity is case-insensitive
  */
 class User implements UserInterface, AdvancedUserInterface, \Serializable
 {

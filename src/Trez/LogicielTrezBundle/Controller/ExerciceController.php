@@ -15,10 +15,12 @@ class ExerciceController extends Controller
 
         // list only exercices user can read
         $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+        if ($sc->isGranted('ROLE_ADMIN') === true) {
+            $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
             $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getAllowed($sc->getToken()->getUser()->getId());
         } else {
-            $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+            $exercices = array(); // no exception, user may be authorized here but can't view any budget
         }
 
         $this->getBreadcrumbs();

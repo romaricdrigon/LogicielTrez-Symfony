@@ -17,14 +17,16 @@ class CategorieController extends Controller
 
         // list only categories user can read
         $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+        if ($sc->isGranted('ROLE_ADMIN') === true) {
+            $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAll($budget_id);
+        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
             $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAllowed($budget_id, $sc->getToken()->getUser()->getId());
 
             if ($categories === array()) {
                 throw new AccessDeniedException();
             }
         } else {
-            $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAll($budget_id);
+            throw new AccessDeniedException();
         }
 
         $this->getBreadcrumbs($budget);

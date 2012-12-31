@@ -5,6 +5,10 @@ _welcome:
 logout:
     pattern: /logout
 
+login:
+    pattern: /login
+    defaults: { _controller: TrezLogicielTrezBundle:Security:login }
+
 budget:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/budget.yml"
     prefix:   /budget
@@ -58,5 +62,6 @@ user:
     prefix:   /user
 
 # import FpOpenIdBundle routing
+# login route is not used, login_check is ok, logout overriden
 fp_openid_security:
     resource: "@FpOpenIdBundle/Resources/config/routing/security.xml"

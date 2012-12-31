@@ -1,0 +1,37 @@
+{% import 'TrezLogicielTrezBundle:Utils:utils.html.twig' as utils %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogicielTrez - se connecter</title>
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap-responsive.min.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/trezlogicieltrez/css/style.css') }}" />
+    <script src="{{ asset('../vendor/jquery/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('../vendor/twitter/bootstrap/js/bootstrap.min.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+    <div class="container">
+        {% include "TrezLogicielTrezBundle:Utils:flash_message.html.twig" %}
+
+        <div class="hero-unit">
+            <h1>LogicielTrez</h1>
+            <p>Bienvenue dans LogicielTrez, l'application de trésorerie des 24 Heures de l'INSA. Vous devez vous connecter pour continuer.</p>
+        </div>
+        <div>
+            <a class="btn btn-primary pull-right" href="{{ path("fp_openid_security_check", {'openid_identifier': 'https://www.google.com/accounts/o8/id', 'target_path': ''}) }}">
+                Se connecter avec Gmail
+            </a>
+        </div>
+    </div>
+    <div id="footer" class="footer">
+        <div class="container">
+            Fièrement propulsé par <a href="https://github.com/romaricdrigon/LogicielTrez-Symfony">LogicielTrez (version Symfony2)</a>
+        </div>
+    </div>
+</body>
+</html>

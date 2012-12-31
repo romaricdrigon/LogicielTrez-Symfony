@@ -26,3 +26,5 @@ This product use licensed work, please see:
  * Twitter Bootstrap
  * some [icons](http://www.smashingmagazine.com/2012/11/11/dutch-icon-set-smashing-edition/) made by Dutch Icon
  * [WhiteOctober Breadcrumbs bundle](https://github.com/whiteoctober/BreadcrumbsBundle)
+ * Gitorious [LightOpenID](https://gitorious.org/lightopenid) library
+ * [formapro FpOpenIdBundle](https://github.com/formapro/FpOpenIdBundle)

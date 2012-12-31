@@ -9,3 +9,6 @@ services:
         class: Trez\LogicielTrezBundle\Twig\Extension\EvaluateExtension
         tags:
             - { name: twig.extension }
+    trez.logiciel_trez.openid_user_manager:
+        class: Trez\LogicielTrezBundle\Model\OpenIdUserManager
+        arguments: [ @fp_openid.identity_manager, @doctrine.orm.entity_manager ]

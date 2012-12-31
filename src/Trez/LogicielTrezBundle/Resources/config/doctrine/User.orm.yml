@@ -29,4 +29,8 @@ Trez\LogicielTrezBundle\Entity\User:
         categories:
             targetEntity: Categorie
             inversedBy: users
+    oneToMany:
+        open_id_identities:
+            targetEntity: OpenIdIdentity
+            mappedBy: user
     lifecycleCallbacks: {  }

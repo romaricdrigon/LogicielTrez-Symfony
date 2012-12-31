@@ -60,6 +60,11 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     private $categories;
 
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $open_id_identities;
+
 
     /**
      * Get id
@@ -197,6 +202,10 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     public function getRoles()
     {
+        if ($this->type === null) {
+            return array();
+        }
+
         return array($this->type);
     }
 
@@ -279,7 +288,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     
         return $this;
     }
-    // alias to prevent singularity bug
+    // alias tio prevent
     public function addCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
     {
         return $this->addCategorie($categories);
@@ -294,7 +303,6 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     {
         $this->categories->removeElement($categories);
     }
-    // alias to prevent singularity bug
     public function removeCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
     {
         $this->removeCategorie($categories);
@@ -313,5 +321,38 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     public function isCategorieAllowed($categorie)
     {
         return $this->categories->contains($categorie);
+    }
+
+    /**
+     * Add open_id_identities
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\OpenIdIdentity $openIdIdentities
+     * @return User
+     */
+    public function addOpenIdIdentitie(\Trez\LogicielTrezBundle\Entity\OpenIdIdentity $openIdIdentities)
+    {
+        $this->open_id_identities[] = $openIdIdentities;
+    
+        return $this;
+    }
+
+    /**
+     * Remove open_id_identities
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\OpenIdIdentity $openIdIdentities
+     */
+    public function removeOpenIdIdentitie(\Trez\LogicielTrezBundle\Entity\OpenIdIdentity $openIdIdentities)
+    {
+        $this->open_id_identities->removeElement($openIdIdentities);
+    }
+
+    /**
+     * Get open_id_identities
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOpenIdIdentities()
+    {
+        return $this->open_id_identities;
     }
 }

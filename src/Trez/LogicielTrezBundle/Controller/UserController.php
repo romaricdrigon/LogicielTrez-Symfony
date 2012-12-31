@@ -53,11 +53,19 @@ class UserController extends Controller
         $request = $this->get('request');
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
+        $old_mail = $object->getMail();
         $form = $this->get('form.factory')->create(new UserEdit(), $object);
 
         if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
             if ($form->isValid()) {
+                if ($object->getMail() !== $old_mail) {
+                    // delete associated OpenIdIdentities
+                    foreach ($object->getOpenIdIdentities() as $identity) {
+                        $em->remove($identity);
+                    }
+                }
+                
                 $em->flush();
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
@@ -123,7 +131,13 @@ class UserController extends Controller
             throw new \Exception("Vous ne pouvez pas vous supprimer vous-même !");
         }
 
+        // don't forget to delete associated OpenIdIdentities
+        foreach ($object->getOpenIdIdentities() as $identity) {
+            $em->remove($identity);
+        }
+
         $em->remove($object);
+
         $em->flush();
 
         $this->get('session')->setFlash('info', 'Utilisateur supprimé !');

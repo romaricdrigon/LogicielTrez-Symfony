@@ -3,16 +3,31 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        secured_area:
-            pattern:    ^/
-            http_basic:
-                realm: "Vous devez vous authentifier"
-            logout:
-                path: /logout
-                target: /
-                invalidate_session: true
+        # our old, basic HTTP authentification is here
+        # if your prefer it, just un-comment and comment next section
+#        secured_area:
+#            pattern:    ^/
+#            http_basic:
+#                realm: "Vous devez vous authentifier"
+#            logout:
+#                path: /logout
+#                target: /
+#                invalidate_session: true
+        # a nice OpenID authentification
+        main:
+            pattern: ^/
+            fp_openid:
+                create_user_if_not_exists: true
+                provider: openid_user_manager
+                required_attributes:
+                    - contact/email
+                remember_me: true
+                login_path: /login
+            logout: true
+            anonymous: true
     access_control:
-        # first, exceptions: pages for all users
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # then, exceptions: pages for all users
         -
             path: ^/$
             roles: ROLE_USER
@@ -48,12 +63,14 @@ security:
             path: ^/
             roles: ROLE_ADMIN
     providers:
-        chain_provider:
-            chain:
-                providers: [in_memory, database]
-        in_memory:
-            memory:
-                users: %users%
+        openid_user_manager:
+            id: trez.logiciel_trez.openid_user_manager
+#        chain_provider:
+#            chain:
+#                providers: [in_memory, database]
+#        in_memory:
+#            memory:
+#                users: %users%
         database:
             entity: { class: TrezLogicielTrezBundle:User, property: username }
     encoders:
@@ -61,3 +78,4 @@ security:
         Symfony\Component\Security\Core\User\User: plaintext
     role_hierarchy:
         ROLE_ADMIN: ROLE_USER
+        ROLE_USER: IS_AUTHENTICATED_OPENID

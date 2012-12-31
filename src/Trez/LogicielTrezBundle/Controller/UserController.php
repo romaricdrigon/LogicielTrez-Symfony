@@ -53,14 +53,17 @@ class UserController extends Controller
         $request = $this->get('request');
         $em = $this->get('doctrine.orm.entity_manager');
         $object = $em->getRepository('TrezLogicielTrezBundle:User')->find($id);
+        $old_mail = $object->getMail();
         $form = $this->get('form.factory')->create(new UserEdit(), $object);
 
         if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
             if ($form->isValid()) {
-                // don't forget to delete associated OpenIdIdentities
-                foreach ($object->getOpenIdIdentities() as $identity) {
-                    $em->remove($identity);
+                if ($object->getMail() !== $old_mail) {
+                    // delete associated OpenIdIdentities
+                    foreach ($object->getOpenIdIdentities() as $identity) {
+                        $em->remove($identity);
+                    }
                 }
                 
                 $em->flush();

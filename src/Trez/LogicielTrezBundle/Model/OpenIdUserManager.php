@@ -6,6 +6,7 @@ use Fp\OpenIdBundle\Model\UserManager;
 use Fp\OpenIdBundle\Model\IdentityManagerInterface;
 use Doctrine\ORM\EntityManager;
 use Trez\LogicielTrezBundle\Entity\OpenIdIdentity;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 
 class OpenIdUserManager extends UserManager
 {
@@ -28,7 +29,7 @@ class OpenIdUserManager extends UserManager
         ));
 
         if ($user === null) {
-            throw new \Exception('Cet utilisateur ne semble pas être autorisé');
+            throw new BadCredentialsException('Cet utilisateur ne semble pas être autorisé');
         }
 
         // we create an OpenIdIdentity using this user

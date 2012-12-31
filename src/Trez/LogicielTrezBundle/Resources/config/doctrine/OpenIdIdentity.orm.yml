@@ -1,6 +1,5 @@
-Trez\LogicielTrezBundle\Entity\OpenIdentity:
+Trez\LogicielTrezBundle\Entity\OpenIdIdentity:
     type: entity
-    table: openid_identities
     repositoryClass: Trez\LogicielTrezBundle\Entity\LigneRepository
     fields:
         id:

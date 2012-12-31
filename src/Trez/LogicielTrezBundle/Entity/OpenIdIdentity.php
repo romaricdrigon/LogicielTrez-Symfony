@@ -10,7 +10,7 @@ use Fp\OpenIdBundle\Model\UserIdentityInterface;
 /**
  * OpenIdentity
  */
-class OpenIdentity extends BaseUserIdentity
+class OpenIdIdentity extends BaseUserIdentity
 {
     /**
      * @var integer
@@ -21,6 +21,11 @@ class OpenIdentity extends BaseUserIdentity
      * @var \Trez\LogicielTrezBundle\Entity\User
      */
     protected $user;
+
+    /*
+     * It inherits a identity string field,
+     * and attributes text
+     */
 
 
     /**
@@ -43,14 +48,6 @@ class OpenIdentity extends BaseUserIdentity
     public function getUser()
     {
         return $this->user;
-    }
-
-    /**
-     * @ORM\PreFlush
-     */
-    public function checkVerrouille()
-    {
-        return false;
     }
 
     public function __construct()

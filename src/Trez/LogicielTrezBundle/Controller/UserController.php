@@ -58,6 +58,11 @@ class UserController extends Controller
         if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
             if ($form->isValid()) {
+                // don't forget to delete associated OpenIdIdentities
+                foreach ($object->getOpenIdIdentities() as $identity) {
+                    $em->remove($identity);
+                }
+                
                 $em->flush();
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
@@ -122,7 +127,13 @@ class UserController extends Controller
             throw new \Exception("Vous ne pouvez pas vous supprimer vous-même !");
         }
 
+        // don't forget to delete associated OpenIdIdentities
+        foreach ($object->getOpenIdIdentities() as $identity) {
+            $em->remove($identity);
+        }
+
         $em->remove($object);
+
         $em->flush();
 
         $this->get('session')->setFlash('info', 'Utilisateur supprimé !');

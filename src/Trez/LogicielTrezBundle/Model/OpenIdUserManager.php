@@ -1,6 +1,6 @@
 <?php
 
-namespace Trez\LogicielTrezBundle\Entity;
+namespace Trez\LogicielTrezBundle\Model;
 
 use Fp\OpenIdBundle\Model\UserManager;
 use Fp\OpenIdBundle\Model\IdentityManagerInterface;

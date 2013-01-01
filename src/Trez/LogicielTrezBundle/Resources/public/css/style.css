@@ -1,6 +1,12 @@
 /*
     Elemeny généraux
 */
+html {
+    height: 100%;
+}
+body {
+    height: 100%;
+}
 body {
     padding-top: 70px;
 }
@@ -67,6 +73,12 @@ h3 {
 }
 .margin-10 {
     margin: 10px;;
+}
+.margin-top-20 {
+    margin-top: 20px;
+}
+.justify {
+    text-align: justify;
 }
 
 /*

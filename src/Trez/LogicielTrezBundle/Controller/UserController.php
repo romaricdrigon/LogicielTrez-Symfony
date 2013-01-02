@@ -17,7 +17,16 @@ class UserController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $users = $em->getRepository('TrezLogicielTrezBundle:User')->findAll();
 
-        return $this->render('TrezLogicielTrezBundle:User:list.html.twig', array('users' => $users));
+        if ($this->container->hasParameter('users') && is_array($this->container->getParameter('users')) === true) {
+            $memory_users = array_keys($this->container->getParameter('users'));
+        } else {
+            $memory_users = array();
+        }
+
+        return $this->render('TrezLogicielTrezBundle:User:list.html.twig', array(
+            'users' => $users,
+            'memory_users' => $memory_users
+        ));
     }
 
     public function addAction()

@@ -38,6 +38,17 @@
         </tbody>
     </table>
 
+    {% if memory_users is not empty %}
+        <div class="alert alert-block">
+            <p>Un ou plusieurs utilisateurs sont également configurés dans <code>parameters.yml</code> :</p>
+            <ul>
+                {% for user in memory_users %}
+                    <li><b>{{ user }}</b></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <div>
         <a href="{{ path('user_add') }}" class='btn btn-primary'>
             <i class="icon-plus"></i> Ajouter un utilisateur

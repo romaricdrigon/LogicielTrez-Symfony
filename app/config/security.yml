@@ -4,17 +4,22 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # http login
-        http_login:
-             pattern: ^/login_http$
-             http_basic:
-                 realm: "Vous devez vous authentifier"
+        # first, we have to exclude the (credentials) login page
+        login_firewall:
+            pattern:    ^/credentials/login$
+            anonymous:  ~
+        # login using credentials
+        classic:
+             pattern: ^/credentials
+             form_login:
+                login_path: /credentials/login
+                check_path: /credentials/check
              logout:
                  path: /logout
                  target: /
                  invalidate_session: true
              provider: chain_provider
-             context: _primary_auth  # so users are shared among firewalls
+             context: main_auth  # so users are shared among firewalls
         # a nice OpenID authentification
         main:
             pattern: ^/
@@ -25,11 +30,13 @@ security:
                     - contact/email
                 remember_me: true
                 login_path: /login
+                check_path: /login_check_openid
             logout: true
             anonymous: true
-            context: _primary_auth  # so users are shared among firewalls
+            context: main_auth  # so users are shared among firewalls
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/credentials, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # then, exceptions: pages for all users
         -
             path: ^/$

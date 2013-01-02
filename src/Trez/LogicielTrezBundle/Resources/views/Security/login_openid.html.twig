@@ -1,0 +1,16 @@
+{% extends 'TrezLogicielTrezBundle:Security:login_layout.html.twig' %}
+
+{% block form %}
+    <p class="justify">
+        Bienvenue dans l'application de trésorerie.<br />
+        Vous devez vous connecter pour continuer.
+    </p>
+    <p class="margin-h-20 clearfix">
+        <a class="btn btn-primary pull-right" href="{{ path("fp_openid_security_check", {'openid_identifier': 'https://www.google.com/accounts/o8/id', 'target_path': ''}) }}">
+            Se connecter avec Gmail
+        </a>
+    </p>
+    <p class="muted">
+        Powered by <a href="https://github.com/romaricdrigon/LogicielTrez-Symfony">LogicielTrez</a> - <a href="{{ path('login_credentials') }}">comptes classiques</a>
+    </p>
+{% endblock %}

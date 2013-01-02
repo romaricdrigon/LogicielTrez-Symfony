@@ -148,6 +148,7 @@
             $('#montant-ttc').text(number_format(_montant_ttc, 2, ',', ' ')+' €');
         };
         calcMontantTtc();
+        $('#trez_logicieltrezbundle_facturetype_montant').on('blur', calcMontantTtc); // so when montant is changed, check TVA
 
         // auto-calculate montant TVA - quite hairy because of floating-number arithmetic & DOM complexity
         calcMontantTva = function(e) {

@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ ligne.cle }}</td>
                     <td>{{ ligne.nom }}</td>
-                    <td>{{ ligne.debit|number_format(0, ',', ' ') }}</td>
-                    <td>{{ ligne.credit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ ligne.debit|number_format(2, ',', ' ') }}</td>
+                    <td>{{ ligne.credit|number_format(2, ',', ' ') }}</td>
                     <td>{{ ligne.commentaire }}</td>
                     <td>
                         <div class="btn-group">

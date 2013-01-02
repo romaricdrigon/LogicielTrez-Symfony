@@ -19,8 +19,10 @@ Trez\LogicielTrezBundle\Entity\Ligne:
             type: integer
         debit:
             type: decimal
+            scale: 2
         credit:
             type: decimal
+            scale: 2
     oneToMany:
         factures:
             targetEntity: Facture

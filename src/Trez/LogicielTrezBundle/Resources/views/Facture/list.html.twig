@@ -19,7 +19,7 @@
                     <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
                     <td>{{ facture.objet }}</td>
                     <td>{{ facture.date|date("d/m/Y") }}</td>
-                    <td>{{ facture.montant|number_format(0, ',', ' ') }}</td>
+                    <td>{{ facture.montant|number_format(2, ',', ' ') }}</td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('facture_detail', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="D&eacute;tail"><i class="icon-eye-open"></i></a>

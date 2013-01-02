@@ -6,7 +6,7 @@
     <fieldset>
         {{ forms.field(form.nom, 'Nom') }}
         {{ forms.field(form.abr, 'Abréviation') }}
-        {{ forms.field(form.sens, 'Sens') }}
+        {{ forms.field(form.sens, 'Crédit ?', {}, '', "Cocher si les factures de ce type représentent des mouvements positifs (crédits, recettes)") }}
     </fieldset>
 
     {{ form_rest(form) }}

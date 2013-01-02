@@ -248,6 +248,7 @@ class Ligne
 
     /*
      * Get the sum of all factures
+     * Use references!
      */
     public function getFacturesTotal(&$credit, &$debit, $excluded_facture = -1)
     {
@@ -255,7 +256,7 @@ class Ligne
         $total_credit = 0.0;
 
         foreach ($this->factures as $facture) {
-            if ($facture->getId() === $excluded_facture) {
+            if ($facture->getId() == $excluded_facture) {
                 continue;
             }
 
@@ -291,16 +292,17 @@ class Ligne
     {
         $this->getFreeTotal($credit, $debit);
 
-        if ($credit < 0) {
+        // compare with an epsilon, we're using floats here!
+        if ($credit < -0.001) {
             $context->addViolationAtSubPath('credit',
                 'Le total des factures dépasse le crédit de la ligne de %depassement% €',
-                array('%depassement%' => $credit*-1),
+                array('%depassement%' => round($credit,2)*-1),
                 null);
         }
-        if ($debit < 0) {
+        if ($debit < -0.001) {
             $context->addViolationAtSubPath('debit',
                 'Le total des factures dépasse le débit de la ligne de %depassement% €',
-                array('%depassement%' => $debit*-1),
+                array('%depassement%' => round($debit,2)*-1),
                 null);
         }
     }

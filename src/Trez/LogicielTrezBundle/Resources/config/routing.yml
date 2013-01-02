@@ -9,6 +9,11 @@ login:
     pattern: /login
     defaults: { _controller: TrezLogicielTrezBundle:Security:login }
 
+# legacy HTTP login support
+login_http:
+    pattern: /login_http
+    defaults: { _controller: TrezLogicielTrezBundle:Default:index }
+
 budget:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/budget.yml"
     prefix:   /budget

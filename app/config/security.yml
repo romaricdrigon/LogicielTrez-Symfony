@@ -1,18 +1,20 @@
 security:
     firewalls:
+        # first, assets don't need auth
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        # our old, basic HTTP authentification is here
-        # if your prefer it, just un-comment and comment next section
-#        secured_area:
-#            pattern:    ^/
-#            http_basic:
-#                realm: "Vous devez vous authentifier"
-#            logout:
-#                path: /logout
-#                target: /
-#                invalidate_session: true
+        # http login
+        http_login:
+             pattern: ^/login_http$
+             http_basic:
+                 realm: "Vous devez vous authentifier"
+             logout:
+                 path: /logout
+                 target: /
+                 invalidate_session: true
+             provider: chain_provider
+             context: _primary_auth  # so users are shared among firewalls
         # a nice OpenID authentification
         main:
             pattern: ^/
@@ -25,6 +27,7 @@ security:
                 login_path: /login
             logout: true
             anonymous: true
+            context: _primary_auth  # so users are shared among firewalls
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         # then, exceptions: pages for all users
@@ -65,12 +68,14 @@ security:
     providers:
         openid_user_manager:
             id: trez.logiciel_trez.openid_user_manager
-#        chain_provider:
-#            chain:
-#                providers: [in_memory, database]
-#        in_memory:
-#            memory:
-#                users: %users%
+        # the first provider is always used, else specified
+        chain_provider:
+            chain:
+                providers: [in_memory, database]
+        in_memory:
+            memory:
+                users: %users%
+        # anyway we have to keep this provider else auths will not be able to fetch User entities
         database:
             entity: { class: TrezLogicielTrezBundle:User, property: username }
     encoders:

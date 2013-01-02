@@ -73,8 +73,9 @@ h3 {
 .margin-10 {
     margin: 10px;;
 }
-.margin-top-20 {
+.margin-h-20 {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 .justify {
     text-align: justify;

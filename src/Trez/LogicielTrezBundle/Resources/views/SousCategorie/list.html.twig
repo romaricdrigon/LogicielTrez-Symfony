@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ sous_categorie.0.cle }}</td>
                     <td>{{ sous_categorie.0.nom }}</td>
-                    <td>{{ sous_categorie.debit|number_format(2, ',', ' ') }}</td>
-                    <td>{{ sous_categorie.credit|number_format(2, ',', ' ') }}</td>
+                    <td>{{ sous_categorie.debit|excel_format }}</td>
+                    <td>{{ sous_categorie.credit|excel_format }}</td>
                     <td>{{ sous_categorie.0.commentaire }}</td>
                     <td>
                         <div class="btn-group">

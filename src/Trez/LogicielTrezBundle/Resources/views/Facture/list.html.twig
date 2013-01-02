@@ -51,6 +51,8 @@
                             <li><a href="{{ path('facture_add', {'ligne_id': ligne.id, 'type_id': type.id}) }}">
                                 <b>{{ type.abr }}</b> - {{ type.nom }}</a>
                             </li>
+                        {% else %}
+                            <li><a href="{{ path('config_index') }}">Vous devez d'abord configurer au moins un type de facture</a></li>
                         {% endfor %}
                     </ul>
                 </div>

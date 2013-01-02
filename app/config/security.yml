@@ -20,6 +20,11 @@ security:
                  invalidate_session: true
              provider: chain_provider
              context: main_auth  # so users are shared among firewalls
+             remember_me:
+                key: "%secret%"
+                lifetime: 604800 # 1 week in seconds
+                path: /
+                domain: ~
         # a nice OpenID authentification
         main:
             pattern: ^/
@@ -28,7 +33,7 @@ security:
                 provider: openid_user_manager
                 required_attributes:
                     - contact/email
-                remember_me: true
+                remember_me: false # not sure what it's done?
                 login_path: /login
                 check_path: /login_check_openid
             logout: true
@@ -73,16 +78,17 @@ security:
             path: ^/
             roles: ROLE_ADMIN
     providers:
+        # provider for OpenID
         openid_user_manager:
             id: trez.logiciel_trez.openid_user_manager
-        # the first provider is always used, else specified
+        # the first provider is always used, otherwise specified
         chain_provider:
             chain:
                 providers: [in_memory, database]
         in_memory:
             memory:
                 users: %users%
-        # anyway we have to keep this provider else auths will not be able to fetch User entities
+        # anyway we have to keep this provider else both auths will not be able to fetch User entities
         database:
             entity: { class: TrezLogicielTrezBundle:User, property: username }
     encoders:

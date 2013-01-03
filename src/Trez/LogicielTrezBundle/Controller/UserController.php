@@ -104,7 +104,7 @@ class UserController extends Controller
         // next it depend on the role
         if ($sc->isGranted('ROLE_ADMIN') === true) {
             return $this->changePasswordAdmin($object);
-        } else if ($sc->getToken()->getUser()->equals($object) === true) {
+        } else if ($sc->getToken()->getUser()->equals($object) === true && $sc->getToken()->getUser()->getCanCredentials() === true) {
             return $this->changePasswordUser($object);
         }
 

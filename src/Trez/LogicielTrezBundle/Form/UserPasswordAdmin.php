@@ -6,16 +6,13 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class UserPassword extends AbstractType
+class UserPasswordAdmin extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('username', 'text', array(
                 'disabled' => true
-            ))
-            ->add('old_password', 'password', array(
-                'mapped' => false
             ))
             ->add('password', 'repeated', array(
                 'type' => 'password',
@@ -35,6 +32,6 @@ class UserPassword extends AbstractType
 
     public function getName()
     {
-        return 'trez_logicieltrezbundle_userpassword';
+        return 'trez_logicieltrezbundle_userpasswordadmin';
     }
 }

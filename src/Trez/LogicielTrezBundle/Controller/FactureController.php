@@ -201,7 +201,7 @@ class FactureController extends Controller
         $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
         $breadcrumbs->addItem("Budgets de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice()->getId())));
         $breadcrumbs->addItem("Catégories de ".$ligne->getSousCategorie()->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId())));
-        $breadcrumbs->addItem("Sous-catégories de ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $ligne->getSousCategorie()->getCategorie()->getBudget()->getId())));
+        $breadcrumbs->addItem("Sous-catégories de ".$ligne->getSousCategorie()->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $ligne->getSousCategorie()->getCategorie()->getId())));
         $breadcrumbs->addItem("Lignes de ".$ligne->getSousCategorie()->getNom(), $this->generateUrl('ligne_index', array('sous_categorie_id' => $ligne->getSousCategorie()->getId())));
         $breadcrumbs->addItem("Factures de ".$ligne->getnom(), $this->generateUrl('facture_index', array('ligne_id' => $ligne->getId())));
     }

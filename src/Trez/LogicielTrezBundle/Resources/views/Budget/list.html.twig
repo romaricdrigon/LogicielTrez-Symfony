@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') and exercice.verrouille == false %}
         <div>
             <a href="{{ path('budget_add', {'exercice_id': exercice.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter un budget

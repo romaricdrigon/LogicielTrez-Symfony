@@ -39,7 +39,9 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN')
+        and categorie.budget.verrouille == false
+        and categorie.budget.exercice.verrouille == false %}
         <div>
             <a href="{{ path('sous_categorie_add', {'categorie_id': categorie.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter une sous-cat&eacute;gorie

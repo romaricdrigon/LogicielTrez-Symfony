@@ -39,7 +39,9 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN')
+        and sous_categorie.categorie.budget.verrouille == false
+        and sous_categorie.categorie.budget.exercice.verrouille == false %}
         <div>
             <a href="{{ path('ligne_add', {'sous_categorie_id': sous_categorie.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter une ligne

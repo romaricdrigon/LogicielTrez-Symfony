@@ -39,7 +39,7 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') and budget.verrouille == false and budget.exercice.verrouille == false %}
         <div>
             <a href="{{ path('categorie_add', {'budget_id': budget.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter une cat&eacute;gorie

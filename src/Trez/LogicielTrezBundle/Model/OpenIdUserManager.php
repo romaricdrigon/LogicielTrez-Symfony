@@ -7,6 +7,7 @@ use Fp\OpenIdBundle\Model\IdentityManagerInterface;
 use Doctrine\ORM\EntityManager;
 use Trez\LogicielTrezBundle\Entity\OpenIdIdentity;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
+use Symfony\Component\Security\Core\Exception\InsufficientAuthenticationException;
 
 class OpenIdUserManager extends UserManager
 {
@@ -32,6 +33,10 @@ class OpenIdUserManager extends UserManager
             throw new BadCredentialsException('Cet utilisateur ne semble pas être autorisé');
         }
 
+        if ($user->getCanOpenId() === false) {
+            throw new InsufficientAuthenticationException('Cet utilisateur ne supporte pas cette méthode de login');
+        }
+
         // we create an OpenIdIdentity using this user
         $openIdIdentity = new OpenIdIdentity();
         $openIdIdentity->setIdentity($identity);
@@ -42,5 +47,16 @@ class OpenIdUserManager extends UserManager
         $this->entityManager->flush();
 
         return $user; // must always return UserInterface instance or throw an exception.
+    }
+
+    protected function loadUserByIdentity($identity)
+    {
+        $user = parent::loadUserByIdentity($identity);
+
+        if ($user->getCanOpenId() === false) {
+            throw new InsufficientAuthenticationException('Cet utilisateur ne supporte pas cette méthode de login');
+        }
+
+        return $user;
     }
 }

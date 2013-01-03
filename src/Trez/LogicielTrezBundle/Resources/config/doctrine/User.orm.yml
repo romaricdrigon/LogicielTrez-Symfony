@@ -24,6 +24,10 @@ Trez\LogicielTrezBundle\Entity\User:
             type: string
             length: 255
             nullable: true
+        can_openid:
+            type: boolean
+        can_credentials:
+            type: boolean
     # will create a join table
     manyToMany:
         categories:

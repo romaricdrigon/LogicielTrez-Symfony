@@ -7,9 +7,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\ExecutionContext;
 
 /**
  * Trez\LogicielTrezBundle\Entity\User
+ * @Assert\Callback(methods={"hasOneLoginType"})
  * @UniqueEntity(fields={"username"}, message="Ce nom d'utilisateur est déjà pris (à la casse près)")
  * @UniqueEntity(fields={"mail"}, message="Cette adresse e-mail est déjà utilisée")
  * Note: UniqueEntity is case-insensitive
@@ -64,6 +66,16 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      * @var \Doctrine\Common\Collections\Collection
      */
     private $open_id_identities;
+
+    /**
+     * @var boolean
+     */
+    private $can_openid;
+
+    /**
+     * @var boolean
+     */
+    private $can_credentials;
 
 
     /**
@@ -354,5 +366,62 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     public function getOpenIdIdentities()
     {
         return $this->open_id_identities;
+    }
+
+    /**
+     * Set can_openid
+     *
+     * @param boolean $canOpenid
+     * @return User
+     */
+    public function setCanOpenid($canOpenid)
+    {
+        $this->can_openid = $canOpenid;
+    
+        return $this;
+    }
+
+    /**
+     * Get can_openid
+     *
+     * @return boolean 
+     */
+    public function getCanOpenid()
+    {
+        return $this->can_openid;
+    }
+
+    /**
+     * Set can_credentials
+     *
+     * @param boolean $canCredentials
+     * @return User
+     */
+    public function setCanCredentials($canCredentials)
+    {
+        $this->can_credentials = $canCredentials;
+    
+        return $this;
+    }
+
+    /**
+     * Get can_credentials
+     *
+     * @return boolean 
+     */
+    public function getCanCredentials()
+    {
+        return $this->can_credentials;
+    }
+
+    /*
+     * Check if User can logged (at least) in one way
+     */
+    public function hasOneLoginType(ExecutionContext $context)
+    {
+        if ($this->can_openid === false && $this->can_credentials === false) { // compare with an epsilon!
+            $context->addViolationAtSubPath('can_openid', "Un utilisateur doit pouvoir se connecter au moins d'une manière");
+            $context->addViolationAtSubPath('can_credentials', "Un utilisateur doit pouvoir se connecter au moins d'une manière");
+        }
     }
 }

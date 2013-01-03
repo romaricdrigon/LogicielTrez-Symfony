@@ -90,7 +90,7 @@ security:
                 users: %users%
         # anyway we have to keep this provider else both auths will not be able to fetch User entities
         database:
-            entity: { class: TrezLogicielTrezBundle:User, property: username }
+            entity: { class: TrezLogicielTrezBundle:User } # no 'property' field so it'll use a custom User Provider
     encoders:
         Trez\LogicielTrezBundle\Entity\User: sha512
         Symfony\Component\Security\Core\User\User: plaintext

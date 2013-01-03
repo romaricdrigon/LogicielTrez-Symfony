@@ -9,6 +9,7 @@
             <th>Nom d'utilisateur</th>
             <th>E-Mail</th>
             <th>Type</th>
+            <th>Méthodes</th>
             <th width="70"></th>
         </tr>
         </thead>
@@ -22,6 +23,9 @@
                         {% elseif user.type == 'ROLE_USER' %}Lecteur
                         {% elseif user.type == 'DISABLED' %}Désactivé
                         {% else %}{{ user.type }}{% endif %}
+                    </td>
+                    <td>
+                        {% if user.canOpenid %}OpenID&nbsp;{% endif %}{% if user.canCredentials %}Compte{% endif %}
                     </td>
                     <td>
                         <div class="btn-group">

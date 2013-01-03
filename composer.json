@@ -23,7 +23,9 @@
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
         "fp/openid-bundle": "dev-master",
-        "fp/lightopenid": "dev-master"
+        "fp/lightopenid": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "doctrine/data-fixtures": "dev-master"
     },
     "repositories": [
         {

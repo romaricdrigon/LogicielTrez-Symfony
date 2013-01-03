@@ -33,6 +33,7 @@ Copy ```app/config/parameters.yml.dist``` to ```app/config/parameters.yml```, th
 ### 3) Database
 
 Update your database schema with the command ```app/console doctrine:schema:update --force```
+Load fixtures (some configuration values), ```php app/console doctrine:fixtures:load```
 
 ### 4) Create another User account, delete old one
 

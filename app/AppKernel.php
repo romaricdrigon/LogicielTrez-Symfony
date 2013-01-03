@@ -21,7 +21,8 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Trez\LogicielTrezBundle\TrezLogicielTrezBundle(), // our bundle
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(), // WhiteOctobers Breacrumb
-            new Fp\OpenIdBundle\FpOpenIdBundle() // OpenIdBundle
+            new Fp\OpenIdBundle\FpOpenIdBundle(), // OpenIdBundle
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle() // Doctrine data fixtures extra
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

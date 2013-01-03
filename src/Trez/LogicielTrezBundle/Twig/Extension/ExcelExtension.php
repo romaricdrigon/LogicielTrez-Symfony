@@ -2,8 +2,6 @@
 
 namespace Trez\LogicielTrezBundle\Twig\Extension;
 
-use Twig_SimpleFilter;
-
 /**
  * Format numbers in a Excel-like fashion (French locale):
  * 2 decimals, ' ' separator for thousands, ',' for decimals
@@ -17,7 +15,8 @@ class ExcelExtension extends \Twig_Extension {
      */
     public function getFilters() {
         return array(
-            new Twig_SimpleFilter('excel_format', function ($number) {
+            // need Twig 1.12, before the syntax was different!
+            new \Twig_SimpleFilter('excel_format', function ($number) {
                 if (is_numeric($number) === false && empty($number) === false) {
                     throw new \Exception("Non-numeric value '$number' passed to Twig ExcelExtension");
                 }

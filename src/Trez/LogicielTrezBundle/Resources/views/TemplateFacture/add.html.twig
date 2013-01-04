@@ -1,7 +1,42 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('../vendor/ajaxorg/ace/src-min/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
 {% block body %}
+    <style type="text/css" media="screen">
+        #editor {
+            position: absolute;
+            top: 300px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+    </style>
+
+
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/javascript");
+        editor.setValue("the new text here");
+        console.log(editor.getValue());
+    </script>
     <h1>Ajouter un template de facture</h1>
 
     {% include "TrezLogicielTrezBundle:TemplateFacture:_form.html.twig" with {'route': 'templateFacture_add'} %}
 {%  endblock %}
+
+{#
+Commentaire twig
+
+var textarea = $('textarea[name="romaricdrigon_newsletterbundle_templatetype[content]"]').hide();
+editor.getSession().setValue(textarea.val());
+editor.getSession().on('change', function(){
+textarea.val(editor.getSession().getValue());
+});
+editor.setShowPrintMargin(false); // no 80 chars limit line
+
+#}

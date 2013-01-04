@@ -39,7 +39,7 @@
                             {% endif %}
                         </ul>
                         <div class="pull-right userbox">
-                            {% if app.user.canCredentials == true %}
+                            {% if app.user.canCredentials is defined and app.user.canCredentials == true %}
                                 Bonjour, <a href="{{ url('user_change_password', {id: app.user.id }) }}">{{ app.user.username }}</a> !
                             {% else %}
                                 Bonjour, <span class="white">{{ app.user.username }}</span> !

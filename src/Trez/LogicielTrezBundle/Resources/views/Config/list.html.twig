@@ -75,7 +75,11 @@
                                     <td>{{ facture.id }}</td>
                                     <td>{{ facture.abr }}</td>
                                     <td>{{ facture.nom }}</td>
-                                    <td>{{ facture.sens }}</td>
+                                    {% if ( facture.sens  == 1) %}
+                                        <td>crédit</td>
+                                    {% else %}
+                                        <td>débit</td>
+                                    {% endif %}
                                     <td>
                                         <div class="btn-group">
                                             <a class="btn btn-small" href="{{ path('typeFacture_edit', {'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>

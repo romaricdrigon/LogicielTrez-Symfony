@@ -12,7 +12,12 @@ class TemplateFactureType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('contenu', 'textarea', array('required' => false, 'attr' => array('style' => 'width :800px; height: 300px;', 'class' => 'codepress javascript linenumbers-off')))
+            ->add('type', 'choice', array(
+            'choices' => array(
+                'FACTURE' => 'facture',
+                'LETTRE' => 'lettre de paiement'
+            )))
+            ->add('contenu', 'textarea', array('required' => false))
         ;
     }
 

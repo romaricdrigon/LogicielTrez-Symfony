@@ -1,11 +1,25 @@
 {% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
 
+<style type="text/css" media="screen">
+    #editor {
+        position: absolute;
+        top: 590px;
+        right: 50px;
+        bottom: 100px;
+        left: 50px;
+        font-size: 16px;
+    }
+</style>
+
 <form class="form-horizontal" action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
     <div>{{ form_errors(form) }}</div>
 
     <fieldset>
         {{ forms.field(form.name, 'Nom') }}
+        {{ forms.field(form.type, 'Type') }}
+        <div id="contenu_editor">
         {{ forms.field(form.contenu, 'Contenu') }}
+        </div>
     </fieldset>
 
     {{ form_rest(form) }}
@@ -14,4 +28,34 @@
         <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
         <a href="{{ path('config_index') }}#template" class="btn">Annuler</a>
     </div>
+    <dl>Voici la liste des variables disponibles pour éditer le contenu du template:</dl>
+    <dd>facture.typeFacture.abr</dd>
+    <dd>facture.numero</dd>
+    <dd>facture.date|date("m/d/Y")</dd>
+    <dd>facture.objet</dd>
+    <dd>facture.commentaire</dd>
+    <dd>facture.montant</dd>
+    <dd>tva.classeTva.taux</dd>
+    <dd>tva.montantTva</dd>
+    <dd>totalTTC</dd>
+
+
+    <div id="editor"></div>
+
+    <script>
+        $(document).ready(function()
+        {
+            var editor = ace.edit("editor");
+            editor.setTheme("ace/theme/chrome");
+            editor.getSession().setMode("ace/mode/html");
+            $('div[id="contenu_editor"]').hide();
+            var textarea = $('textarea[id="trez_logicieltrezbundle_templatefacturetype_contenu"]');
+            editor.getSession().setValue(textarea.val());
+            editor.getSession().on('change', function(){
+                textarea.val(editor.getSession().getValue());
+            });
+            editor.setShowPrintMargin(false); // no 80 chars limit line
+        });
+    </script>
+
 </form>

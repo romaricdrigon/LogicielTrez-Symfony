@@ -1,28 +1,11 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('../vendor/ajaxorg/ace/src-min/ace.js') }}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
 
 {% block body %}
-    <script language="javascript" type="text/javascript" src="{{ asset('bundles/trezlogicieltrez/edit_area/edit_area_full.js') }}"></script>
-    <script language="javascript" type="text/javascript">
-        editAreaLoader.init({
-            id : "trez_logicieltrezbundle_templatefacturetype_contenu"		// textarea id
-            ,syntax: "html"			// syntax to be uses for highgliting
-            ,start_highlight: true		// to display with highlight mode on start-up
-            ,allow_resize: "both"
-            ,allow_toggle: true
-        });
-    </script>
-
-    <h1>&Eacute;diter le template de facture {{ TemplateFacture.name }}</h1>
-    <dl>Voici la liste des variables disponibles:</dl>
-    <dd> facture.typeFacture.abr</dd>
-    <dd>facture.numero</dd>
-    <dd>facture.date|date("m/d/Y")</dd>
-    <dd>facture.objet</dd>
-    <dd>facture.commentaire</dd>
-    <dd>facture.montant</dd>
-    <dd>tva.classeTva.taux</dd>
-    <dd>tva.montantTva</dd>
-    <dd>totalTTC</dd>
+    <h1>Editer le template de facture de {{ TemplateFacture.name }}</h1>
 
     {% include "TrezLogicielTrezBundle:TemplateFacture:_form.html.twig" with {'route': 'templateFacture_edit', 'route_options': {'nom': TemplateFacture.name, 'id': TemplateFacture.id}, 'id': TemplateFacture.id} %}
 

@@ -81,27 +81,4 @@ class TemplateFactureController extends Controller
 
         return new RedirectResponse($this->generateUrl('config_index')."#template");
     }
-
-    public function templatingAction($id)
-    {
-        $em = $this->get('doctrine.orm.entity_manager');
-        $object = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->find($id);
-        $form = $this->get('form.factory')->create(new TemplateFactureType(), $object);
-
-        if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
-            if ($form->isValid()) {
-                $em->flush();
-
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
-
-                return new RedirectResponse($this->generateUrl('config_index')."#template");
-            }
-        }
-
-        return $this->render('TrezLogicielTrezBundle:TemplateFacture:templating.html.twig', array(
-            'form' => $form->createView(),
-            'TemplateFacture' => $object
-        ));
-    }
 }

@@ -19,15 +19,16 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "twitter/bootstrap": "2.1",
+        "twitter/bootstrap": "dev-master",
         "jquery/jquery": "1.8.2",
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
-        "ajaxorg/ace": "dev-master"
+        "ajaxorg/ace": "dev-master",
         "fp/openid-bundle": "dev-master",
         "fp/lightopenid": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
-        "doctrine/data-fixtures": "dev-master"
+        "doctrine/data-fixtures": "dev-master",
+        "kriswallsmith/assetic": "@dev"
     },
     "repositories": [
         {

@@ -356,10 +356,10 @@ class Facture
 
         $depassement = ($this->typeFacture->getSens() === true) ? $this->montant-$credit : $this->montant-$debit;
 
-        if ($depassement > 0) {
+        if ($depassement > 0.001) { // compare with an epsilon!
             $context->addViolationAtSubPath('montant',
                 'Cette facture dépasse du total de la ligne de %montant% €',
-                array('%montant%' => $depassement),
+                array('%montant%' => round($depassement, 2)),
                 null);
         }
     }
@@ -440,7 +440,7 @@ class Facture
     }
 
     /*
-     * Check if not TVA is missing
+     * Check if no TVA is missing
      */
     public function isTvasCorrect(ExecutionContext $context)
     {
@@ -450,7 +450,7 @@ class Facture
             $montant_ht += $tva->getMontantHt();
         }
 
-        if ($this->montant != $montant_ht) {
+        if (abs($this->montant - $montant_ht) > 0.001) { // floats -> epsilon!
             $context->addViolationAtSubPath('tvas', 'La somme des montants HT doit être égale au montant de la facture');
         }
     }

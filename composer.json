@@ -9,7 +9,8 @@
         "symfony/symfony": "2.1.*",
         "doctrine/orm": ">=2.3.1,<2.4-dev",
         "doctrine/doctrine-bundle": "1.0.*",
-        "twig/extensions": "1.0.*",
+        "twig/twig": "v1.12.0-RC1",
+        "twig/extensions": "v1.0.0-alpha",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.1.*",
         "symfony/monolog-bundle": "2.1.*",
@@ -23,6 +24,10 @@
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
         "ajaxorg/ace": "dev-master"
+        "fp/openid-bundle": "dev-master",
+        "fp/lightopenid": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        "doctrine/data-fixtures": "dev-master"
     },
     "repositories": [
         {

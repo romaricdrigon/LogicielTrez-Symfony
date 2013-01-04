@@ -1,8 +1,13 @@
 /*
     Elemeny généraux
 */
+html {
+    height: 100%;
+}
 body {
-    padding-top: 70px;
+    box-sizing: border-box;
+    height: 100%;
+    padding-top: 60px;
 }
 h1 {
     padding-bottom: 10px;
@@ -68,10 +73,23 @@ h3 {
 .margin-10 {
     margin: 10px;;
 }
+.margin-h-20 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.justify {
+    text-align: justify;
+}
 
 /*
     Elements de la page
 */
+.wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin-bottom: -80px;
+}
 .brand {
     font-weight: bold;
     /* a smooth effect stolen from TB site :) */
@@ -82,11 +100,15 @@ h3 {
 .userbox {
     padding: 10px 15px;
 }
+.push {
+    height: 80px;
+}
 .footer {
-    margin-top: 70px;
-    padding: 70px 0;
+    height: 20px;
+    line-height: 20px;
+    padding: 30px 0;
     background: #f5f5f5;
-    border-top: 1px solid rgb(229, 229, 229);
+    outline: 1px solid rgb(229, 229, 229);
 }
 
 /*

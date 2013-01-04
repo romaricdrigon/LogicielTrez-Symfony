@@ -20,9 +20,9 @@
                 <tr {% if budget.0.verrouille == true %}class="error"{% endif %}>
                     <td>{{ budget.0.nom }}</td>
                     {% if is_granted('ROLE_ADMIN') %}
-                        <td>{{ budget.debit|number_format(0, ',', ' ') }}</td>
-                        <td>{{ budget.credit|number_format(0, ',', ' ') }}</td>
-                        <td><i>{{ (budget.credit - budget.debit)|number_format(0, ',', ' ') }}</i></td>
+                        <td>{{ budget.debit|excel_format }}</td>
+                        <td>{{ budget.credit|excel_format }}</td>
+                        <td><i>{{ (budget.credit - budget.debit)|excel_format }}</i></td>
                     {% endif %}
                     <td>
                         <div class="btn-group">
@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') and exercice.verrouille == false %}
         <div>
             <a href="{{ path('budget_add', {'exercice_id': exercice.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter un budget

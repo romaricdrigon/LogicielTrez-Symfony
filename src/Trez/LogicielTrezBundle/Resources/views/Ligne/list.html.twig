@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ ligne.cle }}</td>
                     <td>{{ ligne.nom }}</td>
-                    <td>{{ ligne.debit|number_format(0, ',', ' ') }}</td>
-                    <td>{{ ligne.credit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ ligne.debit|excel_format }}</td>
+                    <td>{{ ligne.credit|excel_format }}</td>
                     <td>{{ ligne.commentaire }}</td>
                     <td>
                         <div class="btn-group">
@@ -39,7 +39,9 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN')
+        and sous_categorie.categorie.budget.verrouille == false
+        and sous_categorie.categorie.budget.exercice.verrouille == false %}
         <div>
             <a href="{{ path('ligne_add', {'sous_categorie_id': sous_categorie.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter une ligne

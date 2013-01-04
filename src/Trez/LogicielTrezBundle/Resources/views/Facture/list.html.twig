@@ -19,7 +19,7 @@
                     <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
                     <td>{{ facture.objet }}</td>
                     <td>{{ facture.date|date("d/m/Y") }}</td>
-                    <td>{{ facture.montant|number_format(0, ',', ' ') }}</td>
+                    <td>{{ facture.montant|excel_format }}</td>
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('facture_detail', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="D&eacute;tail"><i class="icon-eye-open"></i></a>
@@ -38,7 +38,9 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN')
+        and ligne.sousCategorie.categorie.budget.verrouille == false
+        and ligne.sousCategorie.categorie.budget.exercice.verrouille == false %}
         <div>
             <div class="btn-toolbar">
                 <div class="btn-group">
@@ -51,6 +53,8 @@
                             <li><a href="{{ path('facture_add', {'ligne_id': ligne.id, 'type_id': type.id}) }}">
                                 <b>{{ type.abr }}</b> - {{ type.nom }}</a>
                             </li>
+                        {% else %}
+                            <li><a href="{{ path('config_index') }}">Vous devez d'abord configurer au moins un type de facture</a></li>
                         {% endfor %}
                     </ul>
                 </div>

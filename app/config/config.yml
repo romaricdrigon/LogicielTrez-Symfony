@@ -59,4 +59,10 @@ swiftmailer:
     password:  %mailer_password%
     spool:     { type: memory }
 
+# WhiteOctober BreadcrumbsBundle
 white_october_breadcrumbs: ~
+
+# FpOpenId Bundle
+fp_open_id:
+    db_driver: orm
+    identity_class: Trez\LogicielTrezBundle\Entity\OpenIdIdentity

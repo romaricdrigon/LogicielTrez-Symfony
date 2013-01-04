@@ -65,8 +65,8 @@
     {{ form_rest(form) }}
 
     <div class="form-actions">
-        <input type="submit" class="btn btn-primary" name="add"  value="Valider">&nbsp;
-        <input type="submit" class="btn btn-warning" name="adjust" value="Valider et ajuster la ligne"
+        <input type="submit" class="btn btn-primary" name="add" id="submit-add" value="Valider">&nbsp;
+        <input type="submit" class="btn btn-warning" name="adjust" id="submit-adjust" value="Valider et ajuster la ligne"
                title="La ligne sera ajustée afin que son total soit égal au total des factures, celle-ci inclue, en tenant compte du sens (débit ou crédit)">&nbsp;
         <a href="{{ path('facture_index', {'ligne_id': ligne_id}) }}" class="btn">Annuler</a>
     </div>
@@ -148,6 +148,7 @@
             $('#montant-ttc').text(number_format(_montant_ttc, 2, ',', ' ')+' €');
         };
         calcMontantTtc();
+        $('#trez_logicieltrezbundle_facturetype_montant').on('blur', calcMontantTtc); // so when montant is changed, check TVA
 
         // auto-calculate montant TVA - quite hairy because of floating-number arithmetic & DOM complexity
         calcMontantTva = function(e) {
@@ -186,5 +187,12 @@
             bindCalcTva();
         });
         $('.remove-tva').on('click', removeTva);
+
+        // check if there's a Tiers selected when the forme is submitted
+        $('#submit-add, #submit-adjust').on('click', function(e) {
+            if ($('#trez_logicieltrezbundle_facturetype_tiers').val() === '') {
+                window.alert('Veuillez choisir un tiers pour cette facture !');
+            }
+        });
     });
 </script>

@@ -27,7 +27,7 @@
     <tr>
         <td>Date :</td>
         <td width=5>&nbsp;</td>
-        <td>{{ facture.date|date("m/d/Y") }}</td>
+        <td>{{ facture.date|date("d/m/Y") }}</td>
     </tr>
 
     {% if facture.datePaiement != null %}
@@ -35,7 +35,7 @@
         <tr>
             <td>Date de Paiement :</td>
             <td width=5>&nbsp;</td>
-            <td>{{ facture.datePaiement|date("m/d/Y") }}</td>
+            <td>{{ facture.datePaiement|date("d/m/Y") }}</td>
         </tr>
 
         <tr>

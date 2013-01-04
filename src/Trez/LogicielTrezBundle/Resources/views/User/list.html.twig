@@ -9,6 +9,7 @@
             <th>Nom d'utilisateur</th>
             <th>E-Mail</th>
             <th>Type</th>
+            <th>Méthodes</th>
             <th width="70"></th>
         </tr>
         </thead>
@@ -24,6 +25,9 @@
                         {% else %}{{ user.type }}{% endif %}
                     </td>
                     <td>
+                        {% if user.canOpenid %}OpenID&nbsp;{% endif %}{% if user.canCredentials %}Compte{% endif %}
+                    </td>
+                    <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('user_edit', {'id': user.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                             <a class="btn btn-small" href="{{ path('user_change_password', {'id': user.id}) }}" title="Changer le mot de passe"><i class="icon-lock"></i></a>
@@ -37,6 +41,17 @@
             {% endfor %}
         </tbody>
     </table>
+
+    {% if memory_users is not empty %}
+        <div class="alert alert-block">
+            <p>Un ou plusieurs utilisateurs sont également configurés dans <code>parameters.yml</code> :</p>
+            <ul>
+                {% for user in memory_users %}
+                    <li><b>{{ user }}</b></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
     <div>
         <a href="{{ path('user_add') }}" class='btn btn-primary'>

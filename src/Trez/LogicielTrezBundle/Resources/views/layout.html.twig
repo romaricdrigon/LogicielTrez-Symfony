@@ -8,8 +8,8 @@
     <link rel="shortcut icon" href="/favicon.ico">
     {% block stylesheets %}
         <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap.min.css') }}" />
-        <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap-responsive.min.css') }}" />
         <link rel="stylesheet" type="text/css" href="{{ asset('bundles/trezlogicieltrez/css/style.css') }}" />
+        <link rel="stylesheet"  type="text/css" href="{{ asset('../vendor/twitter/bootstrap/css/bootstrap-responsive.min.css') }}" />
     {% endblock %}
     {% block javascripts %}
         <script src="{{ asset('../vendor/jquery/jquery/jquery.min.js') }}"></script>
@@ -18,48 +18,50 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-    {# menu provisoire, TODO à refaire #}
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="{{ url('_welcome') }}">LogicielTrez</a>
-                <div class="nav-collapse collapse">
-                    <ul class="nav">
-                        <li><a href="{{ url('exercice_index') }}">Exercices</a></li>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <li><a href="{{ url('tiers_index') }}">Tiers</a></li>
-                            <li><a href="{{ url('config_index') }}">Configuration</a></li>
-                            <li><a href="{{ url('user_index') }}">Utilisateurs</a></li>
-                        {% endif %}
-                    </ul>
-                    <div class="pull-right userbox">
-                        {% if app.user.id is defined %}
-                            Bonjour, <a href="{{ url('user_change_password', {id: app.user.id }) }}">{{ app.user.username }}</a> !
-                        {% else %}
-                            Bonjour, <span class="white">{{ app.user.username }}</span> !
-                        {% endif %}
-                         <a href="{{ url('logout') }}"><span class="icon-off icon-white"></span></a>
+    <div class="wrap">
+        {# menu provisoire, TODO à refaire #}
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="{{ url('_welcome') }}">LogicielTrez</a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav">
+                            <li><a href="{{ url('exercice_index') }}">Exercices</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li><a href="{{ url('tiers_index') }}">Tiers</a></li>
+                                <li><a href="{{ url('config_index') }}">Configuration</a></li>
+                                <li><a href="{{ url('user_index') }}">Utilisateurs</a></li>
+                            {% endif %}
+                        </ul>
+                        <div class="pull-right userbox">
+                            {% if app.user.canCredentials == true %}
+                                Bonjour, <a href="{{ url('user_change_password', {id: app.user.id }) }}">{{ app.user.username }}</a> !
+                            {% else %}
+                                Bonjour, <span class="white">{{ app.user.username }}</span> !
+                            {% endif %}
+                             <a href="{{ url('logout') }}"><span class="icon-off icon-white"></span></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        {% include "TrezLogicielTrezBundle:Utils:flash_message.html.twig" %}
+        <div class="container margin-top-70">
+            {% include "TrezLogicielTrezBundle:Utils:flash_message.html.twig" %}
 
-        {{ wo_render_breadcrumbs() }}
+            {{ wo_render_breadcrumbs() }}
 
-        {% block body %}{% endblock %}
+            {% block body %}{% endblock %}
+        </div>
+        <div class="push"></div>{# to "push" our footer to the bottom of the page #}
     </div>
     <div id="footer" class="footer">
-        <div class="container">
+        <div class="container muted">
             Fièrement propulsé par <a href="https://github.com/romaricdrigon/LogicielTrez-Symfony">LogicielTrez (version Symfony2)</a>
-            {# todo : logout link #}
         </div>
     </div>
 </body>

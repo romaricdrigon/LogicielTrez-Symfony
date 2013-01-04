@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ categorie.0.cle }}</td>
                     <td>{{ categorie.0.nom }}</td>
-                    <td>{{ categorie.debit|number_format(0, ',', ' ') }}</td>
-                    <td>{{ categorie.credit|number_format(0, ',', ' ') }}</td>
+                    <td>{{ categorie.debit|excel_format }}</td>
+                    <td>{{ categorie.credit|excel_format }}</td>
                     <td>{{ categorie.0.commentaire }}</td>
                     <td>
                         <div class="btn-group">
@@ -39,7 +39,7 @@
         </tbody>
     </table>
 
-    {% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') and budget.verrouille == false and budget.exercice.verrouille == false %}
         <div>
             <a href="{{ path('categorie_add', {'budget_id': budget.id}) }}" class='btn btn-primary'>
                 <i class="icon-plus"></i> Ajouter une cat&eacute;gorie

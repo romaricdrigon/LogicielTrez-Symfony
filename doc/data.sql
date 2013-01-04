@@ -46,7 +46,7 @@ INSERT INTO `Budget` (`id`, `exercice_id`, `nom`) VALUES
 -- Contenu de la table `Categorie`
 --
 
-INSERT INTO `Categorie` (`id`, `budget_id`, `nom`, `commmentaire`, `cle`) VALUES
+INSERT INTO `Categorie` (`id`, `budget_id`, `nom`, `commentaire`, `cle`) VALUES
 (1, 1, 'Animations', NULL, 1),
 (2, 1, 'Courses', NULL, 3);
 

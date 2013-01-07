@@ -16,17 +16,16 @@ class FactureController extends Controller
         $type_factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
         $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
             array('ligne' => $ligne),
-            array('numero' => 'DESC'));
+            array('numero' => 'DESC')
+        );
 
         $this->getBreadcrumbs($ligne);
-
-        $ligne->getFreeTotal($c, $d);
 
         return $this->render('TrezLogicielTrezBundle:Facture:list.html.twig', array(
             'factures' => $factures,
             'ligne' => $ligne,
-            'type_factures' => $type_factures,
-            'is_full' => ($c === 0.0) && ($d === 0.0)
+            'ligne_totals' => $ligne->getTotals(),
+            'type_factures' => $type_factures
         ));
     }
 

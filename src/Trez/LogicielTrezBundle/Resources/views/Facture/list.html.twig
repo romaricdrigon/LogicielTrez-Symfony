@@ -1,7 +1,32 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 
 {% block body %}
-    <h1>Liste des factures de la ligne {{ ligne.nom }}</h1>
+    <h1 class="margin-bottom-20">Liste des factures de la ligne {{ ligne.nom }}</h1>
+
+    <table class="table table-bordered">
+        <tr>
+            <td style="width: 210px">
+                <b>Débit</b> : {{ ligne_totals.used.debit|excel_format }} / {{ ligne.debit|excel_format }}
+            </td>
+            {% if ligne.debit != 0 %}
+                <td>
+                    <div class="progress no-margin{% if ligne_totals.percent.debit == 1 %} progress-success{% endif %}">
+                        <div class="bar" style="width: {{ ligne_totals.percent.debit*100 }}%;" title="{{ ligne_totals.percent.debit*100 }}%"></div>
+                    </div>
+                </td>
+            {% endif %}
+            <td style="width: 210px">
+                <b>Crédit</b> : {{ ligne_totals.used.credit|excel_format }} / {{ ligne.credit|excel_format }}
+            </td>
+            {% if ligne.credit != 0 %}
+                <td>
+                    <div class="progress no-margin{% if ligne_totals.percent.credit == 1 %} progress-success{% endif %}">
+                        <div class="bar" style="width: {{ ligne_totals.percent.credit*100 }}%;" title="{{ ligne_totals.percent.credit*100 }}%"></div>
+                    </div>
+                </td>
+            {% endif %}
+        </tr>
+    </table>
 
     <table class="table table-stripped table-hover">
         <thead>
@@ -40,7 +65,8 @@
 
     {% if is_granted('ROLE_ADMIN')
         and ligne.sousCategorie.categorie.budget.verrouille == false
-        and ligne.sousCategorie.categorie.budget.exercice.verrouille == false %}
+        and ligne.sousCategorie.categorie.budget.exercice.verrouille == false
+        and ligne_totals.is_full == false %}
         <div>
             <div class="btn-toolbar">
                 <div class="btn-group">

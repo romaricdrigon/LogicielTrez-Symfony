@@ -284,6 +284,30 @@ class Ligne
     }
 
     /*
+     * Get an array with a bunch of informations abou the totals
+     */
+    public function getTotals()
+    {
+        $this->getFacturesTotal($total_credit, $total_debit);
+
+        return array(
+            'free' => array(
+                'credit' => round(abs($this->credit-$total_credit), 2),
+                'debit' => round(abs($this->debit-$total_debit), 2)
+            ),
+            'used' => array(
+                'credit' => round($total_credit, 2),
+                'debit' => round($total_debit, 2)
+            ),
+            'percent' => array(
+                'credit' => $this->credit == 0.00 ? 1.00 : round($total_credit/$this->credit, 2),
+                'debit' => $this->debit === 0.00 ? 1.00 : round($total_debit/$this->debit, 2)
+            ),
+            'is_full' => (abs($this->credit-$total_credit) < 0.001 && abs($this->debit-$total_debit) < 0.001)
+        );
+    }
+
+    /*
      * Custom validator base on previous function :
      * check if factures total
      * did not exceed debit or credit

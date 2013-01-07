@@ -19,7 +19,7 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "twitter/bootstrap": "dev-master",
+        "twitter/bootstrap": "2.2.2",
         "jquery/jquery": "1.8.2",
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",

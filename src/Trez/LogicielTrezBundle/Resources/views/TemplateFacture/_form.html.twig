@@ -2,12 +2,9 @@
 
 <style type="text/css" media="screen">
     #editor {
-        position: absolute;
-        top: 590px;
-        right: 50px;
-        bottom: 100px;
-        left: 50px;
-        font-size: 16px;
+        position: relative;
+        width: 100%;
+        height: 500px;
     }
 </style>
 
@@ -17,8 +14,26 @@
     <fieldset>
         {{ forms.field(form.name, 'Nom') }}
         {{ forms.field(form.type, 'Type') }}
-        <div id="contenu_editor">
-        {{ forms.field(form.contenu, 'Contenu') }}
+        <div class="control-group">
+            <label class="control-label">Éditeur</label>
+            <div class="controls">
+                <dl>Voici la liste des variables disponibles pour éditer le contenu du template:</dl>
+                <dd>facture.typeFacture.abr</dd>
+                <dd>facture.numero</dd>
+                <dd>facture.date|date("m/d/Y")</dd>
+                <dd>facture.objet</dd>
+                <dd>facture.commentaire</dd>
+                <dd>facture.montant</dd>
+                <dd>tva.classeTva.taux</dd>
+                <dd>tva.montantTva</dd>
+                <dd>totalTTC</dd>
+                <div id="editor"></div>
+                <span class="help-inline">{{ form_errors(form.contenu) }}</span>
+                <div id="contenu_editor">
+                    {{ forms.field(form.contenu, 'Contenu') }}
+                </div>
+            </div>
+
         </div>
     </fieldset>
 
@@ -28,19 +43,7 @@
         <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
         <a href="{{ path('config_index') }}#template" class="btn">Annuler</a>
     </div>
-    <dl>Voici la liste des variables disponibles pour éditer le contenu du template:</dl>
-    <dd>facture.typeFacture.abr</dd>
-    <dd>facture.numero</dd>
-    <dd>facture.date|date("m/d/Y")</dd>
-    <dd>facture.objet</dd>
-    <dd>facture.commentaire</dd>
-    <dd>facture.montant</dd>
-    <dd>tva.classeTva.taux</dd>
-    <dd>tva.montantTva</dd>
-    <dd>totalTTC</dd>
 
-
-    <div id="editor"></div>
 
     <script>
         $(document).ready(function()

@@ -1,11 +1,7 @@
 {% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
 
 <style type="text/css" media="screen">
-    #editor {
-        position: relative;
-        width: 100%;
-        height: 500px;
-    }
+
 </style>
 
 <form class="form-horizontal" action="{{ path(route, route_options is defined ? route_options : {} ) }}" {{ form_enctype(form) }} method="post">
@@ -17,23 +13,32 @@
         <div class="control-group">
             <label class="control-label">Éditeur</label>
             <div class="controls">
-                <dl>Voici la liste des variables disponibles pour éditer le contenu du template:</dl>
-                <dd>facture.typeFacture.abr</dd>
-                <dd>facture.numero</dd>
-                <dd>facture.date|date("m/d/Y")</dd>
-                <dd>facture.objet</dd>
-                <dd>facture.commentaire</dd>
-                <dd>facture.montant</dd>
-                <dd>tva.classeTva.taux</dd>
-                <dd>tva.montantTva</dd>
-                <dd>totalTTC</dd>
-                <div id="editor"></div>
+                <p>Voici la liste des variables disponibles pour éditer le contenu du template:</p>
+                <code>
+                    <div class="bloc_3">
+                        facture.typeFacture.abr<br>
+                        facture.numero<br>
+                        facture.date|date("m/d/Y")<br>
+                    </div>
+                    <div class="bloc_3">
+                        facture.objet<br>
+                        facture.commentaire<br>
+                        facture.montant<br>
+                    </div>
+                    <div class="bloc_3">
+                        tva.classeTva.taux<br>
+                        tva.montantTva<br>
+                        totalTTC<br>
+                    </div>
+                </code>
+
+
                 <span class="help-inline">{{ form_errors(form.contenu) }}</span>
                 <div id="contenu_editor">
                     {{ forms.field(form.contenu, 'Contenu') }}
                 </div>
             </div>
-
+            <div id="editor"></div>
         </div>
     </fieldset>
 

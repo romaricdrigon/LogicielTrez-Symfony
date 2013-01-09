@@ -17,4 +17,7 @@ Trez\LogicielTrezBundle\Entity\TemplateFacture:
         type:
              type: string
              length: 255
+        defaut:
+             type: boolean
+             default: false
     lifecycleCallbacks: {  }

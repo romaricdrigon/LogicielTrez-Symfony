@@ -12,4 +12,35 @@ use Doctrine\ORM\EntityRepository;
  */
 class TemplateFactureRepository extends EntityRepository
 {
+    /*
+     * Get the default template for the type which is given (ie: Facture or Lettre)
+     * @return The first result, which should be the only one
+     */
+    public function getDefaultTemplate($type)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('tf')
+            ->from('TrezLogicielTrezBundle:TemplateFacture', 'tf')
+            ->where('tf.defaut = 1')
+            ->andWhere('tf.type = ?1')
+            ->setParameters(array(1 => $type));
+        $result = $qb->getQuery()->getResult();
+        return $result!=null?$result[0]:null;
+    }
+
+    public function setNotDefaultTemplate($id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->update('TrezLogicielTrezBundle:TemplateFacture', 'tf')
+            ->set('tf.defaut', '0')
+            ->where('tf.id = ?1')
+            ->setParameters(array(1 => $id));
+
+        return $qb->getQuery()->execute();
+    }
+
 }

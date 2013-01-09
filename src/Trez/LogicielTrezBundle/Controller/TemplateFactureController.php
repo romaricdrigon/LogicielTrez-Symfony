@@ -33,7 +33,10 @@ class TemplateFactureController extends Controller
             $form->bindRequest($this->get('request'));
 
             if ($form->isValid()) {
+
                 $this->get('doctrine.orm.entity_manager')->persist($object);
+                //We test if there's already one default template and we solve the problem
+                $this->checkDefaultTemplate($object->getId());
                 $this->get('doctrine.orm.entity_manager')->flush();
 
                 $this->get('session')->setFlash('success', "Le template de facture a bien été ajouté");
@@ -56,6 +59,10 @@ class TemplateFactureController extends Controller
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));
             if ($form->isValid()) {
+
+                //We test if there's already one default template and we solve the problem
+                $this->checkDefaultTemplate($id);
+
                 $em->flush();
 
                 $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
@@ -80,5 +87,27 @@ class TemplateFactureController extends Controller
         $em->flush();
 
         return new RedirectResponse($this->generateUrl('config_index')."#template");
+    }
+
+    private function checkDefaultTemplate($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->getDefaultTemplate('FACTURE');
+
+
+        if( $template == null )
+        {
+            //If there's no default template, then no problem
+            return true;
+        }
+        //If there's one, we check if it's the one we update
+        if($template->getId() == $id)
+        {
+            //If this is true, then no problem
+            return true;
+
+        }
+        //Else we remove the default option to the oldest template
+        $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->setNotDefaultTemplate($template->getId());
     }
 }

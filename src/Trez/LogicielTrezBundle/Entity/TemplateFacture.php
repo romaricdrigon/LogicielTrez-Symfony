@@ -27,6 +27,10 @@ class TemplateFacture
      */
     private $contenu;
 
+    /**
+     * @var boolean
+     */
+    private $defaut;
 
     /**
      * Get id
@@ -110,5 +114,28 @@ class TemplateFacture
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set defaut
+     *
+     * @param boolean $defaut
+     * @return TemplateFacture
+     */
+    public function setDefaut($defaut)
+    {
+        $this->defaut = $defaut;
+    
+        return $this;
+    }
+
+    /**
+     * Get defaut
+     *
+     * @return boolean 
+     */
+    public function getDefaut()
+    {
+        return $this->defaut;
     }
 }

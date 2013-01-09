@@ -207,6 +207,7 @@
                         <tr>
                             <th>Nom</th>
                             <th>Type</th>
+                            <th>Defaut</th>
                             <th width="50"></th>
                         </tr>
                         </thead>
@@ -217,6 +218,13 @@
                             <tr>
                                 <td>{{ template.name }}</td>
                                 <td>{{ template.type }}</td>
+                                <td>
+                                    {% if ( template.defaut  == 1) %}
+                                        <i class="icon-star"></i>
+                                    {% else %}
+                                        <i class="icon-star-empty"></i>
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <div class="btn-group">
                                         <a class="btn btn-small" href="{{ path('templateFacture_edit', {'id': template.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>

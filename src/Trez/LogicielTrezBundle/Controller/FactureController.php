@@ -167,18 +167,23 @@ class FactureController extends Controller
     	$object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
     	$tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
     			array('facture' => $object)
-    	);	
-    	
+    	);
+        $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->getDefaultTemplate('FACTURE');
+    	if ($template == null)
+        {
+            var_dump($template[0]);
+            die("Pas de template par defaut FactureController line 175");
+        }
     	$totalTTC = $object->getMontant();
     	foreach ($tvas as $tva)
     	{
     		$totalTTC += $tva->getMontantTVA();
     	}
-    	
     	return $this->render('TrezLogicielTrezBundle:Facture:print.html.twig', array(
     			'facture' => $object,
     			'tvas' => $tvas, 
-    			'totalTTC' => $totalTTC
+    			'totalTTC' => $totalTTC,
+                'template' => $template
     	));
     }
 

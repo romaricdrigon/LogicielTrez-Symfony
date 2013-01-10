@@ -17,6 +17,7 @@ class UserType extends AbstractType
                 'invalid_message' => 'Les deux mots de passe doivent correspondre',
                 'first_options'  => array('label' => 'Mot de passe :'),
                 'second_options' => array('label' => 'Répétez le mot de passe :'),
+                'required' => false
             ))
             ->add('mail', 'email')
             ->add('type', 'choice', array(

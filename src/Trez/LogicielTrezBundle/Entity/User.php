@@ -12,6 +12,7 @@ use Symfony\Component\Validator\ExecutionContext;
 /**
  * Trez\LogicielTrezBundle\Entity\User
  * @Assert\Callback(methods={"hasOneLoginType"})
+ * @Assert\Callback(methods={"checkPasswordLength"})
  * @UniqueEntity(fields={"username"}, message="Ce nom d'utilisateur est déjà pris (à la casse près)")
  * @UniqueEntity(fields={"mail"}, message="Cette adresse e-mail est déjà utilisée")
  * Note: UniqueEntity is case-insensitive
@@ -31,10 +32,6 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
 
     /**
      * @var string $password
-     * @Assert\MinLength(
-     *     limit=5,
-     *     message="Le mot de passe doit faire au moins {{ limit }} caractères."
-     * )
      */
     private $password;
 
@@ -419,9 +416,21 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     public function hasOneLoginType(ExecutionContext $context)
     {
-        if ($this->can_openid === false && $this->can_credentials === false && $this->type !== 'DISABLED') { // compare with an epsilon!
+        if ($this->can_openid === false && $this->can_credentials === false && $this->type !== 'DISABLED') {
             $context->addViolationAtSubPath('can_openid', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
             $context->addViolationAtSubPath('can_credentials', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
+        }
+    }
+
+    /*
+     * Check password length:
+     *  - if User can connect using credentials > 6 chars
+     *  - else can be blank
+     */
+    public function checkPasswordLength(ExecutionContext $context)
+    {
+        if ($this->can_credentials === true && mb_strlen($this->password, 'UTF-8') < 6) {
+            $context->addViolationAtSubPath('password', "Le mot de passe doit faire au minimum 6 caractères");
         }
     }
 }

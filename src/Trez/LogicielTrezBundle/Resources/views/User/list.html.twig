@@ -30,7 +30,9 @@
                     <td>
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('user_edit', {'id': user.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
-                            <a class="btn btn-small" href="{{ path('user_change_password', {'id': user.id}) }}" title="Changer le mot de passe"><i class="icon-lock"></i></a>
+                            {% if user.canCredentials %}
+                                <a class="btn btn-small" href="{{ path('user_change_password', {'id': user.id}) }}" title="Changer le mot de passe"><i class="icon-lock"></i></a>
+                            {% endif %}
                             <a class="btn btn-small"
                                href="{{ path('user_delete', {'id': user.id}) }}"
                                onclick="return window.confirm('Êtes-vous sur de vouloir supprimer l\'utilisateur \'{{ user.username }}\' ?');"

@@ -32,6 +32,12 @@ class UserType extends AbstractType
                 'required' => false,
                 'group_by' => 'budget.full_nom'
             ))
+            ->add('can_openid', 'checkbox', array(
+                'required' => false
+            ))
+            ->add('can_credentials', 'checkbox', array(
+                'required' => false
+            ))
         ;
     }
 

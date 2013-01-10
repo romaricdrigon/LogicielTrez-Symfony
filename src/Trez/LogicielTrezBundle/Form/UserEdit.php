@@ -17,7 +17,7 @@ class UserEdit extends AbstractType
                 'choices' => array(
                     'ROLE_USER' => 'Lecteur',
                     'ROLE_ADMIN' => 'Administrateur',
-                    'INACTIVE' => 'Désactivé'
+                    'DISABLED' => 'Désactivé'
                 )
             ))
             ->add('categories', 'entity', array(

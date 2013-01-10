@@ -419,9 +419,9 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
      */
     public function hasOneLoginType(ExecutionContext $context)
     {
-        if ($this->can_openid === false && $this->can_credentials === false) { // compare with an epsilon!
-            $context->addViolationAtSubPath('can_openid', "Un utilisateur doit pouvoir se connecter au moins d'une manière");
-            $context->addViolationAtSubPath('can_credentials', "Un utilisateur doit pouvoir se connecter au moins d'une manière");
+        if ($this->can_openid === false && $this->can_credentials === false && $this->type !== 'DISABLED') { // compare with an epsilon!
+            $context->addViolationAtSubPath('can_openid', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
+            $context->addViolationAtSubPath('can_credentials', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
         }
     }
 }

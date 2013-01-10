@@ -168,11 +168,15 @@ class FactureController extends Controller
     	$tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
     			array('facture' => $object)
     	);
-        $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->getDefaultTemplate('FACTURE');
+
+        $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->getDefaultTemplate($object->getTypeFacture()->getSens()?'FACTURE':'LETTRE');
+
     	if ($template == null)
         {
-            var_dump($template[0]);
-            die("Pas de template par defaut FactureController line 175");
+
+            $this->get('session')->setFlash('error', 'Vous n\'avez pas de template par defaut pour ce type de facture');
+            return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
+
         }
     	$totalTTC = $object->getMontant();
     	foreach ($tvas as $tva)

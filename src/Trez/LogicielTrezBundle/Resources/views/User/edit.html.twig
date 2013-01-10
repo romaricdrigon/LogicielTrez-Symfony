@@ -21,7 +21,7 @@
             {{ forms.field(form.username, 'Nom d\'utilisateur') }}
             {{ forms.field(form.mail, 'Adresse e-mail') }}
             {{ forms.field(form.can_openid, 'Login OpenID', {}, '', "Cet utilisateur pourra-t-il se connecter avec son compte Gmail ?") }}
-            {{ forms.field(form.can_credentials, 'Login Classique', {}, '', "Cet utilisateur pourra-t-il se connecter avec son adresse e-mail/nom d'utilisateur et son mot de passe ?") }}
+            {{ forms.field(form.can_credentials, 'Login Classique', {}, '', "Cet utilisateur pourra-t-il se connecter avec son adresse e-mail/nom d'utilisateur et son mot de passe ? <br /><b>Attention, si vous le cochez allez tout de suite setter un mot de passe pour cet utilisateur !</b>") }}
             {{ forms.field(form.type, 'Type') }}
             {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge chosen-categories', 'data-placeholder': 'Sélectionnez les catégories que cet utilisateur pourra consulter'}, 'user-categories', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
         </fieldset>

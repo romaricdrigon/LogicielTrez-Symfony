@@ -57,7 +57,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $categories;
+    private $lignes;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -286,53 +286,6 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add categories
-     *
-     * @param \Trez\LogicielTrezBundle\Entity\Categorie $categories
-     * @return User
-     */
-    public function addCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
-    {
-        $this->categories[] = $categories;
-    
-        return $this;
-    }
-    // alias tio prevent
-    public function addCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
-    {
-        return $this->addCategorie($categories);
-    }
-
-    /**
-     * Remove categories
-     *
-     * @param \Trez\LogicielTrezBundle\Entity\Categorie $categories
-     */
-    public function removeCategorie(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
-    {
-        $this->categories->removeElement($categories);
-    }
-    public function removeCategory(\Trez\LogicielTrezBundle\Entity\Categorie $categories)
-    {
-        $this->removeCategorie($categories);
-    }
-
-    /**
-     * Get categories
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    public function isCategorieAllowed($categorie)
-    {
-        return $this->categories->contains($categorie);
-    }
-
-    /**
      * Add open_id_identities
      *
      * @param \Trez\LogicielTrezBundle\Entity\OpenIdIdentity $openIdIdentities
@@ -432,5 +385,46 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
         if ($this->can_credentials === true && mb_strlen($this->password, 'UTF-8') < 6) {
             $context->addViolationAtSubPath('password', "Le mot de passe doit faire au minimum 6 caractères");
         }
+    }
+
+    /**
+     * Add lignes
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Ligne $lignes
+     * @return User
+     */
+    public function addLigne(\Trez\LogicielTrezBundle\Entity\Ligne $lignes)
+    {
+        $this->lignes[] = $lignes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove lignes
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\Ligne $lignes
+     */
+    public function removeLigne(\Trez\LogicielTrezBundle\Entity\Ligne $lignes)
+    {
+        $this->lignes->removeElement($lignes);
+    }
+
+    /**
+     * Get lignes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLignes()
+    {
+        return $this->lignes;
+    }
+
+    /*
+     * Check if a Ligne is allowed (readable)
+     */
+    public function isLigneAllowed($ligne)
+    {
+        return $this->lignes->contains($ligne);
     }
 }

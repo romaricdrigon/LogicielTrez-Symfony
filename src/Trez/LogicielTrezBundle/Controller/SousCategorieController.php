@@ -14,19 +14,20 @@ class SousCategorieController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
-        $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAll($categorie_id);
 
-        // check if user is ok
+        // list only sousCategories user can read
         $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === false && $sc->isGranted('ROLE_USER') === true) {
-            if (method_exists($sc->getToken()->getUser(), 'isCategorieAllowed') === true
-                && $sc->getToken()->getUser()->isCategorieAllowed($categorie) === true) {
-                // inversed if, otherwise a bit hard to read!
-            } else {
+        if ($sc->isGranted('ROLE_ADMIN') === true) {
+            $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAll($categorie_id);
+        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+            $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAllowed($categorie_id, $sc->getToken()->getUser()->getId());
+
+            if ($sousCategories === array()) {
                 throw new AccessDeniedException();
             }
+        } else {
+            throw new AccessDeniedException();
         }
-
 
         $this->getBreadcrumbs($categorie);
 

@@ -57,10 +57,10 @@ class CategorieRepository extends EntityRepository
 
         $qb->select(array('c', 'SUM(l.debit) AS debit', 'SUM(l.credit) AS credit'))
             ->from('TrezLogicielTrezBundle:Categorie', 'c')
-            ->innerJoin('c.budget', 'b')
-            ->innerJoin('c.users', 'u')
+            ->leftJoin('c.budget', 'b')
             ->leftJoin('c.sousCategories', 's')
             ->leftJoin('s.lignes', 'l')
+            ->leftJoin('l.users', 'u')
             ->where('b.id = ?1')
             ->andWhere('u.id = ?2')
             ->groupBy('c.id')

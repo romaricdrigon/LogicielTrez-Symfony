@@ -27,11 +27,11 @@ class UserType extends AbstractType
                     'DISABLED' => 'Désactivé'
                 )
             ))
-            ->add('categories', 'entity', array(
-                'class' => 'TrezLogicielTrezBundle:Categorie',
+            ->add('lignes', 'entity', array(
+                'class' => 'TrezLogicielTrezBundle:Ligne',
                 'multiple' => true,
                 'required' => false,
-                'group_by' => 'budget.full_nom'
+                'expanded' => true
             ))
             ->add('can_openid', 'checkbox', array(
                 'required' => false

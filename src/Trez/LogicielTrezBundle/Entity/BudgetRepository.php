@@ -38,8 +38,10 @@ class BudgetRepository extends EntityRepository
         $qb->select(array('b', 'c.nom')) // second field is anything but we must keep an array
             ->from('TrezLogicielTrezBundle:Budget', 'b')
             ->leftJoin('b.categories', 'c')
-            ->innerJoin('b.exercice', 'e')
-            ->innerJoin('c.users', 'u')
+            ->leftJoin('c.sousCategories', 's')
+            ->leftJoin('s.lignes', 'l')
+            ->leftJoin('l.users', 'u')
+            ->leftJoin('b.exercice', 'e')
             ->where('e.id = ?1')
             ->andWhere('u.id = ?2')
             ->setParameters(array(1 => $exercice_id, 2 => $user_id));

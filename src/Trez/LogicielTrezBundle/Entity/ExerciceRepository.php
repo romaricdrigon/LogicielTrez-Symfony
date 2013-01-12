@@ -45,7 +45,7 @@ class ExerciceRepository extends EntityRepository
             ->leftJoin('b.categories', 'c')
             ->leftJoin('c.sousCategories', 's')
             ->leftJoin('s.lignes', 'l')
-            ->innerJoin('c.users', 'u')
+            ->leftJoin('l.users', 'u')
             ->where('u.id = ?1')
             ->setParameters(array(1 => $user_id));
 

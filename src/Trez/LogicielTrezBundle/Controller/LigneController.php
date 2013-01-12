@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Ligne;
 use Trez\LogicielTrezBundle\Form\LigneType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LigneController extends Controller
 {
@@ -13,10 +14,23 @@ class LigneController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
-        $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findBy(
-            array('sousCategorie' => $sous_categorie_id),
-            array('cle' => 'ASC')
-        );
+
+        // list only lignes user can read
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('ROLE_ADMIN') === true) {
+            $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findBy(
+                array('sousCategorie' => $sous_categorie_id),
+                array('cle' => 'ASC')
+            );
+        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
+            $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->getAllowed($sous_categorie_id, $sc->getToken()->getUser()->getId());
+
+            if ($lignes === array()) {
+                throw new AccessDeniedException();
+            }
+        } else {
+            throw new AccessDeniedException();
+        }
 
         $this->getBreadcrumbs($sous_categorie);
 

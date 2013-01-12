@@ -31,4 +31,21 @@ class LigneRepository extends EntityRepository
 
         return $result;
     }
+
+    public function getAllowed($sousCategorie_id, $user_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('l')
+            ->from('TrezLogicielTrezBundle:Ligne', 'l')
+            ->leftJoin('l.sousCategorie', 's')
+            ->leftJoin('l.users', 'u')
+            ->where('s.id = ?1')
+            ->andWhere('u.id = ?2')
+            ->orderBy('l.cle', 'ASC')
+            ->setParameters(array(1 => $sousCategorie_id, 2 => $user_id));
+
+        return $qb->getQuery()->getResult();
+    }
 }

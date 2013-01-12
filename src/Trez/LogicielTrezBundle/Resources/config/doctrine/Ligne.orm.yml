@@ -31,6 +31,10 @@ Trez\LogicielTrezBundle\Entity\Ligne:
     manyToOne:
         sousCategorie:
             targetEntity: SousCategorie
+    manyToMany:
+        users:
+            targetEntity: User
+            mappedBy: lignes
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]
         preRemove: [ checkVerrouille ]

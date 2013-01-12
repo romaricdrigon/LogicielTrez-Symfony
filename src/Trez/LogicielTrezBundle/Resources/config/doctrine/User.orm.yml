@@ -30,8 +30,8 @@ Trez\LogicielTrezBundle\Entity\User:
             type: boolean
     # will create a join table
     manyToMany:
-        categories:
-            targetEntity: Categorie
+        lignes:
+            targetEntity: Ligne
             inversedBy: users
     oneToMany:
         open_id_identities:

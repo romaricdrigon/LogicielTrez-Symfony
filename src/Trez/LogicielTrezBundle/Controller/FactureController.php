@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Facture;
 use Trez\LogicielTrezBundle\Form\FactureType;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class FactureController extends Controller
 {
@@ -13,6 +14,18 @@ class FactureController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+
+        // check if user is ok
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('ROLE_ADMIN') === false && $sc->isGranted('ROLE_USER') === true) {
+            if (method_exists($sc->getToken()->getUser(), 'isLigneAllowed') === true
+                && $sc->getToken()->getUser()->isLigneAllowed($ligne) === true) {
+                // inversed if, otherwise a bit hard to read!
+            } else {
+                throw new AccessDeniedException();
+            }
+        }
+
         $type_factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
         $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
             array('ligne' => $ligne),

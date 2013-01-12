@@ -25,7 +25,7 @@
             {{ forms.field(form.can_credentials, 'Login Classique', {}, '', "Cet utilisateur pourra-t-il se connecter avec son adresse e-mail/nom d'utilisateur et un mot de passe ?") }}
             {{ forms.field(form.password, 'Mot de passe', {}, 'password-group') }}
             {{ forms.field(form.type, 'Type') }}
-            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge chosen-categories', 'data-placeholder': 'Sélectionnez les catégories que cet utilisateur pourra consulter'}, 'user-categories') }}
+            {{ forms.field(form.lignes, 'Lignes', {}, 'user-lignes') }}
         </fieldset>
 
         {{ form_rest(form) }}
@@ -43,14 +43,14 @@
                 // show categories only for ROLE_USER users
                 $('#trez_logicieltrezbundle_usertype_type').on('change', function() {
                     if ($('#trez_logicieltrezbundle_usertype_type').val() !== 'ROLE_USER') {
-                        $('.user-categories').hide();
+                        $('.user-lignes').hide();
                     } else {
-                        $('.user-categories').show();
+                        $('.user-lignes').show();
                     }
                 });
                 // check it when page is ready
                 if ($('#trez_logicieltrezbundle_usertype_type').val() !== 'ROLE_USER') {
-                    $('.user-categories').hide();
+                    $('.user-lignes').hide();
                 }
 
                 // don't show password group until canCredentials is checked

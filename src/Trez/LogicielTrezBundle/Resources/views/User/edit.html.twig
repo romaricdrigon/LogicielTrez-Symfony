@@ -23,7 +23,7 @@
             {{ forms.field(form.can_openid, 'Login OpenID', {}, '', "Cet utilisateur pourra-t-il se connecter avec son compte Gmail ?") }}
             {{ forms.field(form.can_credentials, 'Login Classique', {}, '', "Cet utilisateur pourra-t-il se connecter avec son adresse e-mail/nom d'utilisateur et son mot de passe ? <br /><b>Attention, si vous le cochez allez tout de suite setter un mot de passe pour cet utilisateur !</b>") }}
             {{ forms.field(form.type, 'Type') }}
-            {{ forms.field(form.categories, 'Catégories', {'class': 'input-xxlarge chosen-categories', 'data-placeholder': 'Sélectionnez les catégories que cet utilisateur pourra consulter'}, 'user-categories', 'Sélectionnez les catégories que cet utilisateur pourra consulter') }}
+            {{ forms.field(form.lignes, 'Lignes', {}, 'user-lignes', 'Sélectionnez les lignes que cet utilisateur pourra consulter') }}
         </fieldset>
 
         {{ form_rest(form) }}
@@ -37,21 +37,20 @@
     <script type="text/javascript">
         $(document).ready(function() {
             // transform multiple select into the chosen one
-            $('.chosen-categories').chosen({no_results_text: "Vous n'avez pas de budgets/cat&eacute;gories !"});
+            //$('.chosen-categories').chosen({no_results_text: "Vous n'avez pas de budgets/cat&eacute;gories !"});
 
             // show categories only for ROLE_USER users
             $('#trez_logicieltrezbundle_useredit_type').on('change', function() {
                 if ($('#trez_logicieltrezbundle_useredit_type').val() !== 'ROLE_USER') {
-                    $('.user-categories').hide();
+                    $('.user-lignes').hide();
                 } else {
-                    $('.user-categories').show();
+                    $('.user-lignes').show();
                 }
             });
             // check it when page is ready
             if ($('#trez_logicieltrezbundle_useredit_type').val() !== 'ROLE_USER') {
-                $('.user-categories').hide();
+                $('.user-lignes').hide();
             }
         });
     </script>
-
 {%  endblock %}

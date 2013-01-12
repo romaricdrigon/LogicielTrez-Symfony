@@ -57,13 +57,18 @@ class Ligne
     private $factures;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $users;
+
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->factures = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
 
     /**
      * Get id
@@ -370,5 +375,43 @@ class Ligne
                 ->setDebit($this->debit);
 
         return $ligne;
+    }
+
+    /**
+     * Add users
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\User $users
+     * @return Ligne
+     */
+    public function addUser(\Trez\LogicielTrezBundle\Entity\User $users)
+    {
+        $this->users[] = $users;
+    
+        return $this;
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\User $users
+     */
+    public function removeUser(\Trez\LogicielTrezBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsers()
+    {
+        return $this->users;
+    }
+
+    public function __toString()
+    {
+        return $this->cle . ' - ' . $this->nom;
     }
 }

@@ -51,6 +51,18 @@ class FactureController extends Controller
         );
 
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
+
+        // check if user is ok
+        $sc = $this->get('security.context');
+        if ($sc->isGranted('ROLE_ADMIN') === false && $sc->isGranted('ROLE_USER') === true) {
+            if (method_exists($sc->getToken()->getUser(), 'isLigneAllowed') === true
+                && $sc->getToken()->getUser()->isLigneAllowed($ligne) === true) {
+                // inversed if, otherwise a bit hard to read!
+            } else {
+                throw new AccessDeniedException();
+            }
+        }
+
         $this->getBreadcrumbs($ligne);
 
         return $this->render('TrezLogicielTrezBundle:Facture:detail.html.twig', array(

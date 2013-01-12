@@ -61,6 +61,7 @@ class SousCategorieRepository extends EntityRepository
             ->leftJoin('l.users', 'u')
             ->where('c.id = ?1')
             ->andWhere('u.id = ?2')
+            ->orderBy('s.cle', 'ASC')
             ->setParameters(array(1 => $categorie_id, 2 => $user_id));
 
         return $qb->getQuery()->getResult();

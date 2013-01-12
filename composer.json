@@ -24,7 +24,7 @@
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
         "ajaxorg/ace": "dev-master",
-        "fp/openid-bundle": "dev-master",
+        "fp/openid-bundle": "1.3.*",
         "fp/lightopenid": "dev-master",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",

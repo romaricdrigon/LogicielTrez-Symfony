@@ -53,8 +53,11 @@ class UserController extends Controller
             }
         }
 
+        $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+
         return $this->render('TrezLogicielTrezBundle:User:add.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'exercices' => $exercices
         ));
     }
 
@@ -84,9 +87,12 @@ class UserController extends Controller
             }
         }
 
+        $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+
         return $this->render('TrezLogicielTrezBundle:User:edit.html.twig', array(
             'form' => $form->createView(),
-            'user' => $object
+            'user' => $object,
+            'exercices' => $exercices
         ));
     }
 

@@ -1,15 +1,9 @@
 {% extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 {% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
 
-
-{% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.css') }}" />
-{% endblock %}
-
 {% block javascripts %}
     {{ parent() }}
-    <script src="{{ asset('../vendor/harvesthq/chosen/chosen/chosen.jquery.min.js') }}"></script>
+    <script src="{{ asset('../vendor/vakata/jstree/jquery.jstree.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -25,7 +19,16 @@
             {{ forms.field(form.can_credentials, 'Login Classique', {}, '', "Cet utilisateur pourra-t-il se connecter avec son adresse e-mail/nom d'utilisateur et un mot de passe ?") }}
             {{ forms.field(form.password, 'Mot de passe', {}, 'password-group') }}
             {{ forms.field(form.type, 'Type') }}
-            {{ forms.field(form.lignes, 'Lignes', {}, 'user-lignes') }}
+            <div class="control-group {{ form_errors(form.lignes) ? 'error' : '' }}" id="user-lignes">
+                <label class="control-label">Lignes</label>
+                <div class="controls">
+                    <div id="lignes-original-checkboxes">
+                        {{ form_widget(form.lignes) }}
+                    </div>
+                    <div id="lignes-tree"></div>
+                    <span class="help-inline">{{ form_errors(form.lignes) }}Sélectionnez les lignes que cet utilisateur pourra consulter</span>
+                </div>
+            </div>
         </fieldset>
 
         {{ form_rest(form) }}
@@ -34,35 +37,116 @@
             <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
             <a href="{{ path('user_index') }}" class="btn">Annuler</a>
         </div>
+    </form>>
 
-        <script type="text/javascript">
-            $(document).ready(function() {
-                // transform multiple select into the chosen one
-                $('.chosen-categories').chosen({no_results_text: "Vous n'avez pas de budgets/cat&eacute;gories !"});
+    <div id="lignes-list" style="display: none;">{# data for our Javascript tree - will be hidden #}
+        <ul>
+            {% for exercice in exercices %}
+                <li data-type="exercice">
+                    <a href="#">{{ exercice.edition }}</a>
+                    <ul>
+                        {% for budget in exercice.budgets %}
+                            <li data-type="budget">
+                                <a href="#">{{ budget.nom }}</a>
+                                <ul>
+                                    {% for categorie in budget.categories %}
+                                        <li data-type="categorie">
+                                            <a href="#">{{ categorie.cle }} - {{ categorie.nom }}</a>
+                                            <ul>
+                                                {% for sousCategorie in categorie.sousCategories %}
+                                                    <li data-type="sousCategorie">
+                                                        <a href="#">{{ sousCategorie.cle }} - {{ sousCategorie.nom }}</a>
+                                                        <ul>
+                                                            {% for ligne in sousCategorie.lignes %}
+                                                                <li data-type="ligne" data-sid="{{ ligne.id }}" id="jstree-ligne_{{ ligne.id }}">
+                                                                    <a href="#">{{ ligne.cle }} - {{ ligne.nom }}</a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 
-                // show categories only for ROLE_USER users
-                $('#trez_logicieltrezbundle_usertype_type').on('change', function() {
-                    if ($('#trez_logicieltrezbundle_usertype_type').val() !== 'ROLE_USER') {
-                        $('.user-lignes').hide();
-                    } else {
-                        $('.user-lignes').show();
-                    }
-                });
-                // check it when page is ready
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // show categories only for ROLE_USER users
+            $('#trez_logicieltrezbundle_usertype_type').on('change', function() {
                 if ($('#trez_logicieltrezbundle_usertype_type').val() !== 'ROLE_USER') {
-                    $('.user-lignes').hide();
+                    $('#user-lignes').hide();
+                } else {
+                    $('#user-lignes').show();
                 }
-
-                // don't show password group until canCredentials is checked
-                $('#trez_logicieltrezbundle_usertype_can_credentials').on('change', function(e) {
-                    if (e.srcElement.checked === true) {
-                        $('.password-group').show();
-                    } else {
-                        $('.password-group').hide();
-                    }
-                });
-                $('.password-group').hide();
             });
-        </script>
-    </form>
+            // check it when page is ready
+            if ($('#trez_logicieltrezbundle_usertype_type').val() !== 'ROLE_USER') {
+                $('#user-lignes').hide();
+            }
+
+            // don't show password group until canCredentials is checked
+            $('#trez_logicieltrezbundle_usertype_can_credentials').on('change', function(e) {
+                if (e.srcElement.checked === true) {
+                    $('.password-group').show();
+                } else {
+                    $('.password-group').hide();
+                }
+            });
+            $('.password-group').hide();
+
+            /*
+             Create a nice tree for lignes
+             */
+
+            // set up jsTree
+            $('#lignes-tree').jstree({
+                core: {
+                    animation: 100,
+                    strings: {
+                        loading: 'Chargement...'
+                    }
+                },
+                plugins: ['html_data', 'themes', 'checkbox'],
+                html_data: {
+                    data: $('#lignes-list').html()
+                },
+                themes: {
+                    theme: 'apple',
+                    dots: false,
+                    icons: false
+                },
+                checkbox: {
+                    real_checkboxes: true,
+                    real_checkboxes_names: function(n) {
+                        if ($(n['0']).data('type') === 'ligne') {
+                            return ['trez_logicieltrezbundle_usertype[lignes][]', $(n['0']).data('sid')];
+                        }
+                        return ['', 0];
+                    }
+                }
+            }).on('loaded.jstree', function() {
+                        // get checkboxes value, reflect it in the jsTree
+                        $('input[name=trez_logicieltrezbundle_usertype\\[lignes\\]\\[\\]]').each(function(index, value) {
+                            if ($(value).attr('checked')) {
+                                $('#lignes-tree').jstree('check_node', '#jstree-ligne_'+$(value).attr('value'));
+                            }
+                        });
+                        // remove Html data - only now so users without Javascript can still use the form!
+                        $('#lignes-original-checkboxes').remove();
+                    });
+
+            // prevent tree links to work
+            $('#lignes-tree').on('click', 'a', function(e) {
+                e.preventDefault();
+            });
+        });
+    </script>
 {%  endblock %}

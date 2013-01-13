@@ -29,7 +29,7 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
         "kriswallsmith/assetic": "@dev",
-        "vakata/jstree": "0.9.9"
+        "vakata/jstree": "dev-v.pre1.0"
     },
     "repositories": [
         {
@@ -82,7 +82,7 @@
             "type": "package",
             "package": {
                 "name": "vakata/jstree",
-                "version": "0.9.9",
+                "version": "dev-v.pre1.0",
                 "source": {
                     "url": "git://github.com/vakata/jstree.git",
                     "type": "git",

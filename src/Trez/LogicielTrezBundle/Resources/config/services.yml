@@ -16,3 +16,8 @@ services:
     trez.logiciel_trez.openid_user_manager:
         class: Trez\LogicielTrezBundle\Model\OpenIdUserManager
         arguments: [ @fp_openid.identity_manager, @doctrine.orm.entity_manager ]
+    validator.unique.numero_unique:
+        class: Trez\LogicielTrezBundle\Validator\Constraints\NumeroUniqueValidator
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: validator.constraint_validator, alias: numero_unique_service }

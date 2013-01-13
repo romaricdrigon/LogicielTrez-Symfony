@@ -5,12 +5,14 @@ namespace Trez\LogicielTrezBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\ExecutionContext;
 use Symfony\Component\Validator\Constraints as Assert;
+use Trez\LogicielTrezBundle\Validator\Constraints as TrezAssert;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Facture
  *  @Assert\Callback(methods={"isUnderTotal"}, groups={"under_total"})
  *  @Assert\Callback(methods={"isNotNull"})
  *  @Assert\Callback(methods={"isTvasCorrect"})
+ *  @TrezAssert\NumeroUnique
  */
 class Facture
 {
@@ -22,6 +24,10 @@ class Facture
     /**
      * @var integer $numero
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *  min = "1",
+     *  minMessage = "Le numéro ne peut pas être inférieur à 1"
+     * )
      */
     private $numero;
 
@@ -453,5 +459,13 @@ class Facture
         if (abs($this->montant - $montant_ht) > 0.001) { // floats -> epsilon!
             $context->addViolationAtSubPath('tvas', 'La somme des montants HT doit être égale au montant de la facture');
         }
+    }
+
+    /*
+     * Some getter to simulate properties
+     */
+    public function getExercice()
+    {
+        return $this->ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice();
     }
 }

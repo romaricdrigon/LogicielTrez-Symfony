@@ -20,6 +20,7 @@ Trez\LogicielTrezBundle\Entity\SousCategorie:
     manyToOne:
         categorie:
             targetEntity: Categorie
+            inversedBy: sousCategories
     oneToMany:
         lignes:
             targetEntity: Ligne

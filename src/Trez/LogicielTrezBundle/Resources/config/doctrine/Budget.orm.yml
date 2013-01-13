@@ -16,6 +16,7 @@ Trez\LogicielTrezBundle\Entity\Budget:
     manyToOne:
         exercice:
             targetEntity: Exercice
+            inversedBy: budgets
     oneToMany:
         categories:
             targetEntity: Categorie

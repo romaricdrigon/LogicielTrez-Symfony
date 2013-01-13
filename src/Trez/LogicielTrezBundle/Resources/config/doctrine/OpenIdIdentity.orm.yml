@@ -10,6 +10,7 @@ Trez\LogicielTrezBundle\Entity\OpenIdIdentity:
     manyToOne:
         user:
             targetEntity: User
+            inversedBy: open_id_identities
             fetch: EAGER
             joinColumn:
                 name: user_id

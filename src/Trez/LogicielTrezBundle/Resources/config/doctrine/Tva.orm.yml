@@ -19,6 +19,7 @@ Trez\LogicielTrezBundle\Entity\Tva:
             targetEntity: ClasseTva
         facture:
             targetEntity: Facture
+            inversedBy: tvas
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]
         preRemove: [ checkVerrouille ]

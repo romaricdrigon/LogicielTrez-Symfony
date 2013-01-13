@@ -20,6 +20,7 @@ Trez\LogicielTrezBundle\Entity\Categorie:
     manyToOne:
         budget:
             targetEntity: Budget
+            inversedBy: categories
     oneToMany:
         sousCategories:
             targetEntity: SousCategorie

@@ -65,8 +65,7 @@
 
     {% if is_granted('ROLE_ADMIN')
         and ligne.sousCategorie.categorie.budget.verrouille == false
-        and ligne.sousCategorie.categorie.budget.exercice.verrouille == false
-        and ligne_totals.is_full == false %}
+        and ligne.sousCategorie.categorie.budget.exercice.verrouille == false %}
         <div>
             <div class="btn-toolbar">
                 <div class="btn-group">
@@ -84,12 +83,14 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="btn-group">
-                    <a href="{{ path('ligne_adjust', {'id': ligne.id}) }}" class="btn btn-warning"
-                       title="La ligne sera ajustée afin que son total soit égal au total des factures, celle-ci inclue, en tenant compte du sens (débit ou crédit)">
-                        Ajuster la ligne
-                    </a>
-                </div>
+                {% if ligne_totals.is_full == false %}
+                    <div class="btn-group">
+                        <a href="{{ path('ligne_adjust', {'id': ligne.id}) }}" class="btn btn-warning"
+                           title="La ligne sera ajustée afin que son total soit égal au total des factures, celle-ci inclue, en tenant compte du sens (débit ou crédit)">
+                            Ajuster la ligne
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     {% endif %}

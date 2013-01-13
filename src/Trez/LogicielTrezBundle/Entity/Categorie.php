@@ -237,4 +237,20 @@ class Categorie
 
         return $credit;
     }
+    public function getNotEmptySousCategories()
+    {
+        $array = array();
+
+        foreach ($this->sousCategories as $sousCategorie) {
+            if ($sousCategorie->getLignes()->count() > 0) {
+                $array[] = $sousCategorie;
+            }
+        }
+
+        usort($array, function($a, $b) {
+            return $a->getCle() - $b->getCle();
+        });
+
+        return $array;
+    }
 }

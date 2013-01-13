@@ -219,4 +219,20 @@ class Exercice
     {
         return $this->prefixe_factures;
     }
+
+    /*
+     * Some getter to simulate properties
+     */
+    public function getNotEmptyBudgets()
+    {
+        $array = array();
+
+        foreach ($this->budgets as $budget) {
+            if (sizeof($budget->getNotEmptyCategories()) > 0) {
+                $array[] = $budget;
+            }
+        }
+
+        return $array;
+    }
 }

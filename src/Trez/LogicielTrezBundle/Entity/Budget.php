@@ -216,4 +216,20 @@ class Budget
 
         return $credit;
     }
+    public function getNotEmptyCategories()
+    {
+        $array = array();
+
+        foreach ($this->categories as $categorie) {
+            if (sizeof($categorie->getNotEmptySousCategories()) > 0) {
+                $array[] = $categorie;
+            }
+        }
+
+        usort($array, function($a, $b) {
+            return $a->getCle() - $b->getCle();
+        });
+
+        return $array;
+    }
 }

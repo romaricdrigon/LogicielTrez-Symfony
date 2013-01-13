@@ -51,4 +51,19 @@ class ExerciceRepository extends EntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    public function getNotEmpty()
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('e')
+            ->from('TrezLogicielTrezBundle:Exercice', 'e')
+            ->innerJoin('e.budgets', 'b')
+            ->innerJoin('b.categories', 'c')
+            ->innerJoin('c.sousCategories', 's')
+            ->innerJoin('s.lignes', 'l');
+
+        return $qb->getQuery()->getResult();
+    }
 }

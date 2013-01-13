@@ -45,15 +45,15 @@
                 <li data-type="exercice">
                     <a href="#">{{ exercice.edition }}</a>
                     <ul>
-                        {% for budget in exercice.budgets %}
+                        {% for budget in exercice.NotEmptyBudgets %}
                             <li data-type="budget">
                                 <a href="#">{{ budget.nom }}</a>
                                 <ul>
-                                    {% for categorie in budget.categories %}
+                                    {% for categorie in budget.NotEmptyCategories %}
                                         <li data-type="categorie">
                                             <a href="#">{{ categorie.cle }} - {{ categorie.nom }}</a>
                                             <ul>
-                                                {% for sousCategorie in categorie.sousCategories %}
+                                                {% for sousCategorie in categorie.NotEmptySousCategories %}
                                                     <li data-type="sousCategorie">
                                                         <a href="#">{{ sousCategorie.cle }} - {{ sousCategorie.nom }}</a>
                                                         <ul>

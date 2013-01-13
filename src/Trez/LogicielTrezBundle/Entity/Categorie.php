@@ -213,4 +213,28 @@ class Categorie
     {
         return $this->budget->getExercice()->getEdition() . ' > ' . $this->budget->getNom() . ' > ' . $this->nom;
     }
+
+    /*
+     * Some getter to simulate properties
+     */
+    public function getDebit()
+    {
+        $debit = 0.00;
+
+        foreach ($this->sousCategories as $sousCategories) {
+            $debit += $sousCategories->getDebit();
+        }
+
+        return $debit;
+    }
+    public function getCredit()
+    {
+        $credit = 0.00;
+
+        foreach ($this->sousCategories as $sousCategories) {
+            $credit += $sousCategories->getCredit();
+        }
+
+        return $credit;
+    }
 }

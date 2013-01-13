@@ -2,6 +2,10 @@ budget_index:
     pattern:  /{exercice_id}
     defaults: { _controller: TrezLogicielTrezBundle:Budget:index }
 
+budget_detail:
+    pattern:  /detail/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:detail }
+
 budget_add:
     pattern: /add/{exercice_id}
     defaults: { _controller: TrezLogicielTrezBundle:Budget:add }

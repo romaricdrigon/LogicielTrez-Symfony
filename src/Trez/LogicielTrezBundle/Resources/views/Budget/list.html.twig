@@ -28,6 +28,7 @@
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('categorie_index', {'budget_id': budget.0.id}) }}" title="Acc&eacute;der aux cat&eacute;gories"><i class="icon-download"></i></a>
                             {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-small" href="{{ path('budget_detail', {'id': budget.0.id}) }}" title="Détail"><i class="icon-eye-open"></i></a>
                                 <a class="btn btn-small" href="{{ path('budget_edit', {'exercice_id': exercice.id, 'id': budget.0.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                                 <a class="btn btn-small"
                                    href="{{ path('budget_delete', {'exercice_id': exercice.id, 'id': budget.0.id}) }}"

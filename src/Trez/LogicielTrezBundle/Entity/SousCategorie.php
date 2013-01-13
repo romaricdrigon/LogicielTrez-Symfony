@@ -235,4 +235,28 @@ class SousCategorie
 
         return $n_sous_categorie;
     }
+
+    /*
+     * Some getter to simulate properties
+     */
+    public function getDebit()
+    {
+        $debit = 0.00;
+
+        foreach ($this->lignes as $ligne) {
+            $debit += $ligne->getDebit();
+        }
+
+        return $debit;
+    }
+    public function getCredit()
+    {
+        $credit = 0.00;
+
+        foreach ($this->lignes as $ligne) {
+            $credit += $ligne->getCredit();
+        }
+
+        return $credit;
+    }
 }

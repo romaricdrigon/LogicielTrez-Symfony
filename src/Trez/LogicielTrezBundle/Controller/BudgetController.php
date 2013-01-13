@@ -37,6 +37,16 @@ class BudgetController extends Controller
         ));
     }
 
+    public function detailAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($id);
+
+        return $this->render('TrezLogicielTrezBundle:Budget:detail.html.twig', array(
+            'budget' => $budget
+        ));
+    }
+
     public function addAction($exercice_id)
     {
         $em = $this->get('doctrine.orm.entity_manager');

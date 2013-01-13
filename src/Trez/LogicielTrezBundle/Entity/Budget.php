@@ -192,4 +192,28 @@ class Budget
     {
         return $this->exercice->getEdition() . ' - ' . $this->nom;
     }
+
+    /*
+     * Some getter to simulate properties
+     */
+    public function getDebit()
+    {
+        $debit = 0.00;
+
+        foreach ($this->categories as $categorie) {
+            $debit += $categorie->getDebit();
+        }
+
+        return $debit;
+    }
+    public function getCredit()
+    {
+        $credit = 0.00;
+
+        foreach ($this->categories as $categorie) {
+            $credit += $categorie->getCredit();
+        }
+
+        return $credit;
+    }
 }

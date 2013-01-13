@@ -1,0 +1,42 @@
+/*
+    Stylesheet for budget detail view
+*/
+
+.budget-flat tr th:nth-of-type(3),
+.budget-flat tr th:nth-of-type(4),
+.budget-flat tr td:nth-of-type(3),
+.budget-flat tr td:nth-of-type(4)
+{
+    text-align: center;;
+}
+
+/*
+    For lines
+*/
+
+.categorie {
+    background: #ddd;
+    font-weight: 500;
+}
+
+.sous-categorie {
+    background: #eee;
+    font-weight: 500;
+}
+.sous-categorie td:first-of-type {
+    padding-left: 15px !important;
+}
+
+.ligne td:first-of-type {
+    padding-left: 25px !important;
+}
+
+.budget {
+    background: #666;
+    color: #fff;
+    font-weight: 500;
+}
+.budget:hover td {
+    background: inherit !important;
+    color: inherit !important;
+}

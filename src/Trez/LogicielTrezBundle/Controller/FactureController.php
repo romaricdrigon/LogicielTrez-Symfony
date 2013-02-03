@@ -25,7 +25,9 @@ class FactureController extends Controller
                 throw new AccessDeniedException();
             }
         }
-
+        $templates = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->findBy(
+            array('actif' => 1)
+        );
         $type_factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
         $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
             array('ligne' => $ligne),
@@ -38,7 +40,8 @@ class FactureController extends Controller
             'factures' => $factures,
             'ligne' => $ligne,
             'ligne_totals' => $ligne->getTotals(),
-            'type_factures' => $type_factures
+            'type_factures' => $type_factures,
+            'templates' => $templates
         ));
     }
 
@@ -186,7 +189,7 @@ class FactureController extends Controller
         ));
     }
     
-    public function printAction($ligne_id, $id)
+    public function printAction($ligne_id, $id, $template_id)
     {
     	$em = $this->get('doctrine.orm.entity_manager');
     	$object = $em->getRepository('TrezLogicielTrezBundle:Facture')->find($id);
@@ -194,15 +197,8 @@ class FactureController extends Controller
     			array('facture' => $object)
     	);
 
-        $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->getDefaultTemplate($object->getTypeFacture()->getSens()?'FACTURE':'LETTRE');
+        $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->find($template_id);
 
-    	if ($template == null)
-        {
-
-            $this->get('session')->setFlash('error', 'Vous n\'avez pas de template par defaut pour ce type de facture');
-            return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
-
-        }
     	$totalTTC = $object->getMontant();
     	foreach ($tvas as $tva)
     	{

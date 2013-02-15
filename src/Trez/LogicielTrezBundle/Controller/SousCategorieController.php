@@ -16,16 +16,10 @@ class SousCategorieController extends Controller
         $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
 
         // list only sousCategories user can read
-        $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === true) {
-            $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAll($categorie_id);
-        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
-            $sousCategories = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->getAllowed($categorie_id, $sc->getToken()->getUser()->getId());
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $sousCategories = $aclFactory->get('Categorie', $categorie)->getSousCategories();
 
-            if ($sousCategories === array()) {
-                throw new AccessDeniedException();
-            }
-        } else {
+        if ($sousCategories === array()) {
             throw new AccessDeniedException();
         }
 

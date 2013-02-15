@@ -16,19 +16,10 @@ class LigneController extends Controller
         $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
 
         // list only lignes user can read
-        $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === true) {
-            $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->findBy(
-                array('sousCategorie' => $sous_categorie_id),
-                array('cle' => 'ASC')
-            );
-        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
-            $lignes = $em->getRepository('TrezLogicielTrezBundle:Ligne')->getAllowed($sous_categorie_id, $sc->getToken()->getUser()->getId());
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $lignes = $aclFactory->get('SousCategorie', $sous_categorie)->getLignes();
 
-            if ($lignes === array()) {
-                throw new AccessDeniedException();
-            }
-        } else {
+        if ($lignes === array()) {
             throw new AccessDeniedException();
         }
 

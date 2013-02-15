@@ -11,17 +11,9 @@ class ExerciceController extends Controller
 {
     public function indexAction()
     {
-        $em = $this->get('doctrine.orm.entity_manager');
-
         // list only exercices user can read
-        $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === true) {
-            $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
-        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
-            $exercices = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getAllowed($sc->getToken()->getUser()->getId());
-        } else {
-            $exercices = array(); // no exception, user may be authorized here but can't view any budget
-        }
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $exercices = $aclFactory->getAll();
 
         $this->getBreadcrumbs();
 

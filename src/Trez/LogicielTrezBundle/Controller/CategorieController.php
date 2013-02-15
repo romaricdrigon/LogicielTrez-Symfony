@@ -16,16 +16,10 @@ class CategorieController extends Controller
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
 
         // list only categories user can read
-        $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === true) {
-            $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAll($budget_id);
-        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
-            $categories = $em->getRepository('TrezLogicielTrezBundle:Categorie')->getAllowed($budget_id, $sc->getToken()->getUser()->getId());
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $categories = $aclFactory->get('Budget', $budget)->getCategories();
 
-            if ($categories === array()) {
-                throw new AccessDeniedException();
-            }
-        } else {
+        if ($categories === array()) {
             throw new AccessDeniedException();
         }
 

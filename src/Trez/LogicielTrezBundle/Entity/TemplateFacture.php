@@ -28,9 +28,14 @@ class TemplateFacture
     private $contenu;
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
      * @var boolean
      */
-    private $defaut;
+    private $actif;
 
     /**
      * Get id
@@ -87,11 +92,6 @@ class TemplateFacture
     {
         return $this->contenu;
     }
-    /**
-     * @var string
-     */
-    private $type;
-
 
     /**
      * Set type
@@ -117,25 +117,25 @@ class TemplateFacture
     }
 
     /**
-     * Set defaut
+     * Set actif
      *
-     * @param boolean $defaut
+     * @param boolean $actif
      * @return TemplateFacture
      */
-    public function setDefaut($defaut)
+    public function setActif($actif)
     {
-        $this->defaut = $defaut;
+        $this->actif = $actif;
     
         return $this;
     }
 
     /**
-     * Get defaut
+     * Get actif
      *
      * @return boolean 
      */
-    public function getDefaut()
+    public function getActif()
     {
-        return $this->defaut;
+        return $this->actif;
     }
 }

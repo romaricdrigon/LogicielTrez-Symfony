@@ -49,12 +49,26 @@
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('facture_detail', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="D&eacute;tail"><i class="icon-eye-open"></i></a>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a class="btn btn-small" href="{{ path('facture_print', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="Imprimer"><i class="icon-print"></i></a>
                                 <a class="btn btn-small" href="{{ path('facture_edit', {'ligne_id': ligne.id, 'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                                 <a class="btn btn-small"
                                    href="{{ path('facture_delete', {'ligne_id': ligne.id, 'id': facture.id}) }}"
                                    onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la facture {{ facture.numero }} ?');"
                                    title="Supprimer"><i class="icon-remove"></i></a>
+
+                                        <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+                                            <i class="icon-print"></i>
+                                            <span class="caret"></span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            {% for tpl in templates %}
+                                            <li><a href="{{ path('facture_print', {'ligne_id': ligne.id, 'id': facture.id, 'template_id' : tpl.id}) }}" title="Imprimer">
+                                                <b>{{ tpl.name }}</b></a>
+                                            </li>
+                                            {% else %}
+                                            <li><a href="{{ path('config_index') }}">Vous devez d'abord configurer au moins un template de facture</a></li>
+                                            {% endfor %}
+                                        </ul>
+
                             {% endif %}
                         </div>
                     </td>

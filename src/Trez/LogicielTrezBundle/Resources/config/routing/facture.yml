@@ -15,7 +15,7 @@ facture_edit:
     defaults: { _controller: TrezLogicielTrezBundle:Facture:edit }
 
 facture_print:
-    pattern: /print/{ligne_id}/{id}
+    pattern: /print/{ligne_id}/{id}/{template_id}
     defaults: { _controller: TrezLogicielTrezBundle:Facture:print }
 
 facture_delete:

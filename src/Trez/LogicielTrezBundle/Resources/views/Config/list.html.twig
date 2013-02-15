@@ -207,7 +207,7 @@
                         <tr>
                             <th>Nom</th>
                             <th>Type</th>
-                            <th>Defaut</th>
+                            <th>Actif</th>
                             <th width="50"></th>
                         </tr>
                         </thead>
@@ -219,7 +219,7 @@
                                 <td>{{ template.name }}</td>
                                 <td>{{ template.type }}</td>
                                 <td>
-                                    {% if ( template.defaut  == 1) %}
+                                    {% if ( template.actif  == 1) %}
                                         <i class="icon-star"></i>
                                     {% else %}
                                         <i class="icon-star-empty"></i>

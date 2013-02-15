@@ -18,7 +18,7 @@ class TemplateFactureType extends AbstractType
                 'LETTRE' => 'lettre de paiement'
             )))
             ->add('contenu', 'textarea', array('required' => false))
-            ->add('defaut', 'checkbox', array(
+            ->add('actif', 'checkbox', array(
             'required' => false
         ))
         ;

@@ -34,7 +34,7 @@ class Exercice
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $budgets;
+    protected $budgets;
 
     /**
      * @var boolean

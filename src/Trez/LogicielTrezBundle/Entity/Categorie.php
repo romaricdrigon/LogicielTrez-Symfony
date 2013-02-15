@@ -40,7 +40,7 @@ class Categorie
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $sousCategories;
+    protected $sousCategories;
 
 
     /**

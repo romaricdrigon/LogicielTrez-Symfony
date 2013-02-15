@@ -54,7 +54,7 @@ class Ligne
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $factures;
+    protected $factures;
 
     /**
      * @var \Doctrine\Common\Collections\Collection

@@ -24,7 +24,7 @@ class Budget
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $categories;
+    protected $categories;
 
     /**
      * @var boolean

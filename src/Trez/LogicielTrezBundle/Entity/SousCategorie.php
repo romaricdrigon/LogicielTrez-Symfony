@@ -35,7 +35,7 @@ class SousCategorie
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $lignes;
+    protected $lignes;
 
 
     /**

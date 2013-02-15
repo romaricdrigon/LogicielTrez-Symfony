@@ -21,3 +21,6 @@ services:
         arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: validator.constraint_validator, alias: numero_unique_service }
+    trez.logiciel_trez.acl_proxy_factory:
+        class: Trez\LogicielTrezBundle\Service\AclProxy\AclProxyFactory
+        arguments: [ @security.context, @doctrine.orm.entity_manager ]

@@ -16,16 +16,10 @@ class BudgetController extends Controller
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
 
         // list only budgets user can read
-        $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === true) {
-            $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->getAll($exercice_id);
-        } else if ($sc->isGranted('ROLE_USER') === true && method_exists($sc->getToken()->getUser(), 'getId') === true) {
-            $budgets = $em->getRepository('TrezLogicielTrezBundle:Budget')->getAllowed($exercice_id, $sc->getToken()->getUser()->getId());
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $budgets = $aclFactory->get('Exercice', $exercice)->getBudgets();
 
-            if ($budgets === array()) {
-                throw new AccessDeniedException();
-            }
-        } else {
+        if ($budgets === array()) {
             throw new AccessDeniedException();
         }
 

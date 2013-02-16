@@ -4,11 +4,14 @@ namespace Trez\LogicielTrezBundle\Service\AclProxy;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\ORM\EntityManager;
-use Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder\ExerciceAclBuilder;
-use Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder\BudgetAclBuilder;
-use Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder\CategorieAclBuilder;
-use Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder\SousCategorieAclBuilder;
-use Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder\LigneAclBuilder;
+use Trez\LogicielTrezBundle\Service\AclProxy\FetchStrategy\EagerFetchStrategy;
+use Trez\LogicielTrezBundle\Service\AclProxy\FetchStrategy\LazyFetchStrategy;
+use Trez\LogicielTrezBundle\Service\AclProxy\FetchStrategy\LigneFetchStrategy;
+use Trez\LogicielTrezBundle\Service\AclProxy\Builder\ExerciceBuilder;
+use Trez\LogicielTrezBundle\Service\AclProxy\Builder\BudgetAclBuilder;
+use Trez\LogicielTrezBundle\Service\AclProxy\Builder\CategorieBuilder;
+use Trez\LogicielTrezBundle\Service\AclProxy\Builder\SousCategorieBuilder;
+use Trez\LogicielTrezBundle\Service\AclProxy\Builder\LigneBuilder;
 
 class AclProxyFactory
 {
@@ -34,67 +37,73 @@ class AclProxyFactory
      *
      * @param $type type of the entity we pass
      * @param entity
+     * @param strategy :
+     *      'lazy' to get the current object and its first descendants (default),
+     *      'eager' to get the whole hierarchy
      *
      * @return entity who went through AclProxy filters
      */
-    public function get($type, $entity)
+    public function get($type, $entity, $mode = 'lazy')
     {
-        return $this->getBuilder($type, $entity)->getProxy()->getProxied();
-    }
-
-    /*
-     * The same, but for Exercices (1st level)
-     */
-    public function getAll()
-    {
-        $exercices = $this->entityManager->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
-
-        $exercicesProxied = array();
-
-        foreach ($exercices as $exercice) {
-            $builder = $this->getBuilder('Exercice', $exercice);
-
-            if ($builder->isValid()) {
-                $exercicesProxied[] = $builder->getProxy()->getProxied();
-            }
+        // create the corresponding strategy
+        if ($mode === 'eager') {
+            $strategy = new EagerFetchStrategy($this->entityManager, $this->securityContext);
+        } else { // we enforce lazy as a default else
+            $strategy = new LazyFetchStrategy($this->entityManager, $this->securityContext);
         }
 
-        return $exercicesProxied;
-    }
-
-    /*
-     * BUILDER API
-     */
-
-    public function getBuilder($type, $entity)
-    {
+        // create builder
         switch ($type) {
             case 'Exercice':
-                $builder = new ExerciceAclBuilder($this, $entity);
+                $builder = new ExerciceBuilder($strategy, $entity);
                 break;
             case 'Budget':
-                $builder = new BudgetAclBuilder($this, $entity);
+                $builder = new BudgetAclBuilder($strategy, $entity);
                 break;
             case 'Categorie':
-                $builder = new CategorieAclBuilder($this, $entity);
+                $builder = new CategorieBuilder($strategy, $entity);
                 break;
             case 'SousCategorie':
-                $builder = new SousCategorieAclBuilder($this, $entity);
+                $strategy = new LigneFetchStrategy($this->entityManager, $this->securityContext); // lignes uses a different strategy
+                $builder = new SousCategorieBuilder($strategy, $entity);
                 break;
             case 'Ligne':
-                $builder = new LigneAclBuilder($this, $entity);
+                $builder = new LigneBuilder($strategy, $entity); // strategy->findChildren() is not important here
                 break;
             default:
                 throw new \Exception('Unknown type '.$type);
         }
 
-        $builder->build();
+        $director = new AclDirector($builder);
 
-        return $builder;
+        return $director->constructEntity()->getEntity();
     }
 
-    public function getSecurityContext()
+    /*
+     * The same, but for Exercices (1st level)
+     */
+    public function getAll($mode = 'lazy')
     {
-        return $this->securityContext;
+        $exercices = $this->entityManager->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();
+        $exercicesProxied = array();
+
+        // create the corresponding strategy
+        if ($mode === 'eager') {
+            $strategy = new EagerFetchStrategy($this->entityManager, $this->securityContext);
+        } else { // we enforce lazy as a default else
+            $strategy = new LazyFetchStrategy($this->entityManager, $this->securityContext);
+        }
+
+        foreach ($exercices as $exercice) {
+            $builder = new ExerciceBuilder($strategy, $exercice);
+            $director = new AclDirector($builder);
+            $built = $director->constructEntity(false)->getEntity();
+
+            if ($built !== false) {
+                $exercicesProxied[] = $built;
+            }
+        }
+
+        return $exercicesProxied;
     }
 }

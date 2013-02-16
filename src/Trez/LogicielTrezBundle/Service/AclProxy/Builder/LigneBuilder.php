@@ -16,11 +16,20 @@ class LigneBuilder extends AbstractBuilder
     }
 
     /*
-     * Composite nodes are valid if they have children
-     * We are working with Doctrine ArrayCollection
+     * Ligne is valid according if containing the current user
      */
     public function isValid()
     {
-        // TODO: check security context
+        $securityContext = $this->strategy->getSecurityContext();
+
+        if ($securityContext->isGranted('ROLE_ADMIN') === true) {
+            return true;
+        }
+        if ($securityContext->isGranted('ROLE_USER') === true
+            && $this->entity->getUsers()->contains($securityContext->getToken()->getUser())) {
+            return true;
+        }
+
+        return false;
     }
 }

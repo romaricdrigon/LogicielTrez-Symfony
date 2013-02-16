@@ -36,6 +36,12 @@ class BudgetController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($id);
 
+        $this->getBreadcrumbs($budget->getExercice());
+
+        // list only items an user can read
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $budget = $aclFactory->get('Budget', $budget, 'eager');
+
         return $this->render('TrezLogicielTrezBundle:Budget:detail.html.twig', array(
             'budget' => $budget
         ));

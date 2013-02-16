@@ -59,6 +59,9 @@ security:
             path: ^/budget/\d+$
             roles: ROLE_USER
         -
+            path: ^/budget/detail/\d+$
+            roles: ROLE_USER
+        -
             path: ^/categorie/\d+$
             roles: ROLE_USER
         -

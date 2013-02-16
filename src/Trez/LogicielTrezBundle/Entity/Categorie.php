@@ -194,6 +194,18 @@ class Categorie
         return $this->sousCategories;
     }
 
+    /**
+     * Set SousCategories
+     *
+     * @param \Doctrine\Common\Collections\Collection
+     */
+    public function setSousCategories(\Doctrine\Common\Collections\Collection $collection)
+    {
+        $this->sousCategories = $collection;
+
+        return $this;
+    }
+
     /*
      * Duplicate a categorie object
      */

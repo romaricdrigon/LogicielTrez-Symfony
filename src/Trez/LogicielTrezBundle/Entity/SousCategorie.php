@@ -214,6 +214,18 @@ class SousCategorie
         return $this->lignes;
     }
 
+    /**
+     * Set Lignes
+     *
+     * @param \Doctrine\Common\Collections\Collection
+     */
+    public function setLignes(\Doctrine\Common\Collections\Collection $collection)
+    {
+        $this->lignes = $collection;
+
+        return $this;
+    }
+
     /*
      * Check if parent is verrouille, thus throw an exception
      */

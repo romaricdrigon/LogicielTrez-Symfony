@@ -135,6 +135,18 @@ class Budget
     }
 
     /**
+     * Set categories
+     *
+     * @param \Doctrine\Common\Collections\Collection
+     */
+    public function setCategories(\Doctrine\Common\Collections\Collection $collection)
+    {
+        $this->categories = $collection;
+
+        return $this;
+    }
+
+    /**
      * Set verrouille
      *
      * @param boolean $verrouille

@@ -15,24 +15,14 @@ class FactureController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $ligne = $em->getRepository('TrezLogicielTrezBundle:Ligne')->find($ligne_id);
 
-        // check if user is ok
-        $sc = $this->get('security.context');
-        if ($sc->isGranted('ROLE_ADMIN') === false && $sc->isGranted('ROLE_USER') === true) {
-            if (method_exists($sc->getToken()->getUser(), 'isLigneAllowed') === true
-                && $sc->getToken()->getUser()->isLigneAllowed($ligne) === true) {
-                // inversed if, otherwise a bit hard to read!
-            } else {
-                throw new AccessDeniedException();
-            }
-        }
+        // list only factures user can read
+        $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
+        $factures = $aclFactory->get('Ligne', $ligne)->getFactures();
+
         $templates = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->findBy(
             array('actif' => 1)
         );
         $type_factures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
-        $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
-            array('ligne' => $ligne),
-            array('numero' => 'DESC')
-        );
 
         $this->getBreadcrumbs($ligne);
 

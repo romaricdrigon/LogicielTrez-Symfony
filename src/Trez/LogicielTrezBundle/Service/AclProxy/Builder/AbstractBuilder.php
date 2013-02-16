@@ -18,17 +18,18 @@ abstract class AbstractBuilder implements BuilderInterface
     /*
      * FetchChildren will fetch children collection (all children, not filtered)
      */
-    abstract public function buildChildren();
+    // commented because firsts versions of PHP5.3 don't allow an interface method to be re-defined in an abstract class
+    //abstract public function buildChildren();
 
     /*
      * Build may calculate/set needed parameters (such as credit & debit)
      */
-    abstract public function buildTotaux();
+    //abstract public function buildTotaux();
 
     /*
      * Is this node valid given the security context?
      */
-    abstract public function isValid();
+    //abstract public function isValid();
 
     /*
      * Return the entity

@@ -21,5 +21,6 @@ abstract class AbstractFetchStrategy implements FetchStrategyInterface
         return $this->securityContext;
     }
 
-    abstract public function fetchChildren($entity, $child_name);
+    // commented because firsts versions of PHP5.3 don't allow an interface method to be re-defined in an abstract class
+    //abstract public function fetchChildren($entity, $child_name);
 }

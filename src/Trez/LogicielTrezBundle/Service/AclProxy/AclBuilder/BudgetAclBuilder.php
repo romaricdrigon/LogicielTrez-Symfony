@@ -2,7 +2,7 @@
 
 namespace Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder;
 
-class BudgetAclBuilder extends BasicAclBuilder
+class BudgetAclBuilder extends AbstractBasicAclBuilder
 {
     public function getName()
     {

@@ -4,16 +4,16 @@ namespace Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder;
 
 use Trez\LogicielTrezBundle\Service\AclProxy\AclProxy\ExerciceAclProxy;
 
-class ExerciceAclBuilder extends AclBuilder
+class ExerciceAclBuilder extends AbstractAclBuilder
 {
     public function build()
     {
-        $this->_proxy = new ExerciceAclProxy($this->_entity);
+        $this->proxy = new ExerciceAclProxy($this->entity);
 
         $children = array();
 
-        foreach ($this->_proxy->getChildren() as $child) {
-            $childAclBuilder = $this->_factory->getBuilder('Budget', $child);
+        foreach ($this->proxy->getChildren() as $child) {
+            $childAclBuilder = $this->factory->getBuilder('Budget', $child);
 
             if ($childAclBuilder->isValid() === true) {
                 $childAclProxy = $childAclBuilder->getProxy();
@@ -21,6 +21,6 @@ class ExerciceAclBuilder extends AclBuilder
             }
         }
 
-        $this->_proxy->setChildren($children);
+        $this->proxy->setChildren($children);
     }
 }

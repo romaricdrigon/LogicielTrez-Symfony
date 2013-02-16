@@ -6,25 +6,25 @@ use Trez\LogicielTrezBundle\Entity\Exercice;
 
 class ExerciceAclProxy extends Exercice implements ParentInterface, AclProxyInterface
 {
-    protected $_proxied;
+    protected $proxied;
 
     public function __construct(Exercice $entity)
     {
-        $this->_proxied = $entity;
+        $this->proxied = $entity;
     }
 
     public function setChildren(array $budgets)
     {
-        $this->_proxied->budgets = $budgets;
+        $this->proxied->budgets = $budgets;
     }
 
     public function getChildren()
     {
-        return $this->_proxied->budgets;
+        return $this->proxied->budgets;
     }
 
     public function getProxied()
     {
-        return $this->_proxied;
+        return $this->proxied;
     }
 }

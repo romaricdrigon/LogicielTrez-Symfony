@@ -4,20 +4,20 @@ namespace Trez\LogicielTrezBundle\Service\AclProxy\AclBuilder;
 
 use Trez\LogicielTrezBundle\Service\AclProxy\AclProxy\LigneAclProxy;
 
-class LigneAclBuilder extends AclBuilder
+class LigneAclBuilder extends AbstractAclBuilder
 {
     public function build()
     {
-        $this->_proxy = new LigneAclProxy($this->_entity);
+        $this->proxy = new LigneAclProxy($this->entity);
     }
 
     public function isValid()
     {
-        if ($this->_factory->getSecurityContext()->isGranted('ROLE_ADMIN') === true) {
+        if ($this->factory->getSecurityContext()->isGranted('ROLE_ADMIN') === true) {
             return true;
         }
-        if ($this->_factory->getSecurityContext()->isGranted('ROLE_USER') === true
-            && $this->_entity->getUsers()->contains($this->_factory->getSecurityContext()->getToken()->getUser())) {
+        if ($this->factory->getSecurityContext()->isGranted('ROLE_USER') === true
+            && $this->entity->getUsers()->contains($this->factory->getSecurityContext()->getToken()->getUser())) {
             return true;
         }
 

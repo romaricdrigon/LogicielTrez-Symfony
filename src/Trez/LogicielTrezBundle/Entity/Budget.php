@@ -196,7 +196,7 @@ class Budget
     /*
      * Some getter to simulate properties
      */
-    public function getDebit()
+    /*public function getDebit()
     {
         $debit = 0.00;
 
@@ -215,7 +215,7 @@ class Budget
         }
 
         return $credit;
-    }
+    }*/
     public function getNotEmptyCategories()
     {
         $array = array();

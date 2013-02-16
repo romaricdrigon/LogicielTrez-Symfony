@@ -239,7 +239,7 @@ class SousCategorie
     /*
      * Some getter to simulate properties
      */
-    public function getDebit()
+    /*public function getDebit()
     {
         $debit = 0.00;
 
@@ -258,5 +258,5 @@ class SousCategorie
         }
 
         return $credit;
-    }
+    }*/
 }

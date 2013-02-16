@@ -217,7 +217,7 @@ class Categorie
     /*
      * Some getter to simulate properties
      */
-    public function getDebit()
+    /*public function getDebit()
     {
         $debit = 0.00;
 
@@ -236,7 +236,7 @@ class Categorie
         }
 
         return $credit;
-    }
+    }*/
     public function getNotEmptySousCategories()
     {
         $array = array();

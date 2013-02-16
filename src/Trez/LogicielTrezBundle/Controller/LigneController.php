@@ -19,10 +19,6 @@ class LigneController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $lignes = $aclFactory->get('SousCategorie', $sous_categorie)->getLignes();
 
-        if ($lignes === array()) {
-            throw new AccessDeniedException();
-        }
-
         $this->getBreadcrumbs($sous_categorie);
 
         return $this->render('TrezLogicielTrezBundle:Ligne:list.html.twig', array(

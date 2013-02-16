@@ -19,10 +19,6 @@ class CategorieController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $categories = $aclFactory->get('Budget', $budget)->getCategories();
 
-        if ($categories === array()) {
-            throw new AccessDeniedException();
-        }
-
         $this->getBreadcrumbs($budget);
 
         return $this->render('TrezLogicielTrezBundle:Categorie:list.html.twig', array(

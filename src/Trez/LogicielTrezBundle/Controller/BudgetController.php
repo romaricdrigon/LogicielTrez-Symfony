@@ -19,10 +19,6 @@ class BudgetController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $budgets = $aclFactory->get('Exercice', $exercice)->getBudgets();
 
-        if ($budgets === array()) {
-            throw new AccessDeniedException();
-        }
-
         $this->getBreadcrumbs($exercice);
 
         return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', array(

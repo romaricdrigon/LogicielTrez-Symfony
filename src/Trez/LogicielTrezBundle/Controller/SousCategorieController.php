@@ -19,10 +19,6 @@ class SousCategorieController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $sousCategories = $aclFactory->get('Categorie', $categorie)->getSousCategories();
 
-        if ($sousCategories === array()) {
-            throw new AccessDeniedException();
-        }
-
         $this->getBreadcrumbs($categorie);
 
         return $this->render('TrezLogicielTrezBundle:SousCategorie:list.html.twig', array(

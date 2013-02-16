@@ -29,15 +29,22 @@ class AclProxyFactory
      * Used in all controllers!
      */
 
-    // get an AclProxy entity
+    /*
+     * Get a proxied entity
+     *
+     * @param $type type of the entity we pass
+     * @param entity
+     *
+     * @return entity who went through AclProxy filters
+     */
     public function get($type, $entity)
     {
-        // TODO : we can cut corner if $user is an admin
-
         return $this->getBuilder($type, $entity)->getProxy()->getProxied();
     }
 
-    // for exercices (1st level)
+    /*
+     * The same, but for Exercices (1st level)
+     */
     public function getAll()
     {
         $exercices = $this->entityManager->getRepository('TrezLogicielTrezBundle:Exercice')->findAll();

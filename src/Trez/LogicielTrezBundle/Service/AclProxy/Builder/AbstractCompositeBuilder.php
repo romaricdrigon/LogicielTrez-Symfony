@@ -41,6 +41,12 @@ abstract class AbstractCompositeBuilder extends AbstractBuilder
      */
     public function isValid()
     {
+        // if user is an admin, always OK
+        if ($this->strategy->getSecurityContext()->isGranted('ROLE_ADMIN') === true) {
+            return true;
+        }
+
+        // else children must not be empty
         return ! $this->entity->{'get'.$this->getChildName().'s'}()->isEmpty();
     }
 

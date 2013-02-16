@@ -168,6 +168,18 @@ class Exercice
     }
 
     /**
+     * Set budgets
+     *
+     * @param \Doctrine\Common\Collections\Collection
+     */
+    public function setBudgets(\Doctrine\Common\Collections\Collection $collection)
+    {
+        $this->budgets = $collection;
+
+        return $this;
+    }
+
+    /**
      * Set verrouille
      *
      * @param boolean $verrouille

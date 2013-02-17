@@ -24,3 +24,6 @@ services:
     trez.logiciel_trez.acl_proxy_factory:
         class: Trez\LogicielTrezBundle\Service\AclProxy\AclProxyFactory
         arguments: [ @security.context, @doctrine.orm.entity_manager ]
+    trez.logiciel_trez.breadcrumbs:
+        class: Trez\LogicielTrezBundle\Service\BreadcrumbsService
+        arguments: [ @doctrine.orm.entity_manager, @router, @white_october_breadcrumbs ]

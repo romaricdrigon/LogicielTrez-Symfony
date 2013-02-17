@@ -31,7 +31,7 @@ class BudgetController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($id);
 
-        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($budget, 'Détail du budget '.$budget->getNom());
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($budget, 'Détail du budget '.$budget->getNom(), true);
 
         // list only items an user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');

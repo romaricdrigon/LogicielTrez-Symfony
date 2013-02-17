@@ -43,6 +43,22 @@
                             <td>{{ ligne.credit|excel_format }}</td>
                             <td>{{ ligne.commentaire }}</td>
                         </tr>
+                        {% if view_factures == true %}
+                        {% for facture in ligne.factures %}
+                            <tr class="facture">
+                                <td>{{ facture.typeFacture.abr ~ facture.numero }}</td>
+                                <td><a href="{{ url('facture_detail', {'ligne_id': ligne.id, 'id': facture.id}) }}">{{ facture.objet }}</a></td>
+                                {% if facture.typeFacture.sens == true %}
+                                    <td>{{ 0|excel_format }}</td>
+                                    <td>{{ facture.montant|excel_format }}</td>
+                                {% else %}
+                                    <td>{{ facture.montant|excel_format }}</td>
+                                    <td>{{ 0|excel_format }}</td>
+                                {% endif %}
+                                <td>{{ facture.commentaire }}</td>
+                            </tr>
+                        {% endfor %}
+                        {% endif %}
                     {% endfor %}
                 {% endfor %}
             {% endfor %}
@@ -55,4 +71,18 @@
             </tr>
         </tbody>
     </table>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+            {% if view_factures == true %}
+                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': 0}) }}" class='btn'>
+                    <i class="icon-list"></i> Cacher les factures
+                </a>
+            {% else %}
+                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': 1}) }}" class='btn'>
+                    <i class="icon-list"></i> Voir les factures
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
 {% endblock %}

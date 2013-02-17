@@ -27,7 +27,7 @@ class BudgetController extends Controller
         ));
     }
 
-    public function detailAction($id)
+    public function detailAction($id, $view_factures)
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($id);
@@ -39,7 +39,8 @@ class BudgetController extends Controller
         $budget = $aclFactory->get('Budget', $budget, 'eager');
 
         return $this->render('TrezLogicielTrezBundle:Budget:detail.html.twig', array(
-            'budget' => $budget
+            'budget' => $budget,
+            'view_factures' => ($view_factures == 1 ? true : false) // standardize view_factures parameter
         ));
     }
 

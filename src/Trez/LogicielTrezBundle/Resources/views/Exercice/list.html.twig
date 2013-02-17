@@ -22,6 +22,7 @@
                         <div class="btn-group">
                             <a class="btn btn-small" href="{{ path('budget_index', {'exercice_id': exercice.id}) }}" title="Acc&eacute;der aux budgets"><i class="icon-download"></i></a>
                             {% if is_granted('ROLE_ADMIN') %}
+                                <a class="btn btn-small" href="{{ path('exercice_list_factures', {'id': exercice.id}) }}" title="Voir les factures"><i class="icon-list"></i></a>
                                 <a class="btn btn-small" href="{{ path('exercice_edit', {'id': exercice.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
                                 <a class="btn btn-small"
                                    href="{{ path('exercice_delete', {'id': exercice.id}) }}"

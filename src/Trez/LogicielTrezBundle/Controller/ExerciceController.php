@@ -82,4 +82,21 @@ class ExerciceController extends Controller
 
         return new RedirectResponse($this->generateUrl('exercice_index'));
     }
+
+
+    public function listFacturesAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($id);
+        $factures = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getFactures($id);
+        $templates = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->findBy(
+            array('actif' => 1)
+        );
+
+        return $this->render('TrezLogicielTrezBundle:Exercice:list_factures.html.twig', array(
+            'exercice' => $exercice,
+            'factures' => $factures,
+            'templates' => $templates
+        ));
+    }
 }

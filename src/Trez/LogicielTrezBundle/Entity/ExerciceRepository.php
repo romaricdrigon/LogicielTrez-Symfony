@@ -34,6 +34,26 @@ class ExerciceRepository extends EntityRepository
         return $result;
     }
 
+    public function getFactures($exercice_id)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('f')
+            ->from('TrezLogicielTrezBundle:Facture', 'f')
+            ->leftJoin('f.ligne', 'l')
+            ->leftJoin('l.sousCategorie', 's')
+            ->leftJoin('s.categorie', 'c')
+            ->leftJoin('c.budget', 'b')
+            ->leftJoin('b.exercice', 'e')
+            ->where('e.id = ?1')
+            ->orderBy('f.typeFacture')
+            ->addOrderBy('f.numero', 'ASC')
+            ->setParameters(array(1 => $exercice_id));
+
+        return $qb->getQuery()->getResult();
+    }
+
     public function getAllowed($user_id)
     {
         $em = $this->getEntityManager();

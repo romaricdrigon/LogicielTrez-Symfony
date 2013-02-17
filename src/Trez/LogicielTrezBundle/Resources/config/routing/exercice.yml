@@ -13,3 +13,7 @@ exercice_edit:
 exercice_delete:
     pattern: /delete/{id}
     defaults: { _controller: TrezLogicielTrezBundle:Exercice:delete }
+
+exercice_list_factures:
+    pattern: /factures/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:Exercice:listFactures }

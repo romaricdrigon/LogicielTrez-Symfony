@@ -1,0 +1,54 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1 class="margin-bottom-20">Liste des factures de l'exercice {{ exercice.edition }}</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Num&eacute;ro</th>
+            <th>Objet</th>
+            <th>Date</th>
+            <th>Montant</th>
+            <th width="70"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td>{{ facture.typeFacture.abr ~ exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
+                <td>{{ facture.objet }}</td>
+                <td>{{ facture.date|date("d/m/Y") }}</td>
+                <td>{{ facture.montant|excel_format }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-small" href="{{ path('facture_detail', {'ligne_id': facture.ligne.id, 'id': facture.id}) }}" title="D&eacute;tail"><i class="icon-eye-open"></i></a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="btn btn-small" href="{{ path('facture_edit', {'ligne_id': facture.ligne.id, 'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small"
+                               href="{{ path('facture_delete', {'ligne_id': facture.ligne.id, 'id': facture.id}) }}"
+                               onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la facture {{ facture.numero }} ?');"
+                               title="Supprimer"><i class="icon-remove"></i>
+                            </a>
+                            <a class="btn btn-small dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="icon-print"></i>
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for tpl in templates %}
+                                    <li><a href="{{ path('facture_print', {'ligne_id': ligne.id, 'id': facture.id, 'template_id' : tpl.id}) }}" title="Imprimer">
+                                        <b>{{ tpl.name }}</b></a>
+                                    </li>
+                                {% else %}
+                                    <li><a href="{{ path('config_index') }}">Vous devez d'abord configurer au moins un template de facture</a></li>
+                                {% endfor %}
+                            </ul>
+
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

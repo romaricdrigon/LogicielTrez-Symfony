@@ -19,7 +19,7 @@
             <tbody>
             {% for facture in type_facture %}
                 <tr>
-                    <td>{{ facture.typeFacture.abr ~ exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
+                    <td>{{ facture.typeFacture.abr ~ exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3) }}</td>
                     <td>{{ facture.objet }}</td>
                     <td>{{ facture.date|date("d/m/Y") }}</td>
                     <td>{{ facture.montant|excel_format }}</td>

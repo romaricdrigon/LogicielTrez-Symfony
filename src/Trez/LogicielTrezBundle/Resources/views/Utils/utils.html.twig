@@ -1,7 +1,7 @@
 {% macro untrim_number(number, figures) %}
     {% if number == 0 %}
         {{ number }}
-    {% elseif number/10 >= figures-1 %}
+    {% elseif number|length > figures %}{# >= not to create a trap #}
         {{ number }}
     {% else %}
         {{ _self.untrim_number('0'~number, figures-1) }}

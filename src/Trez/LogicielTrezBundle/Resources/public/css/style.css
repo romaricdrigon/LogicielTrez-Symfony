@@ -91,6 +91,9 @@ h3 {
 .justify {
     text-align: justify;
 }
+.a-color-inherit a {
+    color: inherit !important;
+}
 
 /*
     Elements de la page

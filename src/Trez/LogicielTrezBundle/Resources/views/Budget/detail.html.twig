@@ -8,7 +8,7 @@
 {% block body %}
     <h1>Détail du budget {{ budget.nom }}</h1>
 
-    <table class="table table-hover table-condensed table-bordered budget-flat">
+    <table class="table table-hover table-condensed table-bordered budget-flat a-color-inherit">
         <thead>
             <tr>
                 <th>Clé</th>
@@ -22,7 +22,7 @@
             {% for categorie in budget.categories %}
                 <tr class="categorie">
                     <td>{{ categorie.cle }}</td>
-                    <td>{{ categorie.nom }}</td>
+                    <td><a href="{{ url('sous_categorie_index', {'categorie_id': categorie.id}) }}">{{ categorie.nom }}</a></td>
                     <td>{{ categorie.debit|excel_format }}</td>
                     <td>{{ categorie.credit|excel_format }}</td>
                     <td>{{ categorie.commentaire }}</td>
@@ -30,7 +30,7 @@
                 {% for sousCategorie in categorie.sousCategories %}
                     <tr class="sous-categorie">
                         <td>{{ categorie.cle ~ '.' ~sousCategorie.cle }}</td>
-                        <td>{{ sousCategorie.nom }}</td>
+                        <td><a href="{{ url('ligne_index', {'sous_categorie_id': sousCategorie.id}) }}">{{ sousCategorie.nom }}</a></td>
                         <td>{{ sousCategorie.debit|excel_format }}</td>
                         <td>{{ sousCategorie.credit|excel_format }}</td>
                         <td>{{ sousCategorie.commentaire }}</td>
@@ -38,7 +38,7 @@
                     {% for ligne in sousCategorie.lignes %}
                         <tr class="ligne">
                             <td>{{ categorie.cle ~ '.' ~ sousCategorie.cle ~ '.' ~ ligne.cle }}</td>
-                            <td>{{ ligne.nom }}</td>
+                            <td><a href="{{ url('facture_index', {'ligne_id': ligne.id}) }}">{{ ligne.nom }}</a></td>
                             <td>{{ ligne.debit|excel_format }}</td>
                             <td>{{ ligne.credit|excel_format }}</td>
                             <td>{{ ligne.commentaire }}</td>

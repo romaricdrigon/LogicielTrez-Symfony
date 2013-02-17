@@ -119,7 +119,6 @@ class UserController extends Controller
     // for admins only
     private function changePasswordAdmin(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
-        $sc = $this->get('security.context');
         $em = $this->get('doctrine.orm.entity_manager');
         $request = $this->container->get('request');
 
@@ -149,7 +148,6 @@ class UserController extends Controller
     // for "normal" users
     private function changePasswordUser(\Symfony\Component\Security\Core\User\UserInterface $user)
     {
-        $sc = $this->get('security.context');
         $em = $this->get('doctrine.orm.entity_manager');
         $request = $this->container->get('request');
 

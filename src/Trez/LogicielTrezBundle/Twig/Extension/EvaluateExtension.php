@@ -26,8 +26,10 @@ class EvaluateExtension extends \Twig_Extension {
     /**
      * This function will evaluate $string through the $environment, and return its results.
      *
+     * @param \Twig_Environment $environment
      * @param array $context
      * @param string $string
+     * @return string
      */
     public function evaluate( \Twig_Environment $environment, $context, $string ) {
         $loader = $environment->getLoader( );
@@ -35,6 +37,7 @@ class EvaluateExtension extends \Twig_Extension {
         $parsed = $this->parseString( $environment, $context, $string );
 
         $environment->setLoader( $loader );
+
         return $parsed;
     }
 
@@ -48,6 +51,7 @@ class EvaluateExtension extends \Twig_Extension {
      */
     protected function parseString( \Twig_Environment $environment, $context, $string ) {
         $environment->setLoader( new \Twig_Loader_String( ) );
+
         return $environment->render( $string, $context );
     }
 

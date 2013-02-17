@@ -138,6 +138,8 @@ class Budget
      * Set categories
      *
      * @param \Doctrine\Common\Collections\Collection
+     * @return \Trez\LogicielTrezBundle\Entity\Budget
+     * @return Budget
      */
     public function setCategories(\Doctrine\Common\Collections\Collection $collection)
     {

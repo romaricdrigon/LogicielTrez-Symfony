@@ -218,6 +218,7 @@ class SousCategorie
      * Set Lignes
      *
      * @param \Doctrine\Common\Collections\Collection
+     * @return \Trez\LogicielTrezBundle\Entity\SousCategorie
      */
     public function setLignes(\Doctrine\Common\Collections\Collection $collection)
     {

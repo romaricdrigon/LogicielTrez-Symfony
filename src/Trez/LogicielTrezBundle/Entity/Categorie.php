@@ -198,6 +198,7 @@ class Categorie
      * Set SousCategories
      *
      * @param \Doctrine\Common\Collections\Collection
+     * @return \Trez\LogicielTrezBundle\Entity\Categorie
      */
     public function setSousCategories(\Doctrine\Common\Collections\Collection $collection)
     {

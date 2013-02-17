@@ -4,7 +4,6 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Trez\LogicielTrezBundle\Entity\SousCategorie;
 use Trez\LogicielTrezBundle\Form\SousCategorieType;
 

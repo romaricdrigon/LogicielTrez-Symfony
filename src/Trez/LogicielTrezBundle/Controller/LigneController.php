@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Trez\LogicielTrezBundle\Entity\Ligne;
 use Trez\LogicielTrezBundle\Form\LigneType;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LigneController extends Controller
 {

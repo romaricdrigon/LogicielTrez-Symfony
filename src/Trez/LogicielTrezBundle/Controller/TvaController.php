@@ -35,7 +35,7 @@ class TvaController extends Controller
         $object = new Tva();
         $object->setFacture($facture);
 
-        $form = $this->get('form.factory')->create(new TvaType(), $tva);
+        $form = $this->get('form.factory')->create(new TvaType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
             $form->bindRequest($this->get('request'));

@@ -171,6 +171,8 @@ class Exercice
      * Set budgets
      *
      * @param \Doctrine\Common\Collections\Collection
+     * @return \Trez\LogicielTrezBundle\Entity\Exercice
+     * @return Exercice
      */
     public function setBudgets(\Doctrine\Common\Collections\Collection $collection)
     {

@@ -11,6 +11,7 @@ class ExcelExtension extends \Twig_Extension {
     /**
      * Attaches the innervars filter to the Twig Environment.
      *
+     * @throws \Exception
      * @return array
      */
     public function getFilters() {

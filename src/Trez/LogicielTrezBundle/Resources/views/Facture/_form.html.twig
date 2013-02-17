@@ -104,95 +104,97 @@
         /*
             TVA forms - need quite a lot of script!
          */
-
-        // hide disabled ClasseTva
-        hideDisabledClasseTva = function(e) {
-            $('select.classeTva').each(function(index, domEle) {
-                $(domEle).find('option').each(function(index2, domEle2) {
-                    if ($(domEle2).text().search('#INACTIF#') !== -1) {
-                        if ($(domEle).val()-1 != index2) {
-                            $(domEle2).remove();
+        (function($) {
+            // hide disabled ClasseTva
+            hideDisabledClasseTva = function() {
+                $('select.classeTva').each(function(index, domEle) {
+                    $(domEle).find('option').each(function(index2, domEle2) {
+                        if ($(domEle2).text().search('#INACTIF#') !== -1) {
+                            if ($(domEle).val()-1 != index2) {
+                                $(domEle2).remove();
+                            }
                         }
-                    }
-                });
-            })
-        };
-        hideDisabledClasseTva();
-
-        // check if montant of TVAs (parameter) == montant facture
-        checkMontantTva = function(montant) {
-            var _diff = parseFloat($('#trez_logicieltrezbundle_facturetype_montant').val().replace(',', '.'))-montant;
-
-            if (_diff > 0) {
-                $('span#tva-error').text('Attention il manque '+number_format(_diff, 2, ',', '')+' € dans la somme des montants HT !');
-            } else if (_diff < 0) {
-                $('span#tva-error').text('Attention il y a '+number_format(Math.abs(_diff), 2, ',', '')+' € en trop dans la somme des montants HT !');
-            } else {
-                $('span#tva-error').html('<span class="icon-ok"><span>');
-            }
-        };
-
-        // calculate montant TTC (montant HT + TVA)
-        calcMontantTtc = function() {
-            var _montant_ttc = 0;
-            var _tvas = $('li.tva').children();
-
-            $('li.tva input.montantHt').each(function(index, domEle) {
-                _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
-            });
-            checkMontantTva(_montant_ttc);
-            $('li.tva input.montantTva').each(function(index, domEle) {
-                _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
-            });
-
-            $('#montant-ttc').text(number_format(_montant_ttc, 2, ',', ' ')+' €');
-        };
-        calcMontantTtc();
-        $('#trez_logicieltrezbundle_facturetype_montant').on('blur', calcMontantTtc); // so when montant is changed, check TVA
-
-        // auto-calculate montant TVA - quite hairy because of floating-number arithmetic & DOM complexity
-        calcMontantTva = function(e) {
-            var _parent = $(this).parent();
-            var _taux = /\[(\d+\.\d*)\]/.exec(_parent.find('select.classeTva option:selected').text())[1];
-            var _montant_ht = _parent.find('input.montantHt').val().replace(',', '.');
-
-            if (isNaN(_montant_ht) === false && isNaN(_taux) === false) {
-                _montant_ht = parseInt(_montant_ht*100);
-                _taux = parseInt(_taux*100);
-                _parent.find('input.montantTva').val(number_format((_montant_ht*_taux/10000)/100, 2, ',', ''));
-            }
-
-            calcMontantTtc();
-        };
-        bindCalcTva = function() {
-            $('li.tva select.classeTva').on('change', calcMontantTva);
-            $('li.tva input.montantHt').on('blur', calcMontantTva);
-
-            $('input.montantTva').attr('readonly', 'readonly');
-        };
-        bindCalcTva();
-
-        // to add and remove TVAs (inline) forms
-        removeTva = function(e) {
-            e.preventDefault();
-            $('#tva_' + e.currentTarget.dataset.name).remove();
-        };
-        $('#add-tva-form').on('click', function(e) {
-            e.preventDefault();
-
-             var _newTva = $($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
-            _newTva.appendTo('#tva-forms').find('.remove-tva').on('click', removeTva);
-
+                    });
+                })
+            };
             hideDisabledClasseTva();
-            bindCalcTva();
-        });
-        $('.remove-tva').on('click', removeTva);
 
-        // check if there's a Tiers selected when the forme is submitted
-        $('#submit-add, #submit-adjust').on('click', function(e) {
-            if ($('#trez_logicieltrezbundle_facturetype_tiers').val() === '') {
-                window.alert('Veuillez choisir un tiers pour cette facture !');
-            }
-        });
+            // check if montant of TVAs (parameter) == montant facture
+            checkMontantTva = function(montant) {
+                var _diff = parseFloat($('#trez_logicieltrezbundle_facturetype_montant').val().replace(',', '.'))-montant;
+
+                if (_diff > 0) {
+                    $('span#tva-error').text('Attention il manque '+number_format(_diff, 2, ',', '')+' € dans la somme des montants HT !');
+                } else if (_diff < 0) {
+                    $('span#tva-error').text('Attention il y a '+number_format(Math.abs(_diff), 2, ',', '')+' € en trop dans la somme des montants HT !');
+                } else {
+                    $('span#tva-error').html('<span class="icon-ok"><span>');
+                }
+            };
+
+            // calculate montant TTC (montant HT + TVA)
+            calcMontantTtc = function() {
+                var _montant_ttc = 0;
+                var _tvas = $('li.tva').children();
+
+                $('li.tva input.montantHt').each(function(index, domEle) {
+                    _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
+                });
+                checkMontantTva(_montant_ttc);
+                $('li.tva input.montantTva').each(function(index, domEle) {
+                    _montant_ttc += parseFloat($(domEle).val().replace(',', '.'));
+                });
+
+                $('#montant-ttc').text(number_format(_montant_ttc, 2, ',', ' ')+' €');
+            };
+            calcMontantTtc();
+            $('#trez_logicieltrezbundle_facturetype_montant').on('blur', calcMontantTtc); // so when montant is changed, check TVA
+
+            // auto-calculate montant TVA - quite hairy because of floating-number arithmetic & DOM complexity
+            calcMontantTva = function(e) {
+                var _parent = $(this).parent();
+                var _taux = /\[(\d+\.\d*)\]/.exec(_parent.find('select.classeTva option:selected').text())[1];
+                var _montant_ht = _parent.find('input.montantHt').val().replace(',', '.');
+
+                if (isNaN(_montant_ht) === false && isNaN(_taux) === false) {
+                    _montant_ht = parseInt(_montant_ht*100);
+                    _taux = parseInt(_taux*100);
+                    _parent.find('input.montantTva').val(number_format((_montant_ht*_taux/10000)/100, 2, ',', ''));
+                }
+
+                calcMontantTtc();
+            };
+            bindCalcTva = function() {
+                $('li.tva select.classeTva').on('change', calcMontantTva);
+                $('li.tva input.montantHt').on('blur', calcMontantTva);
+
+                $('input.montantTva').attr('readonly', 'readonly');
+            };
+            bindCalcTva();
+
+            // to add and remove TVAs (inline) forms
+            removeTva = function(e) {
+                e.preventDefault();
+                $('#tva_' + e.currentTarget.dataset.name).remove();
+                calcMontantTtc();
+            };
+            $('#add-tva-form').on('click', function(e) {
+                e.preventDefault();
+
+                 var _newTva = $($('#tva-forms').attr('data-prototype').replace(/__name__/g, $('#tva-forms').children().length));
+                _newTva.appendTo('#tva-forms').find('.remove-tva').on('click', removeTva);
+
+                hideDisabledClasseTva();
+                bindCalcTva();
+            });
+            $('.remove-tva').on('click', removeTva);
+
+            // check if there's a Tiers selected when the forme is submitted
+            $('#submit-add, #submit-adjust').on('click', function(e) {
+                if ($('#trez_logicieltrezbundle_facturetype_tiers').val() === '') {
+                    window.alert('Veuillez choisir un tiers pour cette facture !');
+                }
+            });
+        }($));
     });
 </script>

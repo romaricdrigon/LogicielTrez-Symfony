@@ -2,7 +2,7 @@
 
 namespace Trez\LogicielTrezBundle\Service\AclProxy;
 
-use Trez\LogicielTrezBundle\Service\AclProxy\Builder\AbstractBuilder;
+use Trez\LogicielTrezBundle\Service\AclProxy\Builder\BuilderInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class AclDirector
@@ -11,7 +11,7 @@ class AclDirector
     protected $entity;
     protected $built = false;
 
-    public function __construct(AbstractBuilder $builder)
+    public function __construct(BuilderInterface $builder)
     {
         $this->builder = $builder;
     }

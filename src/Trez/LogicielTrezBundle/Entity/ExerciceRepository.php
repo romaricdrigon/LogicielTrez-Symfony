@@ -34,24 +34,32 @@ class ExerciceRepository extends EntityRepository
         return $result;
     }
 
-    public function getFactures($exercice_id)
+    public function getFacturesByType($exercice_id)
     {
         $em = $this->getEntityManager();
         $qb = $em->createQueryBuilder();
 
-        $qb->select('f')
+        $qb->select(array('f', 't.id AS typeId'))
             ->from('TrezLogicielTrezBundle:Facture', 'f')
             ->leftJoin('f.ligne', 'l')
             ->leftJoin('l.sousCategorie', 's')
             ->leftJoin('s.categorie', 'c')
             ->leftJoin('c.budget', 'b')
             ->leftJoin('b.exercice', 'e')
+            ->leftJoin('f.typeFacture', 't')
             ->where('e.id = ?1')
-            ->orderBy('f.typeFacture')
-            ->addOrderBy('f.numero', 'ASC')
+            ->orderBy('f.numero', 'ASC')
             ->setParameters(array(1 => $exercice_id));
 
-        return $qb->getQuery()->getResult();
+        $factures = $qb->getQuery()->getResult();
+
+        // aggregate factures according to typeFacture - o(n) algorithm
+        $aggFactures = array();
+        foreach ($factures as $facture) {
+            $aggFactures[$facture['typeId']][] = $facture[0]; // remove typeId
+        }
+
+        return $aggFactures;
     }
 
     public function getAllowed($user_id)

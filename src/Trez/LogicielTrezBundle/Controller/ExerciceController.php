@@ -88,7 +88,8 @@ class ExerciceController extends Controller
     {
         $em = $this->get('doctrine.orm.entity_manager');
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($id);
-        $factures = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getFactures($id);
+        $factures = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getFacturesByType($id);
+        $typeFactures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
         $templates = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->findBy(
             array('actif' => 1)
         );
@@ -96,7 +97,8 @@ class ExerciceController extends Controller
         return $this->render('TrezLogicielTrezBundle:Exercice:list_factures.html.twig', array(
             'exercice' => $exercice,
             'factures' => $factures,
-            'templates' => $templates
+            'templates' => $templates,
+            'type_factures' => $typeFactures
         ));
     }
 }

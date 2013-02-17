@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Service;
 
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use WhiteOctober\BreadcrumbsBundle\Model\Breadcrumbs;
 use Trez\LogicielTrezBundle\Entity\Facture;
 use Trez\LogicielTrezBundle\Entity\Ligne;
 use Trez\LogicielTrezBundle\Entity\SousCategorie;
@@ -21,7 +22,7 @@ class BreadcrumbsService
     /*
      * DIC
      */
-    public function __construct(EntityManager $entity_manager, Router $router, $white_october_breadcrumbs)
+    public function __construct(EntityManager $entity_manager, Router $router, Breadcrumbs $white_october_breadcrumbs)
     {
         $this->entityManager = $entity_manager;
         $this->router = $router;
@@ -33,8 +34,9 @@ class BreadcrumbsService
      * setBreadcrumbs will create a corresponding WhiteOctoberBreadcrumbs object
      * @param $entity, false for just the first step
      * @param $last_step, an optional text for the last step
+     * @param $replace_last, the text will replace the last step (instead of being added at the very end)
      */
-    public function setBreadcrumbs($entity = false, $last_step = false)
+    public function setBreadcrumbs($entity = false, $last_step = false, $replace_last = false)
     {
         if ($entity === false) {
             $this->setParentExercices();
@@ -67,17 +69,21 @@ class BreadcrumbsService
         // recopy tempBreadcrumbs in reverse order
         $this->tempBreadcrumbs = array_reverse($this->tempBreadcrumbs);
 
+        // add/replace optional last step
+        if ($last_step !== false) {
+            if ($replace_last === true) {
+                array_pop($this->tempBreadcrumbs);
+            }
+
+            $this->tempBreadcrumbs[] = new BreadcrumbsItem($last_step);
+        }
+
         // save it to WhiteOctoberBreadcrumbsBundle service
         $this->whiteOctoberBreadcrumbs->addObjectArray(
             $this->tempBreadcrumbs,
             'text',
             'url'
         );
-
-        // add optional last step
-        if ($last_step !== false) {
-            $this->whiteOctoberBreadcrumbs->addItem($last_step);
-        }
     }
 
     /*
@@ -87,7 +93,7 @@ class BreadcrumbsService
     {
         $this->tempBreadcrumbs[] = new BreadcrumbsItem(
             'Facture '.$entity->getObjet(),
-            $this->router->generate('facture_detail', array('id' => $entity->getId()))
+            $this->router->generate('facture_detail', array('id' => $entity->getId(), 'ligne_id' => $entity->getLigne()->getId()))
         );
 
         $this->setLigne($entity->getLigne());
@@ -154,7 +160,7 @@ class BreadcrumbsItem
     protected $text;
     protected $url;
 
-    public function __construct($text, $url)
+    public function __construct($text, $url = '')
     {
         $this->text = $text;
         $this->url = $url;

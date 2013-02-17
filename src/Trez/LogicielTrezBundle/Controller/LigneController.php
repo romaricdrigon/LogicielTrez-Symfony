@@ -19,7 +19,7 @@ class LigneController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $lignes = $aclFactory->get('SousCategorie', $sous_categorie)->getLignes();
 
-        $this->getBreadcrumbs($sous_categorie);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($sous_categorie);
 
         return $this->render('TrezLogicielTrezBundle:Ligne:list.html.twig', array(
             'lignes' => $lignes,
@@ -52,7 +52,7 @@ class LigneController extends Controller
             }
         }
 
-        $this->getBreadcrumbs($sous_categorie);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($sous_categorie, 'Ajouter une ligne');
 
         return $this->render('TrezLogicielTrezBundle:Ligne:add.html.twig', array(
             'form' => $form->createView(),
@@ -77,8 +77,7 @@ class LigneController extends Controller
             }
         }
 
-        $sous_categorie = $em->getRepository('TrezLogicielTrezBundle:SousCategorie')->find($sous_categorie_id);
-        $this->getBreadcrumbs($sous_categorie);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($object, 'Modifier la ligne', true);
 
         return $this->render('TrezLogicielTrezBundle:Ligne:edit.html.twig', array(
             'form' => $form->createView(),
@@ -107,15 +106,5 @@ class LigneController extends Controller
         $em->flush();
 
         return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $id)));
-    }
-
-    private function getBreadcrumbs($sous_categorie)
-    {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$sous_categorie->getCategorie()->getBudget()->getExercice()->getEdition(), $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Catégories de ".$sous_categorie->getCategorie()->getBudget()->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $sous_categorie->getCategorie()->getBudget()->getId())));
-        $breadcrumbs->addItem("Sous-catégories de  ".$sous_categorie->getCategorie()->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $sous_categorie->getCategorie()->getId())));
-        $breadcrumbs->addItem("Lignes de  ".$sous_categorie->getNom(), $this->generateUrl('ligne_index', array('sous_categorie_id' => $sous_categorie->getId())));
     }
 }

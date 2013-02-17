@@ -19,7 +19,7 @@ class SousCategorieController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $sousCategories = $aclFactory->get('Categorie', $categorie)->getSousCategories();
 
-        $this->getBreadcrumbs($categorie);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($categorie);
 
         return $this->render('TrezLogicielTrezBundle:SousCategorie:list.html.twig', array(
             'sous_categories' => $sousCategories,
@@ -52,7 +52,7 @@ class SousCategorieController extends Controller
             }
         }
 
-        $this->getBreadcrumbs($categorie);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($categorie, 'Ajouter une sous-catégorie');
 
         return $this->render('TrezLogicielTrezBundle:SousCategorie:add.html.twig', array(
             'form' => $form->createView(),
@@ -77,8 +77,7 @@ class SousCategorieController extends Controller
             }
         }
 
-        $categorie = $em->getRepository('TrezLogicielTrezBundle:Categorie')->find($categorie_id);
-        $this->getBreadcrumbs($categorie);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($object, 'Modifier la sous-catégorie', true);
 
         return $this->render('TrezLogicielTrezBundle:SousCategorie:edit.html.twig', array(
             'form' => $form->createView(),
@@ -97,15 +96,6 @@ class SousCategorieController extends Controller
         $this->get('session')->setFlash('info', 'Sous-catégorie supprimée !');
 
         return new RedirectResponse($this->generateUrl('categorie_index', array('categorie_id' => $categorie_id)));
-    }
-
-    private function getBreadcrumbs($categorie)
-    {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$categorie->getBudget()->getExercice()->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $categorie->getBudget()->getExercice()->getId())));
-        $breadcrumbs->addItem("Catégories de ".$categorie->getBudget()->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $categorie->getBudget()->getId())));
-        $breadcrumbs->addItem("Sous-catégories de  ".$categorie->getNom(), $this->generateUrl('sous_categorie_index', array('categorie_id' => $categorie->getId())));
     }
 }
 

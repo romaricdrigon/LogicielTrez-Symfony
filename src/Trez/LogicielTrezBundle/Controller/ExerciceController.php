@@ -15,7 +15,7 @@ class ExerciceController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $exercices = $aclFactory->getAll();
 
-        $this->getBreadcrumbs();
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs();
 
         return $this->render('TrezLogicielTrezBundle:Exercice:list.html.twig', array('exercices' => $exercices));
     }
@@ -38,7 +38,7 @@ class ExerciceController extends Controller
             }
         }
 
-        $this->getBreadcrumbs();
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs(false, 'Ajouter un exercice');
 
         return $this->render('TrezLogicielTrezBundle:Exercice:add.html.twig', array(
             'form' => $form->createView()
@@ -63,7 +63,7 @@ class ExerciceController extends Controller
             }
         }
 
-        $this->getBreadcrumbs();
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs(false, 'Modifier l\'exercice');
 
         return $this->render('TrezLogicielTrezBundle:Exercice:edit.html.twig', array(
             'form' => $form->createView(),
@@ -81,11 +81,5 @@ class ExerciceController extends Controller
         $this->get('session')->setFlash('info', 'Exercice supprimé !');
 
         return new RedirectResponse($this->generateUrl('exercice_index'));
-    }
-
-    private function getBreadcrumbs()
-    {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
     }
 }

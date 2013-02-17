@@ -4,7 +4,6 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Trez\LogicielTrezBundle\Entity\Budget;
 use Trez\LogicielTrezBundle\Form\BudgetType;
 
@@ -19,7 +18,7 @@ class BudgetController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $budgets = $aclFactory->get('Exercice', $exercice)->getBudgets();
 
-        $this->getBreadcrumbs($exercice);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($exercice);
 
         return $this->render('TrezLogicielTrezBundle:Budget:list.html.twig', array(
             'budgets' => $budgets,
@@ -32,7 +31,7 @@ class BudgetController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($id);
 
-        $this->getBreadcrumbs($budget->getExercice());
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($budget, 'Détail du budget '.$budget->getNom());
 
         // list only items an user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
@@ -67,7 +66,7 @@ class BudgetController extends Controller
             }
         }
 
-        $this->getBreadcrumbs($exercice);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($exercice, 'Ajouter un budget ');
 
         return $this->render('TrezLogicielTrezBundle:Budget:add.html.twig', array(
             'form' => $form->createView(),
@@ -93,8 +92,7 @@ class BudgetController extends Controller
             }
         }
 
-        $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($exercice_id);
-        $this->getBreadcrumbs($exercice);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($object, 'Modifier le budget', true);
 
         return $this->render('TrezLogicielTrezBundle:Budget:edit.html.twig', array(
             'form' => $form->createView(),
@@ -148,12 +146,5 @@ class BudgetController extends Controller
         $this->get('session')->setFlash('info', 'Budget supprimé !');
 
         return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
-    }
-
-    private function getBreadcrumbs($exercice)
-    {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$exercice->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $exercice->getId())));
     }
 }

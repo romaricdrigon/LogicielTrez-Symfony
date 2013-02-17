@@ -19,7 +19,7 @@ class CategorieController extends Controller
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
         $categories = $aclFactory->get('Budget', $budget)->getCategories();
 
-        $this->getBreadcrumbs($budget);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($budget);
 
         return $this->render('TrezLogicielTrezBundle:Categorie:list.html.twig', array(
             'categories' => $categories,
@@ -52,7 +52,7 @@ class CategorieController extends Controller
             }
         }
 
-        $this->getBreadcrumbs($budget);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($budget, 'Ajouter une catégorie');
 
         return $this->render('TrezLogicielTrezBundle:Categorie:add.html.twig', array(
             'form' => $form->createView(),
@@ -77,8 +77,7 @@ class CategorieController extends Controller
             }
         }
 
-        $budget = $em->getRepository('TrezLogicielTrezBundle:Budget')->find($budget_id);
-        $this->getBreadcrumbs($budget);
+        $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($object, 'Modifier la catégorie');
 
         return $this->render('TrezLogicielTrezBundle:Categorie:edit.html.twig', array(
             'form' => $form->createView(),
@@ -97,13 +96,5 @@ class CategorieController extends Controller
         $this->get('session')->setFlash('info', 'Catégorie supprimée !');
 
         return new RedirectResponse($this->generateUrl('categorie_index', array('budget_id' => $budget_id)));
-    }
-
-    private function getBreadcrumbs($budget)
-    {
-        $breadcrumbs = $this->get("white_october_breadcrumbs");
-        $breadcrumbs->addItem("Exercices", $this->generateUrl('exercice_index'));
-        $breadcrumbs->addItem("Budgets de ".$budget->getExercice()->getEdition(), $this->generateUrl('budget_index', array('exercice_id' => $budget->getExercice()->getId())));
-        $breadcrumbs->addItem("Catégories de ".$budget->getNom(), $this->generateUrl('categorie_index', array('budget_id' => $budget->getId())));
     }
 }

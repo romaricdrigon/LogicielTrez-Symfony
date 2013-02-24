@@ -13,7 +13,7 @@
                 <span class="help-inline">{{ form_errors(form.typeFacture) }}{{ form_errors(form.numero) }}</span>
             </div>
         </div>
-        {{ forms.field(form.date, 'Date', {'class': 'date-selects'}, '', '<a id="date-now" href="#">Aujourd\'hui</a>') }}
+        {{ forms.field(form.date, 'Date', {'class': 'width-auto'}) }}
         {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers', 'data-placeholder': 'Choisissez le tiers concerné'}) }}
         {{ forms.field(form.objet, 'Objet', {'class': 'input-xlarge'}) }}
         {{ forms.field(form.montant, 'Montant HT', {'class': 'input-small'}) }}
@@ -50,7 +50,7 @@
 
     <fieldset>
         <legend>Paiement</legend>
-        {{ forms.field(form.date_paiement, 'Date du paiement', {'class': 'date-selects'}, '', '<a id="date_paiement-now" href="#">Aujourd\'hui</a>') }}
+        {{ forms.field(form.date_paiement, 'Date du paiement', {'class': 'width-auto'}) }}
         {{ forms.field(form.methodePaiement, 'Moyen de paiement') }}
         {{ forms.field(form.ref_paiement, 'Référence du paiement') }}
     </fieldset>
@@ -73,33 +73,9 @@
 </form>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function($) {
         // transform select into the chosen one
         $('.chosen-tiers').chosen({no_results_text: "Pas de r&eacute;sultats"});
-
-        // for "Now" buttons under date fields
-        $('#date-now').on('click', function() {
-            var _date = new Date();
-
-            $('#trez_logicieltrezbundle_facturetype_date_day').val(_date.getDate());
-            $('#trez_logicieltrezbundle_facturetype_date_month').val((_date.getMonth()+1)%12);
-            $('#trez_logicieltrezbundle_facturetype_date_year').val(_date.getFullYear());
-        });
-        $('#date_paiement-now').on('click', function() {
-            var _date = new Date();
-
-            $('#trez_logicieltrezbundle_facturetype_date_paiement_day').val(_date.getDate());
-            $('#trez_logicieltrezbundle_facturetype_date_paiement_month').val((_date.getMonth()+1)%13);
-            $('#trez_logicieltrezbundle_facturetype_date_paiement_year').val(_date.getFullYear());
-        });
-
-        // datePickers
-        /*$( "#date" ).datepicker({
-            dateFormat: 'dd/mm/yy'
-        });
-        $( "#date_paiement" ).datepicker({
-            dateFormat: 'dd/mm/yy'
-        });*/
 
         /*
             TVA forms - need quite a lot of script!

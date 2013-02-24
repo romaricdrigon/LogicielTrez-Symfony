@@ -18,16 +18,12 @@ class FactureType extends AbstractType
             ->add('montant', 'money')
             ->add('date', 'date', array(
                 'input' => 'datetime',
-                'widget' => 'choice',
-                'format' => 'dd / MM / yyyy',
-                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
+                'widget' => 'single_text',
                 'data' => new \DateTime()
             ))
             ->add('date_paiement', 'date', array(
                 'input' => 'datetime',
-                'widget' => 'choice',
-                'format' => 'dd / MM / yyyy',
-                'pattern' => '{{ day }} / {{ month }} / {{ year }}',
+                'widget' => 'single_text',
                 'required' => false
             ))
             ->add('commentaire', 'textarea', array('required' => false))

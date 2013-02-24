@@ -44,6 +44,9 @@ h3 {
 .small-inputs > input, .small-inputs > select {
     width: 90px;
 }
+.width-auto {
+    width: auto !important;
+}
 
 /*
     Helpers

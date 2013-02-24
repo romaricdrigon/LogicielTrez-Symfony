@@ -44,8 +44,9 @@ h3 {
 .small-inputs > input, .small-inputs > select {
     width: 90px;
 }
-.width-auto {
-    width: auto !important;
+.date-fix {
+    width: auto;
+    overflow: visible; /* else a nasty Chrome bug prevents us from seeing the datePicker button */
 }
 
 /*

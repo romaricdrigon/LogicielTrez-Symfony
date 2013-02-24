@@ -13,7 +13,7 @@
                 <span class="help-inline">{{ form_errors(form.typeFacture) }}{{ form_errors(form.numero) }}</span>
             </div>
         </div>
-        {{ forms.field(form.date, 'Date', {'class': 'width-auto'}) }}
+        {{ forms.field(form.date, 'Date', {'class': 'date-fix'}) }}
         {{ forms.field(form.tiers, 'Tiers', {'class': 'chosen-tiers', 'data-placeholder': 'Choisissez le tiers concerné'}) }}
         {{ forms.field(form.objet, 'Objet', {'class': 'input-xlarge'}) }}
         {{ forms.field(form.montant, 'Montant HT', {'class': 'input-small'}) }}
@@ -50,7 +50,7 @@
 
     <fieldset>
         <legend>Paiement</legend>
-        {{ forms.field(form.date_paiement, 'Date du paiement', {'class': 'width-auto'}) }}
+        {{ forms.field(form.date_paiement, 'Date du paiement', {'class': 'date-fix'}) }}
         {{ forms.field(form.methodePaiement, 'Moyen de paiement') }}
         {{ forms.field(form.ref_paiement, 'Référence du paiement') }}
     </fieldset>

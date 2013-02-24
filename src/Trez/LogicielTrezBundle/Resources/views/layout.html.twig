@@ -14,6 +14,8 @@
     {% block javascripts %}
         <script src="{{ asset('../vendor/jquery/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('../vendor/twitter/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('../vendor/afarkas/webshim/js-webshim/minified/extras/modernizr-custom.js') }}"></script>
+        <script src="{{ asset('../vendor/afarkas/webshim/js-webshim/minified/polyfiller.js') }}"></script>
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
@@ -63,5 +65,9 @@
             Fièrement propulsé par <a href="https://github.com/romaricdrigon/LogicielTrez-Symfony">LogicielTrez (version Symfony2)</a>
         </div>
     </div>
+    <script type="text/javascript">
+        // WebShim to bring everyone HTML5 goodness
+        $.webshims.polyfill('forms forms-ext');
+    </script>
 </body>
 </html>

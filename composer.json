@@ -19,8 +19,8 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "twitter/bootstrap": "2.2.2",
-        "jquery/jquery": "1.8.2",
+        "twitter/bootstrap": "2.3.0",
+        "jquery/jquery": "1.9.1",
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
         "ajaxorg/ace": "dev-master",
@@ -29,14 +29,15 @@
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "dev-master",
         "kriswallsmith/assetic": "@dev",
-        "vakata/jstree": "1.0.0"
+        "vakata/jstree": "1.0.0",
+        "afarkas/webshim": "1.9.6"
     },
     "repositories": [
         {
             "type": "package",
             "package": {
                 "name": "twitter/bootstrap",
-                "version": "2.2.2",
+                "version": "2.3.0",
                 "dist": {
                     "url": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
                     "type": "zip"
@@ -47,7 +48,7 @@
             "type": "package",
             "package": {
                 "name": "jquery/jquery",
-                "version": "1.8.2",
+                "version": "1.9.1",
                 "dist": {
                     "url": "http://code.jquery.com/jquery.min.js",
                     "type": "file"
@@ -73,6 +74,17 @@
                 "version": "1.0.0",
                 "dist": {
                     "url": "https://github.com/vakata/jstree/archive/v.pre1.0.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "afarkas/webshim",
+                "version": "1.9.6",
+                "dist": {
+                    "url": "http://corrupt-system.de/webshims-1.9.6.zip",
                     "type": "zip"
                 }
             }

@@ -18,8 +18,7 @@ class FactureType extends AbstractType
             ->add('montant', 'money')
             ->add('date', 'date', array(
                 'input' => 'datetime',
-                'widget' => 'single_text',
-                'data' => new \DateTime()
+                'widget' => 'single_text'
             ))
             ->add('date_paiement', 'date', array(
                 'input' => 'datetime',

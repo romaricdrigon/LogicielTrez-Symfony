@@ -16,7 +16,7 @@ class BudgetController extends Controller
 
         // list only budgets user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
-        $budgets = $aclFactory->get('Exercice', $exercice)->getBudgets();
+        $budgets = $aclFactory->getExercice($exercice)->getBudgets();
 
         $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($exercice);
 
@@ -35,7 +35,7 @@ class BudgetController extends Controller
 
         // list only items an user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
-        $budget = $aclFactory->get('Budget', $budget, 'eager');
+        $budget = $aclFactory->getBudget($budget, 'eager');
 
         return $this->render('TrezLogicielTrezBundle:Budget:detail.html.twig', array(
             'budget' => $budget,

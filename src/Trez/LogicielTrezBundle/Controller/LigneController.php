@@ -16,7 +16,7 @@ class LigneController extends Controller
 
         // list only lignes user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
-        $lignes = $aclFactory->get('SousCategorie', $sous_categorie)->getLignes();
+        $lignes = $aclFactory->getSousCategorie($sous_categorie)->getLignes();
 
         $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($sous_categorie);
 

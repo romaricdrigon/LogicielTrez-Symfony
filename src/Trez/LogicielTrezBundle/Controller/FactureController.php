@@ -17,7 +17,7 @@ class FactureController extends Controller
 
         // list only factures user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
-        $factures = $aclFactory->get('Ligne', $ligne)->getFactures();
+        $factures = $aclFactory->getLigne($ligne)->getFactures();
 
         $templates = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->findBy(
             array('actif' => 1)

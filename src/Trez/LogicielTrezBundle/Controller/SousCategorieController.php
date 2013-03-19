@@ -16,7 +16,7 @@ class SousCategorieController extends Controller
 
         // list only sousCategories user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
-        $sousCategories = $aclFactory->get('Categorie', $categorie)->getSousCategories();
+        $sousCategories = $aclFactory->getCategorie($categorie)->getSousCategories();
 
         $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($categorie);
 

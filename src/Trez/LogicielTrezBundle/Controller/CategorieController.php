@@ -16,7 +16,7 @@ class CategorieController extends Controller
 
         // list only categories user can read
         $aclFactory = $this->get('trez.logiciel_trez.acl_proxy_factory');
-        $categories = $aclFactory->get('Budget', $budget)->getCategories();
+        $categories = $aclFactory->getBudget($budget)->getCategories();
 
         $this->get('trez.logiciel_trez.breadcrumbs')->setBreadcrumbs($budget);
 

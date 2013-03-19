@@ -1,1 +1,8 @@
 {{ template.contenu |evaluate }}
+
+{% block script %}
+    <script src="{{ asset('../vendor/jquery/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function () { window.print(); });
+    </script>
+{% endblock %}

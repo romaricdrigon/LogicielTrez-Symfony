@@ -88,6 +88,18 @@
                     "type": "zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "ajaxorg/ace",
+                "version": "master",
+                "source": {
+                    "url": "git://github.com/ajaxorg/ace-builds.git",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
         }
     ],
     "scripts": {

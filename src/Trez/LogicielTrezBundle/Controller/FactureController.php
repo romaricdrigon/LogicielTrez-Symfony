@@ -185,6 +185,7 @@ class FactureController extends Controller
     	$tvas = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(
     			array('facture' => $object)
     	);
+        $config = $em->getRepository('TrezLogicielTrezBundle:Config')->findAll();
 
         $template = $em->getRepository('TrezLogicielTrezBundle:TemplateFacture')->find($template_id);
 
@@ -197,7 +198,9 @@ class FactureController extends Controller
     			'facture' => $object,
     			'tvas' => $tvas, 
     			'totalTTC' => $totalTTC,
-                'template' => $template
+                'template' => $template,
+                'currency' => $config[0],
+                'config' =>$config
     	));
     }
 

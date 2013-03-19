@@ -3,8 +3,8 @@ budget_index:
     defaults: { _controller: TrezLogicielTrezBundle:Budget:index }
 
 budget_detail:
-    pattern:  /detail/{id}/{view_factures}
-    defaults: { _controller: TrezLogicielTrezBundle:Budget:detail, view_factures = 0 }
+    pattern:  /detail/{id}/{view_factures}/{view_totals}
+    defaults: { _controller: TrezLogicielTrezBundle:Budget:detail, view_factures: 0, view_totals: 0 }
 
 budget_add:
     pattern: /add/{exercice_id}

@@ -36,14 +36,24 @@
                         <td>{{ sousCategorie.commentaire }}</td>
                     </tr>
                     {% for ligne in sousCategorie.lignes %}
-                        <tr class="ligne">
+                        {% set class = '' %}
+                        {% if view_totals == 1 %}
+                            {% if ligne.totals.is_full == true %}
+                                {% set class = 'success' %}
+                            {% elseif ligne.totals.used.credit == 0 and ligne.totals.used.debit == 0 %}
+                                {% set class = 'warning' %}
+                            {% else %}
+                                {% set class = 'info' %}
+                            {% endif %}
+                        {% endif %}
+                        <tr class="ligne {{ class }}">
                             <td>{{ categorie.cle ~ '.' ~ sousCategorie.cle ~ '.' ~ ligne.cle }}</td>
                             <td><a href="{{ url('facture_index', {'ligne_id': ligne.id}) }}">{{ ligne.nom }}</a></td>
                             <td>{{ ligne.debit|excel_format }}</td>
                             <td>{{ ligne.credit|excel_format }}</td>
                             <td>{{ ligne.commentaire }}</td>
                         </tr>
-                        {% if view_factures == true %}
+                        {% if view_factures == 1 %}
                         {% for facture in ligne.factures %}
                             <tr class="facture">
                                 <td>{{ facture.typeFacture.abr ~ facture.numero }}</td>
@@ -73,16 +83,33 @@
     </table>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <div>
+        <div>{# do not add btn-toolbar, else there'll be a bug with TB popover #}
             {% if view_factures == true %}
-                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': 0}) }}" class='btn'>
+                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': 0, 'view_totals': view_totals}) }}" class='btn'>
                     <i class="icon-list"></i> Cacher les factures
                 </a>
             {% else %}
-                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': 1}) }}" class='btn'>
-                    <i class="icon-list"></i> Voir les factures
+                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': 1, 'view_totals': view_totals}) }}" class='btn'>
+                    <i class="icon-list"></i> Afficher les factures
+                </a>
+            {% endif %}
+            {% if view_totals == true %}
+                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': view_factures, 'view_totals': 0}) }}" class='btn' id="view_totals">
+                    <i class="icon-list"></i> Cacher l'avancement
+                </a>
+            {% else %}
+                <a href="{{ path('budget_detail', {'id': budget.id, 'view_factures': view_factures, 'view_totals': 1}) }}" class='btn' id="view_totals">
+                    <i class="icon-list"></i> Afficher l'avancement
                 </a>
             {% endif %}
         </div>
+        <script type="text/javascript">
+            $('#view_totals').popover({
+                placement: 'top',
+                trigger: 'hover',
+                title: 'Aide',
+                content: 'Les lignes complètement facturées apparaîtront en vert ; en bleu, celles qui ne sont pas remplies ; en jaune, celles qui sont vides.'
+            });
+        </script>
     {% endif %}
 {% endblock %}

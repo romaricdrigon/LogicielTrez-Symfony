@@ -19,7 +19,7 @@
         "sensio/generator-bundle": "2.1.*",
         "jms/security-extra-bundle": "1.2.*",
         "jms/di-extra-bundle": "1.1.*",
-        "twitter/bootstrap": "2.3.0",
+        "twitter/bootstrap": "2.3.1",
         "jquery/jquery": "1.9.1",
         "harvesthq/chosen": "dev-master",
         "whiteoctober/breadcrumbs-bundle": "2.1.x-dev",
@@ -37,7 +37,7 @@
             "type": "package",
             "package": {
                 "name": "twitter/bootstrap",
-                "version": "2.3.0",
+                "version": "2.3.1",
                 "dist": {
                     "url": "http://twitter.github.com/bootstrap/assets/bootstrap.zip",
                     "type": "zip"

@@ -174,10 +174,13 @@
                                 <td>
                                     <div class="btn-group">
                                         <a class="btn btn-small" href="{{ path('config_edit', {'id': config.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                        {% if ( config.cle  != "currency" and config.cle  != "currentBudget") %}
                                         <a class="btn btn-small"
                                            href="{{ path('config_delete', {'id': config.id}) }}"
                                            onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la config {{ config.cle }} ?');"
                                            title="Supprimer"><i class="icon-remove"></i></a>
+                                        {% endif %}
+
                                     </div>
                                 </td>
                            </tr>

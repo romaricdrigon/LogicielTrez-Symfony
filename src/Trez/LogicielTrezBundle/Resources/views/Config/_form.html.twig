@@ -5,8 +5,13 @@
     <div>{{ form_errors(form) }}</div>
 
     <fieldset>
-        {{ forms.field(form.cle, 'Clé') }}
-        <pre class="language-markup"><code>{{ forms.field(form.valeur, 'Valeur') }}</code></pre>
+        {% if ( route == 'config_edit' and (config.cle  == "currency" or config.cle  == "currentBudget")) %}
+            {{ forms.field(form.cle, 'Clé', {'disabled':'disabled'} ) }}
+        {% else %}
+            {{ forms.field(form.cle, 'Clé') }}
+        {% endif %}
+
+        {{ forms.field(form.valeur, 'Valeur') }}
     </fieldset>
 
     {{ form_rest(form) }}

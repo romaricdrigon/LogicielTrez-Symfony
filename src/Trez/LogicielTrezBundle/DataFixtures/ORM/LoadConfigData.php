@@ -18,5 +18,12 @@ class LoadConfigData implements FixtureInterface
 
         $manager->persist($config);
         $manager->flush();
+
+        $config2 = new Config();
+        $config2->setCle('currentBudget');
+        $config2->setValeur('');
+
+        $manager->persist($config2);
+        $manager->flush();
     }
 }

@@ -39,14 +39,13 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     {% for tpl in templates %}
-                                        <li><a href="{{ path('facture_print', {'ligne_id': ligne.id, 'id': facture.id, 'template_id' : tpl.id}) }}" title="Imprimer">
+                                        <li><a href="{{ path('facture_print', {'ligne_id': facture.ligne.id, 'id': facture.id, 'template_id' : tpl.id}) }}" title="Imprimer">
                                             <b>{{ tpl.name }}</b></a>
                                         </li>
                                     {% else %}
                                         <li><a href="{{ path('config_index') }}">Vous devez d'abord configurer au moins un template de facture</a></li>
                                     {% endfor %}
                                 </ul>
-
                             {% endif %}
                         </div>
                     </td>

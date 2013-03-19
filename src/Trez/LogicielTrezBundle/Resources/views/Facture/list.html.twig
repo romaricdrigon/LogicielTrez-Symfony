@@ -10,7 +10,7 @@
             </td>
             {% if ligne.debit != 0 %}
                 <td>
-                    <div class="progress no-margin{% if ligne_totals.percent.debit == 1 %} progress-success{% endif %}">
+                    <div class="progress no-margin{% if ligne_totals.is_full == true %} progress-success{% endif %}">
                         <div class="bar" style="width: {{ ligne_totals.percent.debit*100 }}%;" title="{{ ligne_totals.percent.debit*100 }}%"></div>
                     </div>
                 </td>
@@ -20,7 +20,7 @@
             </td>
             {% if ligne.credit != 0 %}
                 <td>
-                    <div class="progress no-margin{% if ligne_totals.percent.credit == 1 %} progress-success{% endif %}">
+                    <div class="progress no-margin{% if ligne_totals.is_full == 1 %} progress-success{% endif %}">
                         <div class="bar" style="width: {{ ligne_totals.percent.credit*100 }}%;" title="{{ ligne_totals.percent.credit*100 }}%"></div>
                     </div>
                 </td>

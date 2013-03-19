@@ -4,6 +4,11 @@ namespace Trez\LogicielTrezBundle\Service\AclProxy;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Doctrine\ORM\EntityManager;
+use Trez\LogicielTrezBundle\Entity\Exercice;
+use Trez\LogicielTrezBundle\Entity\Budget;
+use Trez\LogicielTrezBundle\Entity\Categorie;
+use Trez\LogicielTrezBundle\Entity\SousCategorie;
+use Trez\LogicielTrezBundle\Entity\Ligne;
 use Trez\LogicielTrezBundle\Service\AclProxy\FetchStrategy\EagerFetchStrategy;
 use Trez\LogicielTrezBundle\Service\AclProxy\FetchStrategy\LazyFetchStrategy;
 use Trez\LogicielTrezBundle\Service\AclProxy\FetchStrategy\LigneFetchStrategy;
@@ -32,10 +37,10 @@ class AclProxyFactory
      * Used in all controllers!
      */
 
-    /*
+    /**
      * Get a proxied entity
      *
-     * @param $type type of the entity we pass
+     * @param $type string of the entity we pass
      * @param entity
      * @param strategy :
      *      'lazy' to get the current object and its first descendants (default),
@@ -78,9 +83,67 @@ class AclProxyFactory
 
         return $director->constructEntity()->getEntity();
     }
+    /*
+     * Shortcuts, which allow auto-completion in IDEs
+     */
+    /**
+     * @param Exercice $entity
+     * @param string $mode
+     * @return Exercice
+     */
+    public function getExercice(Exercice $entity, $mode = 'lazy')
+    {
+        return $this->get('Exercice', $entity, $mode);
+    }
+    /*
+     * @return Budget
+     */
+    /**
+     * @param Budget $entity
+     * @param string $mode
+     * @return Budget
+     */
+    public function getBudget(Budget $entity, $mode = 'lazy')
+    {
+        return $this->get('Budget', $entity, $mode);
+    }
+
+    /**
+     * @param Categorie $entity
+     * @param string $mode
+     * @return Categorie
+     */
+    public function getCategorie(Categorie $entity, $mode = 'lazy')
+    {
+        return $this->get('Categorie', $entity, $mode);
+    }
+
+    /**
+     * @param SousCategorie $entity
+     * @param string $mode
+     * @return SousCategorie
+     */
+    public function getSousCategorie(SousCategorie $entity, $mode = 'lazy')
+    {
+        return $this->get('SousCategorie', $entity, $mode);
+    }
+
+    /**
+     * @param Ligne $entity
+     * @param string $mode
+     * @return Ligne
+     */
+    public function getLigne(Ligne $entity, $mode = 'lazy')
+    {
+        return $this->get('Ligne', $entity, $mode);
+    }
 
     /*
      * The same, but for Exercices (1st level)
+     */
+    /**
+     * @param string $mode
+     * @return array
      */
     public function getAll($mode = 'lazy')
     {

@@ -1,0 +1,3 @@
+declaration_tva_index:
+    pattern:  /
+    defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:index }

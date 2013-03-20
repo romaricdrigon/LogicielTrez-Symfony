@@ -68,6 +68,10 @@ user:
     resource: "@TrezLogicielTrezBundle/Resources/config/routing/user.yml"
     prefix:   /user
 
+declarationTva:
+    resource: "@TrezLogicielTrezBundle/Resources/config/routing/declarationTva.yml"
+    prefix:   /declaration_tva
+
 # import FpOpenIdBundle routing
 # login route is not used, login_check is ok, logout overriden
 fp_openid_security:

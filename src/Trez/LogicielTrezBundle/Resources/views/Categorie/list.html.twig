@@ -24,13 +24,13 @@
                     <td>{{ categorie.commentaire }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="{{ path('sous_categorie_index', {'categorie_id': categorie.id}) }}" title="Acc&eacute;der aux sous-cat&eacute;gories"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('sous_categorie_index', {'categorie_id': categorie.id}) }}" title="Acc&eacute;der aux sous-cat&eacute;gories"><i class="icon-download icon-large"></i></a>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a class="btn btn-small" href="{{ path('categorie_edit', {'budget_id': budget.id, 'id': categorie.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                <a class="btn btn-small" href="{{ path('categorie_edit', {'budget_id': budget.id, 'id': categorie.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                 <a class="btn btn-small"
                                    href="{{ path('categorie_delete', {'budget_id': budget.id, 'id': categorie.id}) }}"
                                    onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la catégorie {{ categorie.nom }} ?');"
-                                   title="Supprimer"><i class="icon-remove"></i></a>
+                                   title="Supprimer"><i class="icon-remove icon-large"></i></a>
                             {% endif %}
                         </div>
                     </td>

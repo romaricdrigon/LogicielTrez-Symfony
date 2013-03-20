@@ -30,7 +30,8 @@
         "doctrine/data-fixtures": "dev-master",
         "kriswallsmith/assetic": "@dev",
         "vakata/jstree": "1.0.0",
-        "afarkas/webshim": "1.9.6"
+        "afarkas/webshim": "1.9.6",
+        "fortawesome/font-awesome": "3.0.2"
     },
     "repositories": [
         {
@@ -98,6 +99,17 @@
                     "url": "git://github.com/ajaxorg/ace-builds.git",
                     "type": "git",
                     "reference": "master"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "fortawesome/font-awesome",
+                "version": "3.0.2",
+                "dist": {
+                    "url": "https://github.com/FortAwesome/Font-Awesome/zipball/master",
+                    "type": "zip"
                 }
             }
         }

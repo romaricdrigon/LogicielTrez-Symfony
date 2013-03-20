@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DeclarationTvaController extends Controller
 {
-    public function indexAction()i
+    public function indexAction()
     {
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:list.html.twig', array(
                 'form' => $this->getDateForm()->createView()

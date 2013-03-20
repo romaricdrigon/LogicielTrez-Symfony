@@ -12,7 +12,9 @@ class TiersType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('telephone')
+            ->add('telephone', 'text', array(
+                'attr' => array('pattern' => '([0-9]{10}|\+[0-9]{10,20})')
+            ))
             ->add('mail')
             ->add('fax')
             ->add('adresse')

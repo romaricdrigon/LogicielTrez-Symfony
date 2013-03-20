@@ -1,0 +1,13 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+{% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
+
+{% block body %}
+    <h1>Liste des déclarations de TVA</h1>
+
+    <div>A venir !</div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div>
+        </div>
+    {% endif %}
+{% endblock %}

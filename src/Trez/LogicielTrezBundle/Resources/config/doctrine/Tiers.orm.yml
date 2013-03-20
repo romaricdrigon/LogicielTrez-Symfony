@@ -41,4 +41,7 @@ Trez\LogicielTrezBundle\Entity\Tiers:
         commentaire:
             type: text
             nullable: true
+        etranger:
+            type: boolean
+            default: false
     lifecycleCallbacks: {  }

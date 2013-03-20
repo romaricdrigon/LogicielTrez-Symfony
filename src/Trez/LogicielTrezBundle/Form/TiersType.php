@@ -20,6 +20,9 @@ class TiersType extends AbstractType
             ->add('rib')
             ->add('ordre_cheque')
             ->add('commentaire')
+            ->add('etranger', 'checkbox', array(
+                'required' => false
+            ))
         ;
     }
 

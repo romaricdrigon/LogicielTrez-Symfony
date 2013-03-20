@@ -283,4 +283,32 @@ class Tiers
     {
         return $this->commentaire;
     }
+    /**
+     * @var boolean
+     */
+    private $etranger;
+
+
+    /**
+     * Set etranger
+     *
+     * @param boolean $etranger
+     * @return Tiers
+     */
+    public function setEtranger($etranger)
+    {
+        $this->etranger = $etranger;
+    
+        return $this;
+    }
+
+    /**
+     * Get etranger
+     *
+     * @return boolean 
+     */
+    public function getEtranger()
+    {
+        return $this->etranger;
+    }
 }

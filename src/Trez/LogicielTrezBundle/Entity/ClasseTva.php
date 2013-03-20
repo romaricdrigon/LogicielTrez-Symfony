@@ -42,6 +42,11 @@ class ClasseTva
      */
     private $actif;
 
+    /**
+     * @var boolean
+     */
+    private $exclure_declaration;
+
 
     /**
      * Get id
@@ -126,5 +131,28 @@ class ClasseTva
     {
         $actif = $this->actif ? '' : ' #INACTIF#';
         return $this->nom . ' [' . $this->taux .']'. $actif;
+    }
+
+    /**
+     * Set exclure_declaration
+     *
+     * @param boolean $exclureDeclaration
+     * @return ClasseTva
+     */
+    public function setExclureDeclaration($exclureDeclaration)
+    {
+        $this->exclure_declaration = $exclureDeclaration;
+    
+        return $this;
+    }
+
+    /**
+     * Get exclure_declaration
+     *
+     * @return boolean 
+     */
+    public function getExclureDeclaration()
+    {
+        return $this->exclure_declaration;
     }
 }

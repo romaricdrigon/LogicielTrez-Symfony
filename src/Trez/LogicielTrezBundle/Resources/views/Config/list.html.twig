@@ -18,6 +18,7 @@
                             <th>Nom</th>
                             <th>Taux</th>
                             <th>Actif</th>
+                            <th>Exclus de la déclaration</th>
                             <th width="50"></th>
                           </tr>
                         </thead>
@@ -29,6 +30,13 @@
                             <td>{{ tva.nom }}</td>
                             <td>{{ tva.taux }}</td>
                             <td>{{ tva.actif }}</td>
+                            <td>
+                                {% if ( tva.exclureDeclaration  == 1) %}
+                                    Oui
+                                {% else %}
+                                    Non
+                                {% endif %}
+                                </td>
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-small" href="{{ path('classeTva_edit', {'id': tva.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>

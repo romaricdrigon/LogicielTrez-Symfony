@@ -16,4 +16,7 @@ Trez\LogicielTrezBundle\Entity\ClasseTva:
             scale: 2
         actif:
             type: boolean
+        exclure_declaration:
+            type: boolean
+            default: null
     lifecycleCallbacks: {  }

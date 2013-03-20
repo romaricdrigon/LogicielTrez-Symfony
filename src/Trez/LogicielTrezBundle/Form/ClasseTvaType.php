@@ -17,6 +17,9 @@ class ClasseTvaType extends AbstractType
             	'required' => false, 
             	'data' =>true
             ))
+            ->add('exclure_declaration', 'checkbox', array(
+                'required' => false
+            ))
         ;
     }
 

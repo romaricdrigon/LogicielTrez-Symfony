@@ -34,11 +34,11 @@
                     <td>{{ tier.commentaire }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="{{ path('tiers_edit', {'id': tier.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                            <a class="btn btn-small" href="{{ path('tiers_edit', {'id': tier.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                             <a class="btn btn-small"
                                href="{{ path('tiers_delete', {'id': tier.id}) }}"
                                onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le tiers \'{{ tier.nom }}\' ?');"
-                               title="Supprimer"><i class="icon-remove"></i></a>
+                               title="Supprimer"><i class="icon-remove icon-large"></i></a>
                         </div>
                     </td>
                 </tr>

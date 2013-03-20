@@ -24,13 +24,13 @@
                     <td>{{ ligne.commentaire }}</td>
                     <td>
                         <div class="btn-group">
-                            <a class="btn btn-small" href="{{ path('facture_index', {'ligne_id': ligne.id}) }}" title="Acc&eacute;der aux factures"><i class="icon-download"></i></a>
+                            <a class="btn btn-small" href="{{ path('facture_index', {'ligne_id': ligne.id}) }}" title="Acc&eacute;der aux factures"><i class="icon-download icon-large"></i></a>
                             {% if is_granted('ROLE_ADMIN') %}
-                                <a class="btn btn-small" href="{{ path('ligne_edit', {'sous_categorie_id': sous_categorie.id, 'id': ligne.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                <a class="btn btn-small" href="{{ path('ligne_edit', {'sous_categorie_id': sous_categorie.id, 'id': ligne.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                 <a class="btn btn-small"
                                    href="{{ path('ligne_delete', {'sous_categorie_id': sous_categorie.id, 'id': ligne.id}) }}"
                                    onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la ligne {{ ligne.nom }} ?');"
-                                   title="Supprimer"><i class="icon-remove"></i></a>
+                                   title="Supprimer"><i class="icon-remove icon-large"></i></a>
                             {% endif %}
                         </div>
                     </td>

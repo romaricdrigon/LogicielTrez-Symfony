@@ -31,11 +31,11 @@
                             <td>{{ tva.actif }}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-small" href="{{ path('classeTva_edit', {'id': tva.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                    <a class="btn btn-small" href="{{ path('classeTva_edit', {'id': tva.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                     <a class="btn btn-small"
                                        href="{{ path('classeTva_delete', {'id': tva.id}) }}"
                                        onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la classe de tva \'{{ tva.nom }}\' ?');"
-                                       title="Supprimer"><i class="icon-remove"></i></a>
+                                       title="Supprimer"><i class="icon-remove icon-large"></i></a>
                                 </div>
                             </td>
                           </tr>
@@ -82,11 +82,11 @@
                                     {% endif %}
                                     <td>
                                         <div class="btn-group">
-                                            <a class="btn btn-small" href="{{ path('typeFacture_edit', {'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                            <a class="btn btn-small" href="{{ path('typeFacture_edit', {'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                             <a class="btn btn-small"
                                                href="{{ path('typeFacture_delete', {'id': facture.id}) }}"
                                                onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le type de facture \'{{ facture.nom }}\' ?');"
-                                               title="Supprimer"><i class="icon-remove"></i></a>
+                                               title="Supprimer"><i class="icon-remove icon-large"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -127,11 +127,11 @@
                                 <td>{{ paiement.nom }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-small" href="{{ path('methodePaiement_edit', {'id': paiement.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                        <a class="btn btn-small" href="{{ path('methodePaiement_edit', {'id': paiement.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                         <a class="btn btn-small"
                                            href="{{ path('methodePaiement_delete', {'id': paiement.id}) }}"
                                            onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le type de paiement \'{{ paiement.nom }}\' ?');"
-                                           title="Supprimer"><i class="icon-remove"></i></a>
+                                           title="Supprimer"><i class="icon-remove icon-large"></i></a>
                                     </div>
                                 </td>
                            </tr>
@@ -173,12 +173,12 @@
                                 <td>{{ config.valeur }}</td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-small" href="{{ path('config_edit', {'id': config.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                        <a class="btn btn-small" href="{{ path('config_edit', {'id': config.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                         {% if ( config.cle  != "currency" and config.cle  != "currentBudget") %}
                                         <a class="btn btn-small"
                                            href="{{ path('config_delete', {'id': config.id}) }}"
                                            onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la config {{ config.cle }} ?');"
-                                           title="Supprimer"><i class="icon-remove"></i></a>
+                                           title="Supprimer"><i class="icon-remove icon-large"></i></a>
                                         {% endif %}
 
                                     </div>
@@ -230,11 +230,11 @@
                                 </td>
                                 <td>
                                     <div class="btn-group">
-                                        <a class="btn btn-small" href="{{ path('templateFacture_edit', {'id': template.id}) }}" title="&Eacute;diter"><i class="icon-pencil"></i></a>
+                                        <a class="btn btn-small" href="{{ path('templateFacture_edit', {'id': template.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
                                         <a class="btn btn-small"
                                            href="{{ path('templateFacture_delete', {'id': template.id}) }}"
                                            onclick="return window.confirm('Êtes-vous sur de vouloir supprimer le template {{ template.name }} ?');"
-                                           title="Supprimer"><i class="icon-remove"></i></a>
+                                           title="Supprimer"><i class="icon-remove icon-large"></i></a>
                                     </div>
                                 </td>
                             </tr>

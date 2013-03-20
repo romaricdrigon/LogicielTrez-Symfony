@@ -1,3 +1,15 @@
 declaration_tva_index:
     pattern:  /
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:index }
+
+declaration_tva_list_factures:
+    pattern:  /list_factures/{date}
+    defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:listFactures, date: -1 }
+
+declaration_tva_create:
+    pattern:  /create/
+    defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:create }
+
+declaration_tva_generate_sheet:
+    pattern:  /generate_sheet/
+    defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:generateSheet }

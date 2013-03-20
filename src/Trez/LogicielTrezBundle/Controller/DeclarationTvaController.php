@@ -4,28 +4,28 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class DeclarationTvaController extends Controller
 {
-    public function indexAction()
+    public function indexAction()i
     {
-        $defaultData = array('message' => 'Je ne sais pas à quoi cela sert');
-        $form = $this->createFormBuilder($defaultData)
-            ->add('mois', 'date')
-            ->getForm();
-
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:list.html.twig', array(
-                'form' => $form
+                'form' => $this->getDateForm()->createView()
             ));
     }
 
-    public function listFacturesAction($date)
+    public function listFacturesAction()
     {
-        if ($date == -1) {
+        $request = $this->get('request');
+        $form = $this->getDateForm();
+        $form->bind($request);
 
+        if ($form->isValid()) {
+            return new Response(print_r($form->getData(), false));
+        } else {
+            throw new \Exception('La date fournie semble invalide');
         }
-
-        return new Response();
     }
 
     public function createAction()
@@ -36,5 +36,16 @@ class DeclarationTvaController extends Controller
     public function generateSheetAction()
     {
         return new Response();
+    }
+
+    /* for index and listFactures */
+    private function getDateForm()
+    {
+        // by default, previous month
+        $defaultData = array('mois' => new \DateTime(date('Y-m-1', strtotime('last month'))));
+
+        return $this->createFormBuilder($defaultData)
+            ->add('mois', 'date')
+            ->getForm();
     }
 }

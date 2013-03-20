@@ -7,7 +7,19 @@
     <div>A venir !</div>
 
     {% if is_granted('ROLE_ADMIN') %}
-        <div>
+        <div class="well">
+            <form class="form-inline no-margin" action="{{ path('declaration_tva_list_factures') }}" {{ form_enctype(form) }} method="post">
+                <label>
+                    {{ form_widget(form.mois, { 'attr': {'class': 'date-selects'} }) }}
+                </label>
+                {{ form_rest(form) }}
+                <input type="submit" class="btn btn-primary" value="Générer la déclaration de TVA">
+            </form>
+
+            <script type="text/javascript">
+                // we set some values in useless selects and hide them
+                $('#form_mois_day').val(1).hide();
+            </script>
         </div>
     {% endif %}
 {% endblock %}

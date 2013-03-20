@@ -43,6 +43,8 @@ Trez\LogicielTrezBundle\Entity\Facture:
             targetEntity: MethodePaiement
         typeFacture:
             targetEntity: TypeFacture
+        declarationTva:
+            targetEntity: DeclarationTva
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]
         preRemove: [ checkVerrouille ]

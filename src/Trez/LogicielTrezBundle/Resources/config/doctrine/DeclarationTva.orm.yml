@@ -1,0 +1,29 @@
+Trez\LogicielTrezBundle\Entity\DeclarationTva:
+    type: entity
+    table: null
+    repositoryClass: Trez\LogicielTrezBundle\Entity\DeclarationTvaRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        date:
+            type: date
+        solde_precedent:
+            type: integer
+        solde_suivant:
+            type: integer
+        feuille:
+            type: text
+            nullable: true
+        commentaire:
+            type: string
+            length: '400'
+            nullable: true
+    oneToMany:
+        factures:
+            targetEntity: Facture
+            mappedBy: exercice
+            cascade: [ remove ]
+    lifecycleCallbacks: {}

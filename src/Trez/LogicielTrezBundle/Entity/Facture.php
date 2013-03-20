@@ -468,4 +468,32 @@ class Facture
     {
         return $this->ligne->getSousCategorie()->getCategorie()->getBudget()->getExercice();
     }
+    /**
+     * @var \Trez\LogicielTrezBundle\Entity\DeclarationTva
+     */
+    private $declarationTva;
+
+
+    /**
+     * Set declarationTva
+     *
+     * @param \Trez\LogicielTrezBundle\Entity\DeclarationTva $declarationTva
+     * @return Facture
+     */
+    public function setDeclarationTva(\Trez\LogicielTrezBundle\Entity\DeclarationTva $declarationTva = null)
+    {
+        $this->declarationTva = $declarationTva;
+    
+        return $this;
+    }
+
+    /**
+     * Get declarationTva
+     *
+     * @return \Trez\LogicielTrezBundle\Entity\DeclarationTva 
+     */
+    public function getDeclarationTva()
+    {
+        return $this->declarationTva;
+    }
 }

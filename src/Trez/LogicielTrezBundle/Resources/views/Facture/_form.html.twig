@@ -10,6 +10,7 @@
             <div class="controls">
                 {{ form_widget(form.typeFacture, {'attr':  {'class': 'input-mini' }}) }}
                 {{ form_widget(form.numero, {'attr': {'class': 'input-small' }}) }}
+                <a href="#" class="btn btn-danger" id="edit-numero"><i class="icon-warning-sign"></i> Modifier</a>
                 <span class="help-inline">{{ form_errors(form.typeFacture) }}{{ form_errors(form.numero) }}</span>
             </div>
         </div>
@@ -76,6 +77,20 @@
     $(document).ready(function($) {
         // transform select into the chosen one
         $('.chosen-tiers').chosen({no_results_text: "Pas de r&eacute;sultats"});
+
+        // read only for numero
+        var typeFactureDiv = $('#trez_logicieltrezbundle_facturetype_typeFacture');
+        typeFactureDiv.attr('readonly', 'readonly');
+        $('#trez_logicieltrezbundle_facturetype_numero').attr('readonly', 'readonly');
+        // readonly does not exist for selects, so disable unselected choices
+        typeFactureDiv.find('option').not(':selected').attr('disabled', 'disabled');
+        // edit button
+        $('#edit-numero').on('click', function(e) {
+            e.preventDefault();
+            typeFactureDiv.removeAttr('readonly');
+            $('#trez_logicieltrezbundle_facturetype_numero').removeAttr('readonly');
+            typeFactureDiv.find('option').removeAttr('disabled');
+        });
 
         /*
             TVA forms - need quite a lot of script!

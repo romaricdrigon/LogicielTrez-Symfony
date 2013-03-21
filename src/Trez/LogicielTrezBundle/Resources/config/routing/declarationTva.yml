@@ -11,5 +11,5 @@ declaration_tva_create:
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:create }
 
 declaration_tva_generate_sheet:
-    pattern:  /generate_sheet/
+    pattern:  /generate_sheet/{id}
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:generateSheet }

@@ -27,7 +27,7 @@ class DeclarationTva
     /**
      * @var integer
      */
-    private $solde_suivant;
+    private $solde_final;
 
     /**
      * @var string
@@ -109,26 +109,26 @@ class DeclarationTva
     }
 
     /**
-     * Set solde_suivant
+     * Set solde_final
      *
-     * @param integer $soldeSuivant
+     * @param integer $soldeFinal
      * @return DeclarationTva
      */
-    public function setSoldeSuivant($soldeSuivant)
+    public function setSoldeFinal($soldeFinal)
     {
-        $this->solde_suivant = $soldeSuivant;
-    
+        $this->solde_final = $soldeFinal;
+
         return $this;
     }
 
     /**
-     * Get solde_suivant
+     * Get solde_final
      *
-     * @return integer 
+     * @return integer
      */
-    public function getSoldeSuivant()
+    public function getSoldeFinal()
     {
-        return $this->solde_suivant;
+        return $this->solde_final;
     }
 
     /**

@@ -12,8 +12,9 @@ Trez\LogicielTrezBundle\Entity\DeclarationTva:
             type: date
         solde_precedent:
             type: integer
-        solde_suivant:
+        solde_final:
             type: integer
+            nullable: true
         feuille:
             type: text
             nullable: true

@@ -1,0 +1,31 @@
+{% extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1 class="margin-bottom-20">Liste des factures pour le mois {{ mois|date('m/Y') }}</h1>
+
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Num&eacute;ro</th>
+            <th>Objet</th>
+            <th>Date</th>
+            <th>Montant</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
+                <td>{{ facture.objet }}</td>
+                <td>{{ facture.date|date("d/m/Y") }}</td>
+                <td>{{ facture.montant|excel_format }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div>
+        <div class="btn-toolbar">
+        </div>
+    </div>
+{% endblock %}

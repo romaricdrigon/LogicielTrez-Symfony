@@ -25,6 +25,6 @@ Trez\LogicielTrezBundle\Entity\DeclarationTva:
     oneToMany:
         factures:
             targetEntity: Facture
-            mappedBy: exercice
+            mappedBy: declarationTva
             cascade: [ remove ]
     lifecycleCallbacks: {}

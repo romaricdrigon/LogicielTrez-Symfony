@@ -5,6 +5,8 @@ declaration_tva_index:
 declaration_tva_list_factures:
     pattern:  /list_factures/
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:listFactures }
+    requirements:
+        _method: POST
 
 declaration_tva_create:
     pattern:  /create/

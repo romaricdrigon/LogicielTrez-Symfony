@@ -12,4 +12,31 @@ use Doctrine\ORM\EntityRepository;
  */
 class FactureRepository extends EntityRepository
 {
+    public function getFacturesByMonth($exercice_id, \Datetime $date)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        // easier to do in PHP!
+        $date_next_month = $date->add(new \DateInterval('P1M'));
+
+        $qb->select('f')
+            ->from('TrezLogicielTrezBundle:Facture', 'f')
+            ->leftJoin('f.ligne', 'l')
+            ->leftJoin('l.sousCategorie', 's')
+            ->leftJoin('s.categorie', 'c')
+            ->leftJoin('c.budget', 'b')
+            ->leftJoin('b.exercice', 'e')
+            ->where('e.id = ?1')
+            ->andWhere('f.date_paiement >= ?2')
+            ->andWhere('f.date_paiement < ?3')
+            ->orderBy('f.numero', 'ASC')
+            ->setParameters(array(
+                    1 => $exercice_id,
+                    2 => $date,
+                    3 => $date_next_month
+                ));
+
+        return $qb->getQuery()->getResult();
+    }
 }

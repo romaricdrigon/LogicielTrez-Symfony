@@ -1,0 +1,53 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('../vendor/mleibman/SlickGrid/lib/jquery.event.drag-2.0.min.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../vendor/mleibman/SlickGrid/slick.core.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../vendor/mleibman/SlickGrid/slick.grid.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../vendor/mleibman/SlickGrid/slick.editors.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../vendor/mleibman/SlickGrid/lib/jquery-ui-1.8.16.custom.min.js') }}" type="text/javascript" charset="utf-8"></script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/mleibman/SlickGrid/slick.grid.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/mleibman/SlickGrid/slick.grid.css') }}" />
+{% endblock %}
+
+
+{% block body %}
+    Id de la déclaration : {{ declaration.id }}<br/>
+    Solde précédent : {{ declaration.soldePrecedent }}<br/>
+
+    <br/><br/>
+    <div id="grilleFacture" style="max-width:800px;height:500px;"></div>
+
+    <a href="" class='btn btn-primary'>Valider la déclaration</a>
+
+<script>
+    var nombreLigne = {{ nombreLigne}};
+    console.log(nombreLigne);
+    var grid;
+    var columns = [
+        {id: "numero", name: "Numéro", field: "numero", width: 100, cssClass: "cell-title"},
+        {id: "objet", name: "Objet", field: "objet", width: 300},
+        {id: "montant", name: "MontantHT", field: "montant", width: 100},
+        {id: "date", name: "Date du paiement", field: "date", width: 200}
+    ];
+
+    var options = {
+        enableCellNavigation: true,
+        enableColumnReorder: true,
+        editable: true
+    };
+
+
+    $(function () {
+        var data = [];
+        {{ data | raw }};
+
+        grid = new Slick.Grid("#grilleFacture", data, columns, options);
+    })
+</script>
+{%  endblock %}

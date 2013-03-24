@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 class DeclarationTvaController extends Controller
 {
@@ -33,8 +34,34 @@ class DeclarationTvaController extends Controller
         return new Response();
     }
 
-    public function generateSheetAction()
+    public function generateSheetAction($id)
     {
-        return new Response();
+        $em = $this->get('doctrine.orm.entity_manager');
+        $declaration = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->find($id);
+        $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
+            array('declarationTva' => $declaration)
+        );
+        //Création du tableau javascript qui va être affiché
+        $data="";
+        $i = 0;
+        foreach ($factures as $facture)
+        {
+            $data .= '
+                data['.$i.'] = {
+                numero: "'.$facture->getId().'",
+                objet: "'.$facture->getObjet().'",
+                montant: "'.$facture->getMontant().'",
+                date: "'.$facture->getDatePaiement()->format('d-m-Y').'"
+                };
+            ';
+            $i++;
+        }
+
+        return $this->render('TrezLogicielTrezBundle:DeclarationTva:generateSheet.html.twig', array(
+            'declaration' => $declaration,
+            'factures' => $factures,
+            'data' => $data,
+            'nombreLigne' => $i
+        ));
     }
 }

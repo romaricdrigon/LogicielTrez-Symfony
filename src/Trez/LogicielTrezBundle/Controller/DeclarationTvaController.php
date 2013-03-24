@@ -4,7 +4,6 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\HttpFoundation\Request;
 
 class DeclarationTvaController extends Controller
@@ -22,14 +21,19 @@ class DeclarationTvaController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $request = $this->get('request');
         $form = $this->getDateForm();
+
         $form->bind($request);
 
         if ($form->isValid()) {
-            $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->getFacturesByMonth(1, $form['mois']->getData());
+            $date_time = $form['mois']->getData();
+
+            var_dump($date_time);
+
+            $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->getFacturesByMonth(1, $date_time);
 
             return $this->render('TrezLogicielTrezBundle:DeclarationTva:list_factures.html.twig', array(
                     'factures' => $factures,
-                    'mois' => $form['mois']->getData()
+                    'mois' => $date_time->format('m/y')
                 ));
         } else {
             throw new \Exception('La date fournie semble invalide');
@@ -65,12 +69,11 @@ class DeclarationTvaController extends Controller
         }
 
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:generateSheet.html.twig', array(
-            'declaration' => $declaration,
-            'factures' => $factures,
-            'data' => $data,
-            'nombreLigne' => $i
-        ));
-        return new Response();
+                'declaration' => $declaration,
+                'factures' => $factures,
+                'data' => $data,
+                'nombreLigne' => $i
+            ));
     }
 
     /* for index and listFactures */
@@ -84,7 +87,10 @@ class DeclarationTvaController extends Controller
                     'class' => 'Trez\LogicielTrezBundle\Entity\Exercice',
                     'property' => 'edition'
                 ))
-            ->add('mois', 'date')
+            ->add('mois', 'date', array(
+                    'input' => 'datetime',
+                    'widget' => 'choice'
+                ))
             ->getForm();
     }
 }

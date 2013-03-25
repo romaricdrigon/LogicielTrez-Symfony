@@ -32,7 +32,9 @@
         "vakata/jstree": "1.0.0",
         "afarkas/webshim": "1.9.6",
         "fortawesome/font-awesome": "3.0.2",
-        "mleibman/SlickGrid": "dev-master"
+        "mleibman/SlickGrid": "dev-master",
+        "jquery/ui": "1.10.2", 
+        "jquery/event-drag" : "2.2"
     },
     "repositories": [
         {
@@ -54,6 +56,28 @@
                 "dist": {
                     "url": "http://code.jquery.com/jquery.min.js",
                     "type": "file"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/ui",
+                "version": "1.10.2",
+                "dist": {
+                    "url": "http://jqueryui.com/resources/download/jquery-ui-1.10.2.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/event-drag",
+                "version": "2.2",
+                "dist": {
+                    "url": "https://github.com/downloads/threedubmedia/jquery.threedubmedia/jquery.event.drag-2.2.zip",
+                    "type": "zip"
                 }
             }
         },

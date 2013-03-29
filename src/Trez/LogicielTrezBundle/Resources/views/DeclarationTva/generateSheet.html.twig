@@ -1,53 +1,390 @@
 {%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 {% block javascripts %}
     {{ parent() }}
-
-    <script src="{{ asset('../vendor/mleibman/SlickGrid/lib/jquery.event.drag-2.0.min.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../vendor/jquery/event-drag/jquery.event.drag-2.2/jquery.event.drag-2.2.js') }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ asset('../vendor/mleibman/SlickGrid/slick.core.js') }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ asset('../vendor/mleibman/SlickGrid/slick.grid.js') }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ asset('../vendor/mleibman/SlickGrid/slick.editors.js') }}" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ asset('../vendor/mleibman/SlickGrid/lib/jquery-ui-1.8.16.custom.min.js') }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ asset('../vendor/jquery/ui/ui/minified/jquery-ui.min.js') }}" type="text/javascript" charset="utf-8"></script>
+
 {% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/mleibman/SlickGrid/slick.grid.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/mleibman/SlickGrid/slick.grid.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('../vendor/mleibman/SlickGrid/css/smoothness/jquery-ui-1.8.16.custom.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('../web/bundles/trezlogicieltrez/css/tva.css') }}" />
 {% endblock %}
 
 
 {% block body %}
-    Id de la déclaration : {{ declaration.id }}<br/>
-    Solde précédent : {{ declaration.soldePrecedent }}<br/>
 
-    <br/><br/>
-    <div id="grilleFacture" style="max-width:800px;height:500px;"></div>
+    <h1>Déclaration de tva n°: {{ declaration.id }}</h1>
 
+    
+    <div id="grilleFactureRecu" style="max-width:800px;height:200px;"></div>
+    <div id="grilleFactureRendu" style="max-width:800px;height:200px;"></div>
+    <div id="declarationTVA">
+
+    <table border="1">
+    <tr>
+        <td colspan="4">A - MONTANT DES OPERATIONS REALISEES</td>
+    </tr>
+    <tr>
+        <td colspan="4">OPERATIONS IMPOSABLES (HT)</td>
+    </tr>
+    <tr>
+        <td>01</td>
+        <td colspan="2">Ventes, prestations de services</td>
+        <td width="15%">{{ htRendu196 + htRendu7 + htRendu5 + htRenduAutre }}</td>
+    </tr>
+    <tr>
+        <td>02</td>
+        <td colspan="2">Autres opérations imposables</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2A</td>
+        <td colspan="2">Achats de prestations de services intracommunautaires (art 283-2 du CGI)</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>03</td>
+        <td colspan="2">Acquisitions intra-communautaires</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td colspan="2">Dont ventes à distance et/ou opérations de montage</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3A</td>
+        <td colspan="2">Livraisons d'électricité, de gaz naturel, de chaleur ou de froid imposables en France</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3B</td>
+        <td colspan="2">chats de biens ou prestations de services réalisés auprès d'un assujetti non établi en France (art 283-1 du CGI)</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>3C</td>
+        <td colspan="2">Régularisations</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td colspan="4">OPERATIONS NON IMPOSABLES</td>
+    </tr>
+
+    <tr>
+        <td>04</td>
+        <td colspan="2">Exportations Hors UE</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>05</td>
+        <td colspan="2">Autres opérations non imposables</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>06</td>
+        <td colspan="2">Livraisons intra-communautaires</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>6A</td>
+        <td colspan="2">Livraisons d'électricité, de gaz naturel, de chaleur ou de froid non imposables en France</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>07</td>
+        <td colspan="2">Achats en franchise</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>7A</td>
+        <td colspan="2">Ventes de biens ou prestations de services réalisées par un assujetti non établi en France (art 283-1 du CGI)</td>
+        <td></td>
+    </tr>
+
+    <tr>
+        <td>7B</td>
+        <td colspan="2">Régularisations</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td colspan="4">B - DECOMPTE DE LA TVA A PAYER</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">TVA BRUTE</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Opérations réalisées en France Métropolitaine</td>
+        <td>Base hors taxe</td>
+        <td>Taxe due</td>
+    </tr>
+
+    <tr>
+        <td>08</td>
+        <td>Taux normal 19,6%</td>
+        <td width="15%">{{ htRendu196 }}</td>
+        <td width="15%">{{ tvaRendu196 }}</td>
+    </tr>
+
+    <tr>
+        <td>09</td>
+        <td>Taux réduit 5,5%</td>
+        <td>{{ htRendu5 }}</td>
+        <td>{{ tvaRendu5 }}</td>
+    </tr>
+    <tr>
+        <td>09B</td>
+        <td>Taux réduit 7%</td>
+        <td>{{ htRendu7 }}</td>
+        <td>{{ tvaRendu7 }}</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Opérations réalisées dans les DOM</td>
+        <td>Base hors taxe</td>
+        <td>Taxe due</td>
+    </tr>
+
+    <tr>
+        <td>10</td>
+        <td>Taux normal 8,5%</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+    <tr>
+        <td>11</td>
+        <td>Taux réduit 2,1%</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td colspan="2">Opérations imposables à un autre taux (France métropolitaine ou DOM)</td>
+        <td>Base hors taxe</td>
+        <td>Taxe due</td>
+    </tr>
+
+    <tr>
+        <td>13</td>
+        <td>Ancien taux</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>14</td>
+        <td>Opérations imposables à un taux particulier (décompte effectué sur annexe 3310-A )</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>15</td>
+        <td colspan="2">TVA antérieurement déduite à reverser</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>16</td>
+        <td colspan="2">Total de la TVA brute due (lignes 08 à 15)</td>
+        <td>{{ tvaRendu196 + tvaRendu7 + tvaRendu5 }}</td>
+    </tr>
+
+    <tr>
+        <td>17</td>
+        <td colspan="2">Dont TVA sur acquisitions intracommunautaires</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>18</td>
+        <td colspan="2">Dont TVA sur opérations à destination de Monaco</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">TVA DEDUCTIBLE</td>
+    </tr>
+
+    <tr>
+        <td>19</td>
+        <td colspan="2">Biens constituant des immobilisations</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>20</td>
+        <td colspan="2">Autres biens et services</td>
+        <td>{{ tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre }}</td>
+    </tr>
+
+    <tr>
+        <td>21</td>
+        <td colspan="2">Autre TVA à déduire</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;</td>
+        <td>(dont régularisation sur de la TVA collectée[cf. notice])</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>22</td>
+        <td colspan="2">Report du crédit apparaissant ligne 27 de la précédente déclaration</td>
+        <td>{{ declaration.soldePrecedent}}</td>
+    </tr>
+
+    <tr>
+        <td>22A</td>
+        <td>Indiquer ici le coefficient de taxation forfaitaire applicable pour la période s’il est différent de 100%</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>23</td>
+        <td colspan="2">Total TVA déductible (lignes 19 à 22)</td>
+        <td>{{ declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre }}</td>
+    </tr>
+
+    <tr>
+        <td>24</td>
+        <td colspan="2">Dont TVA non perçue récupérable par les assujettis disposant d’un établissement stable dans les DOM (art 295-1-5° et 295 A du CGI)</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">CREDIT</td>
+    </tr>
+
+    <tr>
+        <td>25</td>
+        <td colspan="2">Crédit de TVA (ligne 23 - ligne 16)</td>
+        <td>{{ (declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre) - (tvaRendu196 + tvaRendu7 + tvaRendu5) }}</td>
+    </tr>
+
+    <tr>
+        <td>26</td>
+        <td colspan="2">Remboursement demandé sur formulaire n° 3519 joint</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>AA</td>
+        <td colspan="2">Crédit de TVA transféré à la société tête de groupe sur la déclaration récapitulative 3310CA3G</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>27</td>
+        <td colspan="2">Crédit à reporter (ligne 25 - ligne 26 - ligne AA)</td>
+        <td>{{ (declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre) - (tvaRendu196 + tvaRendu7 + tvaRendu5) }}</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">TAXE A PAYER</td>
+    </tr>
+
+    <tr>
+        <td>28</td>
+        <td colspan="2">TVA nette due (ligne 16 - ligne 23)</td>
+        <td>{{ tvaRendu196 + tvaRendu7 + tvaRendu5 -(declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre) }}</td>
+    </tr>
+
+    <tr>
+        <td>29</td>
+        <td colspan="2">Taxes assimilées calculées sur annexe n° 3310-A</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>30</td>
+        <td colspan="2">Sommes à imputer, y compris acompte congés Formulaire 3515-SD</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>31</td>
+        <td colspan="2">Sommes à ajouter, y compris acompte congés Formulaire 3515-SD</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>AB</td>
+        <td colspan="2">Total à payer acquitté par la société tête de groupe sur la déclaration récapitulative 3310CA3 G (ligne 28+29-30+31)</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>32</td>
+        <td colspan="2">Total à payer (lignes 28 + 29 - 30 + 31 - AB) (N'oubliez pas de joindre le règlement correspondant)</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="2">Mention Expresse</td>
+        <td>&nbsp;</td>
+    </tr>
+
+    <tr>
+        <td>&nbsp;</td>
+        <td colspan="2">Paiement par imputation (adresser l'imprimé 3516, téléchargeab le sur www.impots.gouv.fr , à votre service des impôts)</td>
+        <td>&nbsp;</td>
+    </tr>
+    </table>
+
+
+    </div>
+
+    <br/>
     <a href="" class='btn btn-primary'>Valider la déclaration</a>
 
 <script>
-    var nombreLigne = {{ nombreLigne}};
-    console.log(nombreLigne);
     var grid;
     var columns = [
         {id: "numero", name: "Numéro", field: "numero", width: 100, cssClass: "cell-title"},
-        {id: "objet", name: "Objet", field: "objet", width: 300},
-        {id: "montant", name: "MontantHT", field: "montant", width: 100},
-        {id: "date", name: "Date du paiement", field: "date", width: 200}
+        {id: "objet", name: "Objet", field: "objet", width: 350, editor: Slick.Editors.Text},
+        {id: "montant", name: "Montant HT", field: "montant", width: 100, editor: Slick.Editors.Text},
+        {id: "tva", name: "Montant TVA", field: "tva", width: 200, editor: Slick.Editors.Text}
     ];
 
     var options = {
         enableCellNavigation: true,
         enableColumnReorder: true,
-        editable: true
+        editable: false,
+        autoEdit: false
     };
 
-
     $(function () {
-        var data = [];
-        {{ data | raw }};
+        var dataRecu = [];
+        {{ dataRecu | raw }};
+        var dataRendu = [];
+        {{ dataRendu | raw }};
+        var dataTva = [];
+        {{ dataTva | raw }};
+        gridRecu = new Slick.Grid("#grilleFactureRecu", dataRecu, columns, options);
+        gridRendu = new Slick.Grid("#grilleFactureRendu", dataRendu, columns, options);
 
-        grid = new Slick.Grid("#grilleFacture", data, columns, options);
     })
 </script>
 {%  endblock %}

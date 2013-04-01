@@ -12,6 +12,7 @@ Trez\LogicielTrezBundle\Entity\DeclarationTva:
             type: date
         solde_precedent:
             type: integer
+            nullable: true
         solde_final:
             type: integer
             nullable: true
@@ -26,5 +27,5 @@ Trez\LogicielTrezBundle\Entity\DeclarationTva:
         factures:
             targetEntity: Facture
             mappedBy: declarationTva
-            cascade: [ remove ]
+            cascade: []
     lifecycleCallbacks: {}

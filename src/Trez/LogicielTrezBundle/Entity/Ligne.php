@@ -306,7 +306,7 @@ class Ligne
             ),
             'percent' => array(
                 'credit' => $this->credit == 0.00 ? 1.00 : round($total_credit/$this->credit, 4),
-                'debit' => $this->debit === 0.00 ? 1.00 : round($total_debit/$this->debit, 4)
+                'debit' => $this->debit == 0.00 ? 1.00 : round($total_debit/$this->debit, 4)
             ),
             'is_full' => (abs($this->credit-$total_credit) < 0.001 && abs($this->debit-$total_debit) < 0.001)
         );

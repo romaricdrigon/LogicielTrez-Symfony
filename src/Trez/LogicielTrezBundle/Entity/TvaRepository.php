@@ -12,4 +12,23 @@ use Doctrine\ORM\EntityRepository;
  */
 class TvaRepository extends EntityRepository
 {
+    public function getFactures($declaration_id, $sens)
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('t')
+            ->from('TrezLogicielTrezBundle:Tva', 't')
+            ->leftJoin('t.facture', 'f')
+            ->leftJoin('f.declarationTva', 'd')
+            ->leftJoin('f.typeFacture', 'tf')
+            ->leftJoin('t.classeTva', 'ct')
+            ->where('d.id = ?1')
+            ->andWhere('tf.sens =?2')
+            ->andWhere('ct.exclure_declaration =0')
+            ->orderBy('tf.sens', 'desc')
+            ->setParameters(array(1 => $declaration_id, 2=> $sens));
+
+        return $qb->getQuery()->getResult();
+    }
 }

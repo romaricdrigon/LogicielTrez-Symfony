@@ -148,7 +148,6 @@ class DeclarationTvaController extends Controller
         $sommeHTRendu = $htRendu196 + $htRendu7 + $htRendu5 + $htRenduAutre;
 
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:generateSheet.html.twig', array(
-<<<<<<< HEAD
             'declaration' => $declaration,
             'dataRecu' => $dataRecu,
             'dataRendu' => $dataRendu,

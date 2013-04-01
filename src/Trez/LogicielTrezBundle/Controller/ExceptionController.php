@@ -16,14 +16,8 @@ class ExceptionController extends OriginalExceptionController
 {
     public function showAction(FlattenException $exception, DebugLoggerInterface $logger = null, $format = 'html')
     {
-        if ('locked exercice' === $exception->getMessage()) {
-            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un exercice verrouillé ou ses fils");
-
-            header('Location: '.$this->container->get('request')->getRequestUri());
-            exit();
-        }
-        if ('locked budget' === $exception->getMessage()) {
-            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un budget verrouillé ou ses fils");
+        if ('Trez\LogicielTrezBundle\Exception\LockedException' === $exception->getClass()) {
+            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un exercice/budget verrouillé ou ses fils");
 
             header('Location: '.$this->container->get('request')->getRequestUri());
             exit();

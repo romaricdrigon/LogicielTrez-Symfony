@@ -144,24 +144,12 @@ class DeclarationTvaController extends Controller
             $i++;
         }
 
-        $sommeHTRecu = $htRecu196 + $htRecu7 + $htRecu5 + $htRecuAutre;
-        $sommeHTRendu = $htRendu196 + $htRendu7 + $htRendu5 + $htRenduAutre;
-
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:generateSheet.html.twig', array(
             'declaration' => $declaration,
             'dataRecu' => $dataRecu,
             'dataRendu' => $dataRendu,
             'dataTva' => $dataTva,
-            'sommeHTRecu' => $sommeHTRecu,
-            'sommeHTRendu' => $sommeHTRendu,
-            'tvaRecu196' => $tvaRecu196,
-            'tvaRecu7' => $tvaRecu7,
-            'tvaRecu5' => $tvaRecu5,
-            'tvaRecuAutre' => $tvaRecuAutre,
-            'htRecu196' => $htRecu196,
-            'htRecu7'=> $htRecu7,
-            'htRecu5' => $htRecu5,
-            'htRecuAutre' => $htRecuAutre,
+
             'tvaRendu196' => $tvaRendu196,
             'tvaRendu7' => $tvaRendu7,
             'tvaRendu5' => $tvaRendu5,
@@ -170,6 +158,10 @@ class DeclarationTvaController extends Controller
             'htRendu7'=> $htRendu7,
             'htRendu5' => $htRendu5,
             'htRenduAutre' => $htRenduAutre,
+
+            'tvaRendu' => $tvaRendu196 + $tvaRendu7 + $tvaRendu5,
+            'tvaRecu' => $tvaRecu196 + $tvaRecu7 + $tvaRecu5 + $tvaRecuAutre,
+
         ));
 
     }

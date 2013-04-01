@@ -203,7 +203,7 @@
     <tr>
         <td>16</td>
         <td colspan="2">Total de la TVA brute due (lignes 08 à 15)</td>
-        <td>{{ tvaRendu196 + tvaRendu7 + tvaRendu5 }}</td>
+        <td>{{ tvaRendu }}</td>
     </tr>
 
     <tr>
@@ -231,7 +231,7 @@
     <tr>
         <td>20</td>
         <td colspan="2">Autres biens et services</td>
-        <td>{{ tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre }}</td>
+        <td>{{ tvaRecu }}</td>
     </tr>
 
     <tr>
@@ -263,7 +263,7 @@
     <tr>
         <td>23</td>
         <td colspan="2">Total TVA déductible (lignes 19 à 22)</td>
-        <td>{{ declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre }}</td>
+        <td>{{ declaration.soldePrecedent + tvaRecu }}</td>
     </tr>
 
     <tr>
@@ -279,7 +279,7 @@
     <tr>
         <td>25</td>
         <td colspan="2">Crédit de TVA (ligne 23 - ligne 16)</td>
-        <td>{{ (declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre) - (tvaRendu196 + tvaRendu7 + tvaRendu5) }}</td>
+        <td>{{ (declaration.soldePrecedent + tvaRecu - tvaRendu) }}</td>
     </tr>
 
     <tr>
@@ -297,7 +297,7 @@
     <tr>
         <td>27</td>
         <td colspan="2">Crédit à reporter (ligne 25 - ligne 26 - ligne AA)</td>
-        <td>{{ (declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre) - (tvaRendu196 + tvaRendu7 + tvaRendu5) }}</td>
+        <td>{{ (declaration.soldePrecedent + tvaRecu - tvaRendu) }}</td>
     </tr>
 
     <tr>
@@ -307,7 +307,7 @@
     <tr>
         <td>28</td>
         <td colspan="2">TVA nette due (ligne 16 - ligne 23)</td>
-        <td>{{ tvaRendu196 + tvaRendu7 + tvaRendu5 -(declaration.soldePrecedent + tvaRecu196 + tvaRecu7 + tvaRecu5 + tvaRecuAutre) }}</td>
+        <td>{{ tvaRendu -(declaration.soldePrecedent + tvaRecu) }}</td>
     </tr>
 
     <tr>

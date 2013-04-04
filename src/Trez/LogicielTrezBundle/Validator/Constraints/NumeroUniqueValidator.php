@@ -23,7 +23,7 @@ class NumeroUniqueValidator extends ConstraintValidator
 
         foreach ($factures as $facture) {
             if ($facture->getExercice() === $objet->getExercice() && $facture->getId() !== $objet->getId()) {
-                $this->context->addViolationAtSubPath('numero', 'Ce numéro est déjà utilisé');
+                $this->context->addViolationAt('numero', 'Ce numéro est déjà utilisé');
                 break(1);
             }
         }

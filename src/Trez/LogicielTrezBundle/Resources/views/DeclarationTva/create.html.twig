@@ -18,4 +18,9 @@
             <a href="{{ path('declaration_tva_index') }}" class="btn">Annuler</a>
         </div>
     </form>
+
+    <script type="text/javascript">
+        // we set some values in useless selects and hide them
+        $('#trez_logicieltrezbundle_declarationtvadate_date_day').val(1).hide();
+    </script>
 {% endblock %}

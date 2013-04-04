@@ -13,7 +13,8 @@ class DeclarationTvaDate extends AbstractType
         $builder
             ->add('date', 'date', array(
                     'input' => 'datetime',
-                    'widget' => 'choice'
+                    'widget' => 'choice',
+                    'days' => array(1)
                 ));
     }
 

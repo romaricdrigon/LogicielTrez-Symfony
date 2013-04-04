@@ -16,6 +16,8 @@ class DeclarationTvaController extends Controller
     public function indexAction()
     {
         // TODO : besoin de se placer dans un exercice également
+        // TODO : en fait non, pas forcément
+        // TODO : trier par date
 
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:list.html.twig');
     }
@@ -30,7 +32,10 @@ class DeclarationTvaController extends Controller
             $form->bindRequest($this->get('request'));
 
             if ($form->isValid()) {
-                // TODO : set day as 1-MM-YY
+                // force date to first day of month
+                $date = $object->getDate();
+                $newDate = \DateTime::createFromFormat('Y-m-d', $date->format('Y-m').'-1', $date->getTimezone());
+                $object->setDate($newDate);
 
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();

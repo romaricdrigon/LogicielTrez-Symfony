@@ -16,13 +16,17 @@ class ExerciceType extends AbstractType
                 'input' => 'datetime',
                 'widget' => 'choice',
                 'format' => 'dd MM yyyy',
-                'pattern' => '{{ day }} {{ month }} {{ year }}'
+                'pattern' => '{{ day }} {{ month }} {{ year }}',
+                'days' => array(1),
+                'months' => array(1)
             ))
             ->add('annee_2', 'date', array(
                 'input' => 'datetime',
                 'widget' => 'choice',
                 'format' => 'dd MM yyyy',
-                'pattern' => '{{ day }} {{ month }} {{ year }}'
+                'pattern' => '{{ day }} {{ month }} {{ year }}',
+                'days' => array(1),
+                'months' => array(1)
             ))
             ->add('verrouille', 'checkbox', array(
                 'required' => false

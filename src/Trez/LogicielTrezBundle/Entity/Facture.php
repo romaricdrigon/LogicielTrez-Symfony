@@ -496,4 +496,32 @@ class Facture
     {
         return $this->declarationTva;
     }
+    /**
+     * @var \DateTime
+     */
+    private $date_ecriture;
+
+
+    /**
+     * Set date_ecriture
+     *
+     * @param \DateTime $dateEcriture
+     * @return Facture
+     */
+    public function setDateEcriture($dateEcriture)
+    {
+        $this->date_ecriture = $dateEcriture;
+    
+        return $this;
+    }
+
+    /**
+     * Get date_ecriture
+     *
+     * @return \DateTime 
+     */
+    public function getDateEcriture()
+    {
+        return $this->date_ecriture;
+    }
 }

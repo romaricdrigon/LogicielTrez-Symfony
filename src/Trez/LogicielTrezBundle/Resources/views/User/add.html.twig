@@ -37,9 +37,10 @@
             <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
             <a href="{{ path('user_index') }}" class="btn">Annuler</a>
         </div>
-    </form>>
+    </form>
 
-    <div id="lignes-list" style="display: none;">{# data for our Javascript tree - will be hidden #}
+    <div id="lignes-list" style="display: none;">{% spaceless %}
+    {# data for our Javascript tree - will be hidden - we need to use spaceless or jQuery 1.9.1 will crash #}
         <ul>
             {% for exercice in exercices %}
                 <li data-type="exercice">
@@ -75,7 +76,7 @@
                 </li>
             {% endfor %}
         </ul>
-    </div>
+    {% endspaceless %}</div>
 
     <script type="text/javascript">
         $(document).ready(function() {

@@ -25,6 +25,11 @@ class FactureType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false
             ))
+            ->add('date_ecriture', 'date', array(
+                'input' => 'datetime',
+                'widget' => 'single_text',
+                'required' => false
+            ))
             ->add('commentaire', 'textarea', array('required' => false))
             ->add('ref_paiement', 'text', array('required' => false))
             ->add('ligne', 'entity', array(
@@ -46,6 +51,9 @@ class FactureType extends AbstractType
             ->add('typeFacture', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\TypeFacture',
                 'property' => 'abr'
+            ))
+            ->add('declarationTva', 'entity', array(
+                'class' => 'Trez\LogicielTrezBundle\Entity\DeclarationTva',
             ))
             ->add('tvas', 'collection', array(
                 'type' => new TvaType(),

@@ -54,13 +54,21 @@
         {{ forms.field(form.date_paiement, 'Date du paiement', {'class': 'date-fix'}) }}
         {{ forms.field(form.methodePaiement, 'Moyen de paiement') }}
         {{ forms.field(form.ref_paiement, 'Référence du paiement') }}
+        {{ forms.field(form.date_ecriture, 'Date d\'écriture (mouvement sur le compte)', {'class': 'date-fix'}) }}
     </fieldset>
 
     <fieldset>
         <legend>Autres</legend>
         {{ forms.field(form.ligne, 'Ligne') }}
         {{ forms.field(form.commentaire, 'Commentaire', {'class': 'input-xlarge'}) }}
-
+        <div class="control-group {{ form_errors(form.declarationTva) ? 'error' : '' }}">
+            <label class="control-label">Déclaration de tva</label>
+            <div class="controls">
+                {{ form_widget(form.declarationTva) }}
+                <a href="#" class="btn btn-danger" id="edit-declaration"><i class="icon-warning-sign"></i> Modifier</a>
+                <span class="help-inline">{{ form_errors(form.declarationTva) }}{{ form_errors(form.declarationTva) }}</span>
+            </div>
+        </div>
     </fieldset>
 
     {{ form_rest(form) }}
@@ -90,6 +98,19 @@
             typeFactureDiv.removeAttr('readonly');
             $('#trez_logicieltrezbundle_facturetype_numero').removeAttr('readonly');
             typeFactureDiv.find('option').removeAttr('disabled');
+        });
+
+
+        // read only for declaration tva
+        var declarationTva = $('#trez_logicieltrezbundle_facturetype_declarationTva');
+        declarationTva.attr('readonly', 'readonly');
+        // readonly does not exist for selects, so disable unselected choices
+        declarationTva.find('option').not(':selected').attr('disabled', 'disabled');
+        // edit button
+        $('#edit-declaration').on('click', function(e) {
+            e.preventDefault();
+            declarationTva.removeAttr('readonly');
+            declarationTva.find('option').removeAttr('disabled');
         });
 
         /*

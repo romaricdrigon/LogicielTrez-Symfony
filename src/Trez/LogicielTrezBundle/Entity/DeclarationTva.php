@@ -209,4 +209,14 @@ class DeclarationTva
     {
         return $this->factures;
     }
+
+    /**
+     * Renvoie la date en string pour les filtres select
+     *
+     * @return String
+     */
+    public function __toString()
+    {
+        return $this->date->format('Y-m');
+    }
 }

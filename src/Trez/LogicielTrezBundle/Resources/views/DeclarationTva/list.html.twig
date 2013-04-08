@@ -6,19 +6,9 @@
 
     <div>Liste à venir !</div>
 
-    <div class="well">
-        <form class="form-inline no-margin" action="{{ path('declaration_tva_list_factures') }}" {{ form_enctype(form) }} method="post">
-            {{ form_widget(form.exercice, {'attr' : {'class': 'input-small'}}) }}
-            <label>
-                {{ form_widget(form.mois, { 'attr': {'class': 'date-selects'} }) }}
-            </label>
-            {{ form_rest(form) }}
-            <input type="submit" class="btn btn-primary" value="Générer la déclaration de TVA">
-        </form>
-
-        <script type="text/javascript">
-            // we set some values in useless selects and hide them
-            $('#form_mois_day').val(1).hide();
-        </script>
+    <div>
+        <a href="{{ path('declaration_tva_create') }}" class='btn btn-primary'>
+            <i class="icon-plus"></i> Créer une déclaration de TVA
+        </a>
     </div>
 {% endblock %}

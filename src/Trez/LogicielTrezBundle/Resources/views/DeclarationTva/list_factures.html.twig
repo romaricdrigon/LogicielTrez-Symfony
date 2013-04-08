@@ -1,31 +1,44 @@
 {% extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+{% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
+
+{# customize how checkboxes are displayed - add label around input #}
+{% form_theme form _self %}
+{% block choice_widget_expanded %}
+    {% spaceless %}
+        <div {{ block('widget_container_attributes') }}>
+            {% for child in form %}
+                <label class="checkbox">
+                    {{ form_widget(child) }}
+                    {{ form_label(child) }}
+                </label>
+            {% endfor %}
+        </div>
+    {% endspaceless %}
+{% endblock choice_widget_expanded %}
 
 {% block body %}
-    <h1 class="margin-bottom-20">Liste des factures pour le mois {{ mois }}</h1>
+    <h1 class="margin-bottom-20">Sélectionnez les factures pour la déclaration du mois {{ declaration_tva.date|date('m/y') }}</h1>
 
-    <table class="table table-stripped table-hover">
-        <thead>
-        <tr>
-            <th>Num&eacute;ro</th>
-            <th>Objet</th>
-            <th>Date</th>
-            <th>Montant</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for facture in factures %}
-            <tr>
-                <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
-                <td>{{ facture.objet }}</td>
-                <td>{{ facture.date|date("d/m/Y") }}</td>
-                <td>{{ facture.montant|excel_format }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <form class="form-horizontal" action="{{ path('declaration_tva_list_factures', {id: declaration_tva.id }) }}" {{ form_enctype(form) }} method="post">
+        <div>{{ form_errors(form) }}</div>
 
-    <div>
-        <div class="btn-toolbar">
+        <div class="{{ form_errors(form.factures) ? 'error' : '' }}">
+            {{ form_widget(form.factures) }}
+            <span class="help-inline">{{ form_errors(form.factures) }}</span>
         </div>
-    </div>
+
+        {{ form_rest(form) }}
+
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
+            <a href="{{ path('declaration_tva_index') }}" class="btn">Annuler</a>
+        </div>
+    </form>
+
+    {#
+    <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
+    <td>{{ facture.objet }}</td>
+    <td>{{ facture.date|date("d/m/Y") }}</td>
+    <td>{{ facture.montant|excel_format }}</td>
+    #}
 {% endblock %}

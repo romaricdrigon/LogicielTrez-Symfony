@@ -1,0 +1,24 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+{% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
+
+{% block body %}
+    <h1>Éditer une déclaration de TVA</h1>
+
+    <form class="form-horizontal" action="{{ path('declaration_tva_edit', {id: declaration_tva.id}) }}" {{ form_enctype(form) }} method="post">
+        <div>{{ form_errors(form) }}</div>
+
+        <fieldset>
+            {{ forms.field(form.date, 'Date', {'class': 'date-fix'}) }}
+            {{ forms.field(form.solde_precedent, 'Solde précédent', {'class': 'input-small'}) }}
+            {{ forms.field(form.solde_final, 'Solde final', {'class': 'input-small'}) }}
+            {{ forms.field(form.commentaire, 'Commentaire', {'class': 'input-xlarge'}) }}
+        </fieldset>
+
+        {{ form_rest(form) }}
+
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="Valider">&nbsp;
+            <a href="{{ path('declaration_tva_index') }}" class="btn">Annuler</a>
+        </div>
+    </form>
+{% endblock %}

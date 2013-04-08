@@ -8,22 +8,17 @@ use Symfony\Component\HttpKernel\Log\DebugLoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\TwigBundle\Controller\ExceptionController as OriginalExceptionController;
+
 /**
  * Based on Symfony2 ExceptionController,
  * Symfony\\Bundle\\TwigBundle\\Controller\\ExceptionController::showAction
  */
 class ExceptionController extends OriginalExceptionController
 {
-    public function showAction(FlattenException $exception, DebugLoggerInterface $logger = null, $format = 'html')
+    public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null, $format = 'html')
     {
-        if ('locked exercice' === $exception->getMessage()) {
-            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un exercice verrouillé ou ses fils");
-
-            header('Location: '.$this->container->get('request')->getRequestUri());
-            exit();
-        }
-        if ('locked budget' === $exception->getMessage()) {
-            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un budget verrouillé ou ses fils");
+        if ('Trez\LogicielTrezBundle\Exception\LockedException' === $exception->getClass()) {
+            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un exercice/budget verrouillé ou ses fils");
 
             header('Location: '.$this->container->get('request')->getRequestUri());
             exit();

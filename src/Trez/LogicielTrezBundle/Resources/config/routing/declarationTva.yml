@@ -3,14 +3,16 @@ declaration_tva_index:
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:index }
 
 declaration_tva_list_factures:
-    pattern:  /list_factures/
+    pattern:  /list_factures/{id}
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:listFactures }
-    requirements:
-        _method: POST
 
 declaration_tva_create:
-    pattern:  /create/
+    pattern:  /create
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:create }
+
+declaration_tva_edit:
+    pattern:  /edit/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:edit }
 
 declaration_tva_generate_sheet:
     pattern:  /generate_sheet/{id}

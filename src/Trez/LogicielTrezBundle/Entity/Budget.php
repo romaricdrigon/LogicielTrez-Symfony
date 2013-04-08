@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Trez\LogicielTrezBundle\Exception\LockedException;
 
 /**
  * Trez\LogicielTrezBundle\Entity\Budget
@@ -182,7 +183,7 @@ class Budget
     public function checkVerrouille()
     {
         if ($this->verrouille === true) {
-            throw new \Exception('locked budget');
+            throw new LockedException();
         }
 
         $this->exercice->checkVerrouille();

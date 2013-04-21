@@ -97,4 +97,3 @@ class SousCategorieController extends Controller
         return new RedirectResponse($this->generateUrl('categorie_index', array('categorie_id' => $categorie_id)));
     }
 }
-

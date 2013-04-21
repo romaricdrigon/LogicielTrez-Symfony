@@ -14,7 +14,7 @@ class TiersType extends AbstractType
             ->add('nom')
             ->add('telephone', 'text', array(
                 'attr' => array('pattern' => '([0-9]{10}|\+[0-9]{10,20})'),
-                'required' => true
+                'required' => false
             ))
             ->add('mail')
             ->add('fax')

@@ -1,28 +1,28 @@
-{% if app.session.hasFlash('notice') %}
+{% if app.session.flashbag.has('notice') %}
     <div class="alert alert-notice">
         <button class="close" data-dismiss="alert">×</button>
-        {{ app.session.flash('notice') }}
+        {{ app.session.flashbag.get('notice')[0] }}
     </div>
 {% endif %}
 
-{% if app.session.hasFlash('success') %}
+{% if app.session.flashbag.has('success') %}
     <div class="alert alert-success">
         <button class="close" data-dismiss="alert">×</button>
-        {{ app.session.flash('success') }}
+        {{ app.session.flashbag.get('success')[0] }}
     </div>
 {% endif %}
 
-{% if app.session.hasFlash('error') %}
+{% if app.session.flashbag.has('error') %}
     <div class="alert alert-error">
         <button class="close" data-dismiss="alert">×</button>
-        {{ app.session.flash('error') }}
+        {{ app.session.flashbag.get('error')[0] }}
     </div>
 {% endif %}
 
-{% if app.session.hasFlash('info') %}
+{% if app.session.flashbag.has('info') %}
     <div class="alert alert-info">
         <button class="close" data-dismiss="alert">×</button>
-        {{ app.session.flash('info') }}
+        {{ app.session.flashbag.get('info')[0] }}
     </div>
 {% endif %}
 

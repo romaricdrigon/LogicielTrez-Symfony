@@ -21,6 +21,9 @@ Trez\LogicielTrezBundle\Entity\Facture:
         date_paiement:
             type: date
             nullable: true
+        date_ecriture:
+            type: date
+            nullable: true
         commentaire:
             type: text
             nullable: true

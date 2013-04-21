@@ -54,6 +54,7 @@ class FactureType extends AbstractType
             ))
             ->add('declarationTva', 'entity', array(
                 'class' => 'Trez\LogicielTrezBundle\Entity\DeclarationTva',
+                'required' => false
             ))
             ->add('tvas', 'collection', array(
                 'type' => new TvaType(),

@@ -1,20 +1,39 @@
 {% extends 'TrezLogicielTrezBundle::layout.html.twig' %}
 {% import 'TrezLogicielTrezBundle:Utils:forms.html.twig' as forms %}
 
-{# customize how checkboxes are displayed - add label around input #}
+{#
+    customize how checkboxes are displayed - add label around input
+    we override base template:
+    https://github.com/symfony/symfony/blob/2.2/src/Symfony/Bridge/Twig/Resources/views/Form/form_div_layout.html.twig
+#}
 {% form_theme form _self %}
 {% block choice_widget_expanded %}
+    {% import 'TrezLogicielTrezBundle:Utils:utils.html.twig' as utils %}
     {% spaceless %}
         <div {{ block('widget_container_attributes') }}>
             {% for child in form %}
-                <label class="checkbox">
-                    {{ form_widget(child) }}
-                    {{ form_label(child) }}
-                </label>
+                {% set facture = form.parent.children.factures.vars.choices[child.vars.value].data %}
+                <tr {% if facture.datePaiement < date('first day of this month') %}class="error"{% endif %}>
+                    <td>{{ form_widget(child) }}</td>
+                    <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
+                    <td>
+                        <label for="{{ child.vars.id }}">{{ facture.objet }}</label>
+                    </td>
+                    <td>{{ facture.date|date("d/m/Y") }}</td>
+                    <td>{{ facture.montant|excel_format }}</td>
+                    <td>
+                        <a class="btn btn-small" href="{{ path('facture_edit', {'ligne_id': facture.ligne.id, 'id': facture.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large"></i></a>
+                    </td>
+                </tr>
             {% endfor %}
         </div>
     {% endspaceless %}
 {% endblock choice_widget_expanded %}
+{% block checkbox_widget %}
+    {% spaceless %}
+        <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} class="no-margin" />
+    {% endspaceless %}
+{% endblock checkbox_widget %}
 
 {% block body %}
     <h1 class="margin-bottom-20">Sélectionnez les factures pour la déclaration du mois {{ declaration_tva.date|date('m/y') }}</h1>
@@ -23,7 +42,21 @@
         <div>{{ form_errors(form) }}</div>
 
         <div class="{{ form_errors(form.factures) ? 'error' : '' }}">
-            {{ form_widget(form.factures) }}
+            <table class="table table-stripped table-hover">
+                <thead>
+                    <tr>
+                        <th width="30"></th>
+                        <th>Numéro</th>
+                        <th>Objet</th>
+                        <th>Date</th>
+                        <th>Montant</th>
+                        <td width="30"></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ form_widget(form.factures) }}
+                </tbody>
+            </table>
             <span class="help-inline">{{ form_errors(form.factures) }}</span>
         </div>
 
@@ -34,11 +67,4 @@
             <a href="{{ path('declaration_tva_index') }}" class="btn">Annuler</a>
         </div>
     </form>
-
-    {#
-    <td>{{ facture.typeFacture.abr ~ facture.ligne.sousCategorie.categorie.budget.exercice.prefixeFactures ~ utils.untrim_number(facture.numero, 3)|trim }}</td>
-    <td>{{ facture.objet }}</td>
-    <td>{{ facture.date|date("d/m/Y") }}</td>
-    <td>{{ facture.montant|excel_format }}</td>
-    #}
 {% endblock %}

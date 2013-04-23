@@ -16,9 +16,7 @@ class DeclarationTvaController extends Controller
     public function indexAction()
     {
         $em = $this->get('doctrine.orm.entity_manager');
-        $declarations = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->findAll(
-            array('date', 'DESC')
-        );
+        $declarations = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->findByDateDesc();
 
         return $this->render('TrezLogicielTrezBundle:DeclarationTva:list.html.twig', array(
                 'declarations' => $declarations
@@ -31,31 +29,40 @@ class DeclarationTvaController extends Controller
         $object = new DeclarationTva();
         $form = $this->get('form.factory')->create(new DeclarationTvaDate(), $object);
 
-        if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+        $request = $this->get('request');
+        if ('POST' === $request->getMethod() && $form->bind($request)->isValid()) {
+            // force date to first day of month
+            $date = $object->getDate();
+            $newDate = \DateTime::createFromFormat('Y-m-d', $date->format('Y-m') . '-1', $date->getTimezone());
+            $object->setDate($newDate);
 
-            if ($form->isValid()) {
-                // force date to first day of month
-                $date = $object->getDate();
-                $newDate = \DateTime::createFromFormat('Y-m-d', $date->format('Y-m') . '-1', $date->getTimezone());
-                $object->setDate($newDate);
+            $this->get('doctrine.orm.entity_manager')->persist($object);
+            $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('doctrine.orm.entity_manager')->persist($object);
-                $this->get('doctrine.orm.entity_manager')->flush();
+            $this->get('session')->setFlash('success', 'La déclaration de TVA a été créée !');
 
-                $this->get('session')->setFlash('success', 'La déclaration de TVA a été créée !');
+            return new RedirectResponse($this->generateUrl(
+                'declaration_tva_list_factures',
+                array('id' => $object->getId())
+            ));
+        }
 
-                return new RedirectResponse($this->generateUrl(
-                    'declaration_tva_list_factures',
-                    array('id' => $object->getId())
-                ));
-            }
+        $em = $this->get('doctrine.orm.entity_manager');
+        $last = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->getLast();
+
+        if ($last === null) {
+            $date_next = new \DateTime();
+            $date_next->sub(new \DateInterval('P1M'));
+        } else {
+            $date_next = $last->getDate();
+            $date_next->add(new \DateInterval('P1M'));
         }
 
         return $this->render(
             'TrezLogicielTrezBundle:DeclarationTva:create.html.twig',
             array(
-                'form' => $form->createView()
+                'form' => $form->createView(),
+                'date_next' => $date_next
             )
         );
     }
@@ -66,15 +73,10 @@ class DeclarationTvaController extends Controller
         $em = $this->get('doctrine.orm.entity_manager');
         $declaration = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->find($id);
 
-        $date_time = $declaration->getDate();
+        /*$date_time = $declaration->getDate();
 
         $date_next_month = clone $date_time; // watch, out, add will modify the object
-        $date_next_month = $date_next_month->add(new \DateInterval('P1M'));
-
-        $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
-            array('declarationTva' => null),
-            array('date' => 'ASC')
-        );
+        $date_next_month = $date_next_month->add(new \DateInterval('P1M'));*/
 
         // watch out when editing a declaration
         $form = $this->get('form.factory')->create(new DeclarationTvaFactures(), $declaration);
@@ -105,9 +107,8 @@ class DeclarationTvaController extends Controller
             array(
                 'form'            => $form->createView(),
                 'declaration_tva' => $declaration,
-                'factures'        => $factures,
-                'date_debut'      => $date_time,
-                'date_fin'        => $date_next_month
+                //'date_debut'      => $date_time,
+                //'date_fin'        => $date_next_month
             )
         );
     }

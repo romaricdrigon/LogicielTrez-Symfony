@@ -22,5 +22,9 @@
     <script type="text/javascript">
         // we set some values in useless selects and hide them
         $('#trez_logicieltrezbundle_declarationtvadate_date_day').val(1).hide();
+
+        // pre-set with next date
+        $('#trez_logicieltrezbundle_declarationtvadate_date_month').val({{ date_next|date('m') }});
+        $('#trez_logicieltrezbundle_declarationtvadate_date_year').val({{ date_next|date('Y') }});
     </script>
 {% endblock %}

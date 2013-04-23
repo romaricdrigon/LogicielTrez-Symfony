@@ -12,4 +12,29 @@ use Doctrine\ORM\EntityRepository;
  */
 class DeclarationTvaRepository extends EntityRepository
 {
+    public function getLast()
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('d')
+            ->from('TrezLogicielTrezBundle:DeclarationTva', 'd')
+            ->orderBy('d.date', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(1);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findByDateDesc()
+    {
+        $em = $this->getEntityManager();
+        $qb = $em->createQueryBuilder();
+
+        $qb->select('d')
+            ->from('TrezLogicielTrezBundle:DeclarationTva', 'd')
+            ->orderBy('d.date', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
 }

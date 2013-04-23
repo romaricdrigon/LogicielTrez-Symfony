@@ -3,9 +3,11 @@
 namespace Trez\LogicielTrezBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * DeclarationTva
+ * @UniqueEntity(fields={"date"}, message="Une déclaration existe déjà pour cette date")
  */
 class DeclarationTva
 {

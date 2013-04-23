@@ -15,11 +15,14 @@ class DeclarationTvaController extends Controller
 {
     public function indexAction()
     {
-        // TODO : besoin de se placer dans un exercice également
-        // TODO : en fait non, pas forcément
-        // TODO : trier par date
+        $em = $this->get('doctrine.orm.entity_manager');
+        $declarations = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->findAll(
+            array('date', 'DESC')
+        );
 
-        return $this->render('TrezLogicielTrezBundle:DeclarationTva:list.html.twig');
+        return $this->render('TrezLogicielTrezBundle:DeclarationTva:list.html.twig', array(
+                'declarations' => $declarations
+            ));
     }
 
     // create will just set a declarationTva date, then redirect to listFactures
@@ -34,7 +37,7 @@ class DeclarationTvaController extends Controller
             if ($form->isValid()) {
                 // force date to first day of month
                 $date = $object->getDate();
-                $newDate = \DateTime::createFromFormat('Y-m-d', $date->format('Y-m').'-1', $date->getTimezone());
+                $newDate = \DateTime::createFromFormat('Y-m-d', $date->format('Y-m') . '-1', $date->getTimezone());
                 $object->setDate($newDate);
 
                 $this->get('doctrine.orm.entity_manager')->persist($object);
@@ -42,13 +45,19 @@ class DeclarationTvaController extends Controller
 
                 $this->get('session')->setFlash('success', 'La déclaration de TVA a été créée !');
 
-                return new RedirectResponse($this->generateUrl('declaration_tva_list_factures', array('id'=> $object->getId())));
+                return new RedirectResponse($this->generateUrl(
+                    'declaration_tva_list_factures',
+                    array('id' => $object->getId())
+                ));
             }
         }
 
-        return $this->render('TrezLogicielTrezBundle:DeclarationTva:create.html.twig', array(
+        return $this->render(
+            'TrezLogicielTrezBundle:DeclarationTva:create.html.twig',
+            array(
                 'form' => $form->createView()
-            ));
+            )
+        );
     }
 
     // list all factures available for this declarationTva
@@ -62,36 +71,45 @@ class DeclarationTvaController extends Controller
         $date_next_month = clone $date_time; // watch, out, add will modify the object
         $date_next_month = $date_next_month->add(new \DateInterval('P1M'));
 
-        // TODO : select only undeclared factures
-        // watch out when editing a declaration
-        $form = $this->get('form.factory')->create(
-            new DeclarationTvaFactures($date_time, $date_next_month),
-            $declaration
+        $factures = $em->getRepository('TrezLogicielTrezBundle:Facture')->findBy(
+            array('declarationTva' => null),
+            array('date' => 'ASC')
         );
 
-        if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+        // watch out when editing a declaration
+        $form = $this->get('form.factory')->create(new DeclarationTvaFactures(), $declaration);
 
-            if ($form->isValid()) {
-                // we have to persist each facture
-                foreach ($declaration->getFactures() as $facture) {
-                    $facture->setDeclarationTva($declaration);
-                    $em->persist($facture);
-                }
-
-                // TODO : select solde_precedent
-
-                $em->persist($declaration);
-                $em->flush();
-
-                return new RedirectResponse($this->get('router')->generate('declaration_tva_edit', array('id'=> $declaration->getId())));
+        $request = $this->get('request');
+        if ('POST' === $request->getMethod() && $form->bind($request)->isValid()) {
+            // we have to persist each facture
+            foreach ($declaration->getFactures() as $facture) {
+                $facture->setDeclarationTva($declaration);
+                $em->persist($facture);
             }
+
+            // TODO : select solde_precedent
+
+            $em->persist($declaration);
+            $em->flush();
+
+            return new RedirectResponse(
+                $this->get('router')->generate(
+                    'declaration_tva_edit',
+                    array('id' => $declaration->getId())
+                )
+            );
         }
 
-        return $this->render('TrezLogicielTrezBundle:DeclarationTva:list_factures.html.twig', array(
-                'form' => $form->createView(),
-                'declaration_tva' => $declaration
-            ));
+        return $this->render(
+            'TrezLogicielTrezBundle:DeclarationTva:list_factures.html.twig',
+            array(
+                'form'            => $form->createView(),
+                'declaration_tva' => $declaration,
+                'factures'        => $factures,
+                'date_debut'      => $date_time,
+                'date_fin'        => $date_next_month
+            )
+        );
     }
 
     // edit a declarationTva (quite limited)
@@ -101,21 +119,21 @@ class DeclarationTvaController extends Controller
         $declaration = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->find($id);
         $form = $this->get('form.factory')->create(new DeclarationTvaEdit(), $declaration);
 
-        if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+        $request = $this->get('request');
+        if ('POST' === $request->getMethod() && $form->bind($request)->isValid()) {
+            $em->persist($declaration);
+            $em->flush();
 
-            if ($form->isValid()) {
-                $em->persist($declaration);
-                $em->flush();
-
-                $this->get('session')->setFlash('success', 'La déclaration a bien été éditée');
-            }
+            $this->get('session')->setFlash('success', 'La déclaration a bien été éditée');
         }
 
-        return $this->render('TrezLogicielTrezBundle:DeclarationTva:edit.html.twig', array(
-                'form' => $form->createView(),
+        return $this->render(
+            'TrezLogicielTrezBundle:DeclarationTva:edit.html.twig',
+            array(
+                'form'            => $form->createView(),
                 'declaration_tva' => $declaration
-            ));
+            )
+        );
     }
 
     public function generateSheetAction($id)
@@ -151,18 +169,17 @@ class DeclarationTvaController extends Controller
         $htRenduAutre = 0;
 
         //Création du tableau javascript qui va être affiché pour les factures émises, sens = 1
-        $dataRecu="";
-        $dataRendu="";
-        $dataTva="";
-        $i=0;
-        foreach($tvaRecu as $tva)
-        {
+        $dataRecu = "";
+        $dataRendu = "";
+        $dataTva = "";
+        $i = 0;
+        foreach ($tvaRecu as $tva) {
             $dataRecu .= '
-                dataRecu['.$i.'] = {
-                numero: "'.$tva->getFacture()->getTypeFacture()->getAbr().' '.$tva->getFacture()->getId().'",
-                objet: "'.$tva->getFacture()->getObjet().'",
-                montant: "'.$tva->getFacture()->getMontant().' '.$currency[0]->getValeur().'",
-                tva: "'.$tva->getMontantTva().'"
+                dataRecu[' . $i . '] = {
+                numero: "' . $tva->getFacture()->getTypeFacture()->getAbr() . ' ' . $tva->getFacture()->getId() . '",
+                objet: "' . $tva->getFacture()->getObjet() . '",
+                montant: "' . $tva->getFacture()->getMontant() . ' ' . $currency[0]->getValeur() . '",
+                tva: "' . $tva->getMontantTva() . '"
                 };
             ';
             switch ($tva->getClasseTva()->getTaux()) {
@@ -185,15 +202,14 @@ class DeclarationTvaController extends Controller
             }
             $i++;
         }
-        $i=0;
-        foreach($tvaRendu as $tva)
-        {
+        $i = 0;
+        foreach ($tvaRendu as $tva) {
             $dataRendu .= '
-                dataRendu['.$i.'] = {
-                numero: "'.$tva->getFacture()->getTypeFacture()->getAbr().' '.$tva->getFacture()->getId().'",
-                objet: "'.$tva->getFacture()->getObjet().'",
-                montant: "'.$tva->getFacture()->getMontant().' '.$currency[0]->getValeur().'",
-                tva: "'.$tva->getMontantTva().'"
+                dataRendu[' . $i . '] = {
+                numero: "' . $tva->getFacture()->getTypeFacture()->getAbr() . ' ' . $tva->getFacture()->getId() . '",
+                objet: "' . $tva->getFacture()->getObjet() . '",
+                montant: "' . $tva->getFacture()->getMontant() . ' ' . $currency[0]->getValeur() . '",
+                tva: "' . $tva->getMontantTva() . '"
                 };
             ';
             switch ($tva->getClasseTva()->getTaux()) {
@@ -217,25 +233,38 @@ class DeclarationTvaController extends Controller
             $i++;
         }
 
-        return $this->render('TrezLogicielTrezBundle:DeclarationTva:generateSheet.html.twig', array(
-            'declaration' => $declaration,
-            'dataRecu' => $dataRecu,
-            'dataRendu' => $dataRendu,
-            'dataTva' => $dataTva,
+        return $this->render(
+            'TrezLogicielTrezBundle:DeclarationTva:generateSheet.html.twig',
+            array(
+                'declaration'   => $declaration,
+                'dataRecu'      => $dataRecu,
+                'dataRendu'     => $dataRendu,
+                'dataTva'       => $dataTva,
+                'tvaRendu196'   => $tvaRendu196,
+                'tvaRendu7'     => $tvaRendu7,
+                'tvaRendu5'     => $tvaRendu5,
+                'tvaRenduAutre' => $tvaRenduAutre,
+                'htRendu196'    => $htRendu196,
+                'htRendu7'      => $htRendu7,
+                'htRendu5'      => $htRendu5,
+                'htRenduAutre'  => $htRenduAutre,
+                'tvaRendu'      => $tvaRendu196 + $tvaRendu7 + $tvaRendu5,
+                'tvaRecu'       => $tvaRecu196 + $tvaRecu7 + $tvaRecu5 + $tvaRecuAutre,
 
-            'tvaRendu196' => $tvaRendu196,
-            'tvaRendu7' => $tvaRendu7,
-            'tvaRendu5' => $tvaRendu5,
-            'tvaRenduAutre' => $tvaRenduAutre,
-            'htRendu196' => $htRendu196,
-            'htRendu7'=> $htRendu7,
-            'htRendu5' => $htRendu5,
-            'htRenduAutre' => $htRenduAutre,
+            )
+        );
 
-            'tvaRendu' => $tvaRendu196 + $tvaRendu7 + $tvaRendu5,
-            'tvaRecu' => $tvaRecu196 + $tvaRecu7 + $tvaRecu5 + $tvaRecuAutre,
+    }
 
-        ));
+    public function deleteAction($id)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $object = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->find($id);
+        $em->remove($object);
+        $em->flush();
 
+        $this->get('session')->setFlash('info', 'Déclaration supprimée !');
+
+        return new RedirectResponse($this->generateUrl('declaration_tva_index'));
     }
 }

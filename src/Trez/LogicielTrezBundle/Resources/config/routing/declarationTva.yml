@@ -17,3 +17,7 @@ declaration_tva_edit:
 declaration_tva_generate_sheet:
     pattern:  /generate_sheet/{id}
     defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:generateSheet }
+
+declaration_tva_delete:
+    pattern:  /delete/{id}
+    defaults: { _controller: TrezLogicielTrezBundle:DeclarationTva:delete }

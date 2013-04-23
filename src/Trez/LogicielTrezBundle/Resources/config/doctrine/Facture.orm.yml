@@ -48,6 +48,11 @@ Trez\LogicielTrezBundle\Entity\Facture:
             targetEntity: TypeFacture
         declarationTva:
             targetEntity: DeclarationTva
+            inversedBy: factures
+            joinColumn:
+                name: declaration_tva_id
+                nullable: true
+                onDelete: "SET NULL"
     lifecycleCallbacks:
         preFlush: [ checkVerrouille ]
         preRemove: [ checkVerrouille ]

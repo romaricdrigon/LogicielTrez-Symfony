@@ -89,7 +89,8 @@ class DeclarationTvaController extends Controller
                 $em->persist($facture);
             }
 
-            // TODO : select solde_precedent
+            $last = $em->getRepository('TrezLogicielTrezBundle:DeclarationTva')->getlast();
+            $declaration->setSoldePrecedent($last->getSoldeFinal());
 
             $em->persist($declaration);
             $em->flush();

@@ -13,6 +13,7 @@ services:
         class: Trez\LogicielTrezBundle\Twig\Extension\ExcelExtension
         tags:
             - { name: twig.extension }
+        arguments: [ @doctrine.orm.entity_manager ]
     trez.logiciel_trez.openid_user_manager:
         class: Trez\LogicielTrezBundle\Model\OpenIdUserManager
         arguments: [ @fp_openid.identity_manager, @doctrine.orm.entity_manager ]

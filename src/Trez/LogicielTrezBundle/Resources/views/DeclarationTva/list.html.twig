@@ -17,8 +17,8 @@
         {% for declaration in declarations %}
             <tr>
                 <td>{{ declaration.date|date('m/Y') }}</td>
-                <td>{{ declaration.soldePrecedent|number_format }}</td>
-                <td>{{ declaration.soldeFinal|number_format }}</td>
+                <td>{{ declaration.soldePrecedent|excel_format }}</td>
+                <td>{{ declaration.soldeFinal|excel_format }}</td>
                 <td>
                     <div class="btn-group">
                         <a class="btn btn-small" href="{{ path('declaration_tva_edit', {'id': declaration.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large icon-large"></i></a>

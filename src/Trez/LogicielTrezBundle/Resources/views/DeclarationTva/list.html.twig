@@ -4,7 +4,34 @@
 {% block body %}
     <h1>Liste des déclarations de TVA</h1>
 
-    <div>Liste à venir !</div>
+    <table class="table table-stripped table-hover">
+        <thead>
+        <tr>
+            <th>Période</th>
+            <th>Solde précédent</th>
+            <th>Solde final</th>
+            <th width="50"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for declaration in declarations %}
+            <tr>
+                <td>{{ declaration.date|date('m/Y') }}</td>
+                <td>{{ declaration.soldePrecedent|number_format }}</td>
+                <td>{{ declaration.soldeFinal|number_format }}</td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-small" href="{{ path('declaration_tva_edit', {'id': declaration.id}) }}" title="&Eacute;diter"><i class="icon-pencil icon-large icon-large"></i></a>
+                        <a class="btn btn-small"
+                           href="{{ path('declaration_tva_delete', {'id': declaration.id}) }}"
+                           onclick="return window.confirm('Êtes-vous sur de vouloir supprimer la déclaration de TVA du {{ declaration.date|date('m/Y') }} ?');"
+                           title="Supprimer"><i class="icon-remove icon-large icon-large"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
     <div>
         <a href="{{ path('declaration_tva_create') }}" class='btn btn-primary'>

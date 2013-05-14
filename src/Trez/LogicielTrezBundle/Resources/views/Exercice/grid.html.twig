@@ -5,8 +5,5 @@
 
     {{ grid_search(grid) }}
 
-    {{ grid(grid, _self) }}
+    {{ grid(grid, 'TrezLogicielTrezBundle:Utils:datagrid.html.twig') }}
 {% endblock %}
-
-{# not to display filters inside the grid #}
-{% block grid_filters %}{% endblock %}

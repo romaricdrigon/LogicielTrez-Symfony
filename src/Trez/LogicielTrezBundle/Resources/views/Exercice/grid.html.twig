@@ -1,0 +1,12 @@
+{%  extends 'TrezLogicielTrezBundle::layout.html.twig' %}
+
+{% block body %}
+    <h1 class="margin-bottom-20">Liste des factures</h1>
+
+    {{ grid_search(grid) }}
+
+    {{ grid(grid, _self) }}
+{% endblock %}
+
+{# not to display filters inside the grid #}
+{% block grid_filters %}{% endblock %}

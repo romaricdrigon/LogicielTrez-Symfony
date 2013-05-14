@@ -4,6 +4,7 @@ namespace Trez\LogicielTrezBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use APY\DataGridBundle\Grid\Source\Entity;
 use Trez\LogicielTrezBundle\Entity\Exercice;
 use Trez\LogicielTrezBundle\Form\ExerciceType;
 
@@ -86,7 +87,19 @@ class ExerciceController extends Controller
 
     public function listFacturesAction($id)
     {
-        $em = $this->get('doctrine.orm.entity_manager');
+        $source = new Entity('TrezLogicielTrezBundle:Facture');
+
+        $grid = $this->get('grid');
+        $grid->setSource($source);
+
+        // configure the grid
+        $grid->setPersistence(true);
+        $grid->setLimits(array(25, 50, 100, 1000));
+
+        // will both render the template & catch ajax actions
+        return $grid->getGridResponse('TrezLogicielTrezBundle:Exercice:grid.html.twig');
+
+        /*$em = $this->get('doctrine.orm.entity_manager');
         $exercice = $em->getRepository('TrezLogicielTrezBundle:Exercice')->find($id);
         $factures = $em->getRepository('TrezLogicielTrezBundle:Exercice')->getFacturesByType($id);
         $typeFactures = $em->getRepository('TrezLogicielTrezBundle:TypeFacture')->findAll();
@@ -100,5 +113,6 @@ class ExerciceController extends Controller
             'templates' => $templates,
             'type_factures' => $typeFactures
         ));
+        */
     }
 }

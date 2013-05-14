@@ -22,7 +22,8 @@ class AppKernel extends Kernel
             new Trez\LogicielTrezBundle\TrezLogicielTrezBundle(), // our bundle
             new WhiteOctober\BreadcrumbsBundle\WhiteOctoberBreadcrumbsBundle(), // WhiteOctobers Breacrumb
             new Fp\OpenIdBundle\FpOpenIdBundle(), // OpenIdBundle
-            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle() // Doctrine data fixtures extra
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(), // Doctrine data fixtures extra
+            new APY\DataGridBundle\APYDataGridBundle() // Datagrid
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

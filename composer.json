@@ -9,7 +9,7 @@
         "symfony/symfony": "2.2.*",
         "doctrine/orm": "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle": "1.2.*@dev",
-        "twig/twig": "v1.12.0-RC1",
+        "twig/twig": "v1.12.2",
         "twig/extensions": "v1.0.0-alpha",
         "symfony/assetic-bundle": "2.1.*",
         "symfony/swiftmailer-bundle": "2.2.*",
@@ -34,7 +34,8 @@
         "fortawesome/font-awesome": "3.0.2",
         "mleibman/SlickGrid": "dev-master",
         "jquery/ui": "1.10.2", 
-        "jquery/event-drag" : "2.2"
+        "jquery/event-drag" : "2.2",
+        "apy/datagrid-bundle": "dev-master"
     },
     "repositories": [
         {

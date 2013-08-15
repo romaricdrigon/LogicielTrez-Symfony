@@ -1,7 +1,7 @@
 {
     "name": "romaricdrigon/logicieltrez-symfony",
     "description": "LogicielTrez, Symfony2 version",
-    "licence": "MIT",
+    "license": "MIT",
     "homepage": "http://github.com/romaricdrigon/LogicielTrez-Symfony",
     "autoload": {
         "psr-0": { "": "src/" }

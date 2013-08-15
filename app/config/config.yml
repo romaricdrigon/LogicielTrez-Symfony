@@ -21,7 +21,7 @@ framework:
 twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
-    exception_controller: Trez\LogicielTrezBundle\Controller\ExceptionController::showAction
+    exception_controller: trez.controller.exception::showAction
 
 # Assetic Configuration
 assetic:

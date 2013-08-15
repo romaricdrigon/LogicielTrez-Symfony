@@ -323,13 +323,13 @@ class Ligne
 
         // compare with an epsilon, we're using floats here!
         if ($credit < -0.001) {
-            $context->addViolationAtSubPath('credit',
+            $context->addViolationAt('credit',
                 'Le total des factures dépasse le crédit de la ligne de %depassement% €',
                 array('%depassement%' => round($credit,2)*-1),
                 null);
         }
         if ($debit < -0.001) {
-            $context->addViolationAtSubPath('debit',
+            $context->addViolationAt('debit',
                 'Le total des factures dépasse le débit de la ligne de %depassement% €',
                 array('%depassement%' => round($debit,2)*-1),
                 null);

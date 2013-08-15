@@ -38,7 +38,7 @@ class UserController extends Controller
         $form = $this->get('form.factory')->create(new UserType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $password = $encoder->encodePassword($object->getPassword(), $object->getSalt());
@@ -47,7 +47,7 @@ class UserController extends Controller
                 $em->persist($object);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', "L'utilisateur a bien été ajouté");
+                $this->get('session')->getFlashBag()->set('success', "L'utilisateur a bien été ajouté");
 
                 return new RedirectResponse($this->generateUrl('user_index'));
             }
@@ -70,7 +70,7 @@ class UserController extends Controller
         $form = $this->get('form.factory')->create(new UserEdit(), $object);
 
         if ('POST' === $request->getMethod()) {
-            $form->bindRequest($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 if ($object->getMail() !== $old_mail) {
                     // delete associated OpenIdIdentities
@@ -81,7 +81,7 @@ class UserController extends Controller
                 
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('user_index'));
             }
@@ -126,14 +126,14 @@ class UserController extends Controller
         $form = $this->get('form.factory')->create(new UserPasswordAdmin(), $user);
 
         if ('POST' === $request->getMethod()) {
-            $form->bindRequest($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
                 $user->setPassword($password);
 
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Le mot de passe a bien été changé');
+                $this->get('session')->getFlashBag()->set('info', 'Le mot de passe a bien été changé');
 
                 return new RedirectResponse($this->generateUrl('user_index'));
             }
@@ -157,13 +157,13 @@ class UserController extends Controller
         $form = $this->get('form.factory')->create(new UserPassword(), $user);
 
         if ('POST' === $request->getMethod()) {
-            $form->bindRequest($request);
+            $form->handleRequest($request);
             if ($form->isValid()) {
                 // first we check if the old password is correct
                 $proof_password = $form->get('old_password')->getData();
 
                 if ($old_password !== $encoder->encodePassword($proof_password, $user->getSalt())) {
-                    $this->get('session')->setFlash('error', "L'ancien mot de passe est incorrect");
+                    $this->get('session')->getFlashBag()->set('error', "L'ancien mot de passe est incorrect");
 
                     return $this->render('TrezLogicielTrezBundle:User:change_password.html.twig', array(
                         'form' => $form->createView(),
@@ -178,7 +178,7 @@ class UserController extends Controller
 
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Le mot de passe a bien été changé');
+                $this->get('session')->getFlashBag()->set('info', 'Le mot de passe a bien été changé');
 
                 return new RedirectResponse($this->generateUrl('_welcome'));
             }
@@ -210,7 +210,7 @@ class UserController extends Controller
 
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Utilisateur supprimé !');
+        $this->get('session')->getFlashBag()->set('info', 'Utilisateur supprimé !');
 
         return new RedirectResponse($this->generateUrl('user_index'));
     }

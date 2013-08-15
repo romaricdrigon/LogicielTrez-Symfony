@@ -55,13 +55,13 @@ class BudgetController extends Controller
         $form = $this->get('form.factory')->create(new BudgetType(), $budget);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($budget);
                 $em->flush();
 
-                $this->get('session')->setFlash('success', "Le budget a bien été ajouté");
+                $this->get('session')->getFlashBag()->set('success', "Le budget a bien été ajouté");
 
                 return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
             }
@@ -82,12 +82,12 @@ class BudgetController extends Controller
         $form = $this->get('form.factory')->create(new BudgetType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
             }
@@ -132,7 +132,7 @@ class BudgetController extends Controller
 
         $em->flush();
 
-        $this->get('session')->setFlash('success', "Ce budget a bien été sauvegardé/dupliqué");
+        $this->get('session')->getFlashBag()->set('success', "Ce budget a bien été sauvegardé/dupliqué");
 
         return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
     }
@@ -144,7 +144,7 @@ class BudgetController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Budget supprimé !');
+        $this->get('session')->getFlashBag()->set('info', 'Budget supprimé !');
 
         return new RedirectResponse($this->generateUrl('budget_index', array('exercice_id' => $exercice_id)));
     }

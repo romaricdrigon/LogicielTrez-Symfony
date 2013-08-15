@@ -39,7 +39,7 @@ class DeclarationTvaController extends Controller
             $this->get('doctrine.orm.entity_manager')->persist($object);
             $this->get('doctrine.orm.entity_manager')->flush();
 
-            $this->get('session')->setFlash('success', 'La déclaration de TVA a été créée !');
+            $this->get('session')->getFlashBag()->set('success', 'La déclaration de TVA a été créée !');
 
             return new RedirectResponse($this->generateUrl(
                 'declaration_tva_list_factures',
@@ -126,7 +126,7 @@ class DeclarationTvaController extends Controller
             $em->persist($declaration);
             $em->flush();
 
-            $this->get('session')->setFlash('success', 'La déclaration a bien été éditée');
+            $this->get('session')->getFlashBag()->set('success', 'La déclaration a bien été éditée');
         }
 
         return $this->render(
@@ -265,7 +265,7 @@ class DeclarationTvaController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Déclaration supprimée !');
+        $this->get('session')->getFlashBag()->set('info', 'Déclaration supprimée !');
 
         return new RedirectResponse($this->generateUrl('declaration_tva_index'));
     }

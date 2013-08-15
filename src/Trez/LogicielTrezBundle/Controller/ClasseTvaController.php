@@ -30,13 +30,13 @@ class ClasseTvaController extends Controller
         $form = $this->get('form.factory')->create(new ClasseTvaType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La classe de TVA a bien été ajoutée");
+                $this->get('session')->getFlashBag()->set('success', "La classe de TVA a bien été ajoutée");
 
                 return new RedirectResponse($this->generateUrl('config_index')."#tva");
             }
@@ -54,11 +54,11 @@ class ClasseTvaController extends Controller
         $form = $this->get('form.factory')->create(new ClasseTvaType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
             if ($form->isValid()) {
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('config_index')."#tva");
             }
@@ -78,11 +78,11 @@ class ClasseTvaController extends Controller
         $isUsed = $em->getRepository('TrezLogicielTrezBundle:Tva')->findBy(array('classeTva' => $object));
         if ($isUsed == null)
         {
-        	$this->get('session')->setFlash('info', 'Classe de TVA supprimée !');
+        	$this->get('session')->getFlashBag()->set('info', 'Classe de TVA supprimée !');
         	$em->remove($object);
         	$em->flush();
         }else{
-        	$this->get('session')->setFlash('error', 'Cette classe de TVA ne peut pas être supprimée !');      	
+        	$this->get('session')->getFlashBag()->set('error', 'Cette classe de TVA ne peut pas être supprimée !');
         }
 
         return new RedirectResponse($this->generateUrl('config_index')."#tva");

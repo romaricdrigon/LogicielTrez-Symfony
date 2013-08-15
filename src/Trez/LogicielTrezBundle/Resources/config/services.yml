@@ -28,3 +28,8 @@ services:
     trez.logiciel_trez.breadcrumbs:
         class: Trez\LogicielTrezBundle\Service\BreadcrumbsService
         arguments: [ @doctrine.orm.entity_manager, @router, @white_october_breadcrumbs ]
+    trez.controller.exception:
+        class: Trez\LogicielTrez\Controller\ExceptionController
+        arguments:
+            - @twig
+            - %kernel.debug%

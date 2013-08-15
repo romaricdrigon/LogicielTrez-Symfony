@@ -363,7 +363,7 @@ class Facture
         $depassement = ($this->typeFacture->getSens() === true) ? $this->montant-$credit : $this->montant-$debit;
 
         if ($depassement > 0.001) { // compare with an epsilon!
-            $context->addViolationAtSubPath('montant',
+            $context->addViolationAt('montant',
                 'Cette facture dépasse du total de la ligne de %montant% €',
                 array('%montant%' => round($depassement, 2)),
                 null);
@@ -376,7 +376,7 @@ class Facture
     public function isNotNull(ExecutionContext $context)
     {
         if ($this->montant === 0.0) {
-            $context->addViolationAtSubPath('montant', 'Une facture ne peut pas avoir un montant nul', array(), null);
+            $context->addViolationAt('montant', 'Une facture ne peut pas avoir un montant nul', array(), null);
         }
     }
 
@@ -457,7 +457,7 @@ class Facture
         }
 
         if (abs($this->montant - $montant_ht) > 0.001) { // floats -> epsilon!
-            $context->addViolationAtSubPath('tvas', 'La somme des montants HT doit être égale au montant de la facture');
+            $context->addViolationAt('tvas', 'La somme des montants HT doit être égale au montant de la facture');
         }
     }
 

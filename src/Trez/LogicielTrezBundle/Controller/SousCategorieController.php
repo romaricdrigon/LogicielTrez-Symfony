@@ -39,13 +39,13 @@ class SousCategorieController extends Controller
         $form = $this->get('form.factory')->create(new SousCategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La sous-catégorie a bien été ajoutée");
+                $this->get('session')->getFlashBag()->set('success', "La sous-catégorie a bien été ajoutée");
 
                 return new RedirectResponse($this->generateUrl('sous_categorie_index', array('categorie_id' => $categorie_id)));
             }
@@ -66,11 +66,11 @@ class SousCategorieController extends Controller
         $form = $this->get('form.factory')->create(new SousCategorieType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
             if ($form->isValid()) {
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('sous_categorie_index', array('categorie_id' => $categorie_id)));
             }
@@ -92,7 +92,7 @@ class SousCategorieController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Sous-catégorie supprimée !');
+        $this->get('session')->getFlashBag()->set('info', 'Sous-catégorie supprimée !');
 
         return new RedirectResponse($this->generateUrl('categorie_index', array('categorie_id' => $categorie_id)));
     }

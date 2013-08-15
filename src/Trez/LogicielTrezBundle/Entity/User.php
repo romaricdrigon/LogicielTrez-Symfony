@@ -370,8 +370,8 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     public function hasOneLoginType(ExecutionContext $context)
     {
         if ($this->can_openid === false && $this->can_credentials === false && $this->type !== 'DISABLED') {
-            $context->addViolationAtSubPath('can_openid', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
-            $context->addViolationAtSubPath('can_credentials', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
+            $context->addViolationAt('can_openid', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
+            $context->addViolationAt('can_credentials', "Un utilisateur actif doit pouvoir se connecter au moins d'une manière");
         }
     }
 
@@ -383,7 +383,7 @@ class User implements UserInterface, AdvancedUserInterface, \Serializable
     public function checkPasswordLength(ExecutionContext $context)
     {
         if ($this->can_credentials === true && mb_strlen($this->password, 'UTF-8') < 6) {
-            $context->addViolationAtSubPath('password', "Le mot de passe doit faire au minimum 6 caractères");
+            $context->addViolationAt('password', "Le mot de passe doit faire au minimum 6 caractères");
         }
     }
 

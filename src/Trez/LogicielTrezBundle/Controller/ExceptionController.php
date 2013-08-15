@@ -18,14 +18,14 @@ class ExceptionController extends OriginalExceptionController
     public function showAction(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null, $format = 'html')
     {
         if ('Trez\LogicielTrezBundle\Exception\LockedException' === $exception->getClass()) {
-            $this->container->get('session')->setFlash('error', "Vous ne pouvez pas éditer un exercice/budget verrouillé ou ses fils");
+            $this->container->get('session')->getFlashBag()->set('error', "Vous ne pouvez pas éditer un exercice/budget verrouillé ou ses fils");
 
             header('Location: '.$this->container->get('request')->getRequestUri());
             exit();
         }
 
         if ('Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException' === $exception->getClass()) {
-            $this->container->get('session')->setFlash('error', "Vous n'avez pas les privilèges nécessaires pour effectuer cette action !");
+            $this->container->get('session')->getFlashBag()->set('error', "Vous n'avez pas les privilèges nécessaires pour effectuer cette action !");
 
             $sc = $this->container->get('security.context');
 

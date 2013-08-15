@@ -38,13 +38,13 @@ class TvaController extends Controller
         $form = $this->get('form.factory')->create(new TvaType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La tva a bien été ajoutée");
+                $this->get('session')->getFlashBag()->set('success', "La tva a bien été ajoutée");
 
                 return new RedirectResponse($this->generateUrl('tva_index', array('facture_id' => $facture_id)));
             }
@@ -62,11 +62,11 @@ class TvaController extends Controller
         $form = $this->get('form.factory')->create(new TvaType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
             if ($form->isValid()) {
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('tva_index', array('facture_id' => $facture_id)));
             }
@@ -85,7 +85,7 @@ class TvaController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Tva supprimée !');
+        $this->get('session')->getFlashBag()->set('info', 'Tva supprimée !');
 
         return new RedirectResponse($this->generateUrl('tva_index', array('facture_id' => $facture_id)));
     }

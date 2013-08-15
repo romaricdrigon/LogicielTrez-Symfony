@@ -41,13 +41,13 @@ class ConfigController extends Controller
         $form = $this->get('form.factory')->create(new ConfigType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $this->get('doctrine.orm.entity_manager')->persist($object);
                 $this->get('doctrine.orm.entity_manager')->flush();
 
-                $this->get('session')->setFlash('success', "La config a bien été ajoutée");
+                $this->get('session')->getFlashBag()->set('success', "La config a bien été ajoutée");
 
                 return new RedirectResponse($this->generateUrl('config_index')."#general");
             }
@@ -65,11 +65,11 @@ class ConfigController extends Controller
         $form = $this->get('form.factory')->create(new ConfigType(), $object);
 
         if ('POST' === $this->get('request')->getMethod()) {
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
             if ($form->isValid()) {
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('config_index')."#general");
             }
@@ -88,7 +88,7 @@ class ConfigController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Config supprimée !');
+        $this->get('session')->getFlashBag()->set('info', 'Config supprimée !');
 
         return new RedirectResponse($this->generateUrl('config_index')."#general");
     }

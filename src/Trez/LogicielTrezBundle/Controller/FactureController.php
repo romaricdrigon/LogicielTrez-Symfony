@@ -90,7 +90,7 @@ class FactureController extends Controller
                 $form = $this->get('form.factory')->create(new FactureType(), $object);
             }
 
-            $form->bindRequest($this->get('request'));
+            $form->handleRequest($this->get('request'));
 
             if ($form->isValid()) {
                 $em->persist($object);
@@ -102,7 +102,7 @@ class FactureController extends Controller
                     $em->flush(); // we have to flush before AND after, a second time
                 }
 
-                $this->get('session')->setFlash('success', "La facture a bien été émise");
+                $this->get('session')->getFlashBag()->set('success', "La facture a bien été émise");
 
                 return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
             }
@@ -139,7 +139,7 @@ class FactureController extends Controller
                 $form = $this->get('form.factory')->create(new FactureType(), $object);
             }
 
-            $form->bindRequest($request);
+            $form->handleRequest($request);
 
             if ($form->isValid()) {
                 // if user asked to adjust the ligne total just do it
@@ -161,7 +161,7 @@ class FactureController extends Controller
 
                 $em->flush();
 
-                $this->get('session')->setFlash('info', 'Vos modifications ont été enregistrées');
+                $this->get('session')->getFlashBag()->set('info', 'Vos modifications ont été enregistrées');
 
                 return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
             }
@@ -211,7 +211,7 @@ class FactureController extends Controller
         $em->remove($object);
         $em->flush();
 
-        $this->get('session')->setFlash('info', 'Facture supprimée !');
+        $this->get('session')->getFlashBag()->set('info', 'Facture supprimée !');
 
         return new RedirectResponse($this->generateUrl('facture_index', array('ligne_id' => $ligne_id)));
     }

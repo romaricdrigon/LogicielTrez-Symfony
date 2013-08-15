@@ -47,6 +47,7 @@ class AclProxyFactory
      *      'eager' to get the whole hierarchy
      *
      * @return entity who went through AclProxy filters
+     * @throws \Exception entity type is unknown
      */
     public function get($type, $entity, $mode = 'lazy')
     {

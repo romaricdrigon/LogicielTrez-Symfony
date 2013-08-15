@@ -30,6 +30,10 @@ services:
         arguments: [ @doctrine.orm.entity_manager, @router, @white_october_breadcrumbs ]
     trez.controller.exception:
         class: Trez\LogicielTrez\Controller\ExceptionController
+        scope: request
         arguments:
             - @twig
             - %kernel.debug%
+            - @session
+            - @request
+            - @security.context

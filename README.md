@@ -11,6 +11,8 @@ Some of its features:
 * billing
 * VAT support _(TVA in French)_
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/10df6b3b-7639-4b17-b384-e9bdd2e09972/small.png)](https://insight.sensiolabs.com/projects/10df6b3b-7639-4b17-b384-e9bdd2e09972)
+
 ## Installation ##
 
 ### 0) Requirements
